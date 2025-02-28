@@ -6,6 +6,7 @@ import android.widget.Toast
 import android.content.Context
 import android.os.Environment
 import java.io.File
+import android.app.AlertDialog
 
 import android.widget.Button
 import android.widget.TextView
@@ -25,7 +26,12 @@ class MainActivity : AppCompatActivity() {
             val errorFile = File(getExternalFilesDir(null), "error_log.txt")
             errorFile.writeText(e.toString())
             
-            Toast.makeText(this, "Error saved to ${errorFile.absolutePath}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
+            AlertDialog.Builder(this)
+                .setTitle("App Crash")
+                .setMessage(e.toString())
+                .setPositiveButton("OK", null)
+                .show()
         }
 
         Log.d("DEBUG", "MainActivity started")  // Log when activity starts
