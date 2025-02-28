@@ -1,0 +1,7 @@
+R_DEF: Internal format may change without notice
+local
+id button1
+id textView1
+layout activity_main
+raw sparkle
+string app_name

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.example.musicapp-debug-31:/raw_sparkle.mp3.flat",
+        "source": "com.example.musicapp-main-33:/raw/sparkle.mp3"
+    },
+    {
+        "merged": "com.example.musicapp-debug-31:/layout_activity_main.xml.flat",
+        "source": "com.example.musicapp-main-33:/layout/activity_main.xml"
+    }
+]
