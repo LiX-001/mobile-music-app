@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import android.content.Context
+import android.os.Environment
 import java.io.File
 
 import android.widget.Button
@@ -19,10 +20,12 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "setContentView() is working.", Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             Log.e("DEBUG", "error in setContentView() : ", e)  // Log when activity starts
+            
             // Save error to a file.
-            val errorFile = File(filesDir, "error_log.txt")
+            val errorFile = File(getExternalFilesDir(null), "error_log.txt")
             errorFile.writeText(e.toString())
-            Toast.makeText(this, "Error saved to error_log.txt", Toast.LENGTH_LONG).show()
+            
+            Toast.makeText(this, "Error saved to ${errorFile.absolutePath}", Toast.LENGTH_LONG).show()
         }
 
         Log.d("DEBUG", "MainActivity started")  // Log when activity starts
