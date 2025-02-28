@@ -3,9 +3,8 @@ package com.example.musicapp
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
+import java.io.File
 
 import android.widget.Button
 import android.widget.TextView
@@ -19,11 +18,11 @@ class MainActivity : AppCompatActivity() {
             Log.d("DEBUG", "setContentView() is working.")
             Toast.makeText(this, "setContentView() is working.", Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
-            Log.d("DEBUG", "error in setContentView() : ", e)  // Log when activity starts
-            Toast.makeText(this, "Error message copied to clipboard.", Toast.LENGTH_LONG).show()
-
-            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("Error Log", e.toString())
+            Log.e("DEBUG", "error in setContentView() : ", e)  // Log when activity starts
+            // Save error to a file.
+            val errorFile = File(filesDir, "error_log.txt")
+            errorFile.writeText(e.toString())
+            Toast.makeText(this, "Error saved to error_log.txt", Toast.LENGTH_LONG).show()
         }
 
         Log.d("DEBUG", "MainActivity started")  // Log when activity starts
