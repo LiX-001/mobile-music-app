@@ -1,33 +1,23 @@
 package com.example.musicapp
 
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    private var mediaPlayer: MediaPlayer? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val btnPlay = findViewById<Button>(R.id.btnPlay)
-        val btnPause = findViewById<Button>(R.id.btnPause)
-        val btnStop = findViewById<Button>(R.id.btnStop)
+        // UI elements
+        val textView: TextView = findViewById(R.id.textView1)
+        val button: Button = findViewById(R.id.button1)
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.sample_music)
-
-        btnPlay.setOnClickListener { mediaPlayer?.start() }
-        btnPause.setOnClickListener { mediaPlayer?.pause() }
-        btnStop.setOnClickListener { 
-            mediaPlayer?.stop()
-            mediaPlayer?.prepare()
+        // On button click 
+        button.setOnClickListener {
+            textView.text = "Build Successful!"
         }
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mediaPlayer?.release()
     }
 }
