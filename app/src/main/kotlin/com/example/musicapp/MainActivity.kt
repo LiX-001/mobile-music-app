@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.d("DEBUG", "MainActivity started")  // ✅ Log when activity starts
+        Log.d("DEBUG", "MainActivity started")  // Log when activity starts
         Toast.makeText(this, "App Started", Toast.LENGTH_LONG).show()
        
         setContentView(R.layout.activity_main)
