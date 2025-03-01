@@ -12,7 +12,7 @@
         android:text="Hello World!"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/white" />
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
