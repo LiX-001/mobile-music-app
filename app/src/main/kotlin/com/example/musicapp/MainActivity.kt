@@ -27,16 +27,13 @@ class MainActivity : AppCompatActivity() {
             errorFile.writeText(e.toString())
             
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
-            AlertDialog.Builder(this)
+            AlertDialog.Builder(this, R.style.Theme_MaterialComponents_Dialog)
                 .setTitle("App Crash")
                 .setMessage(e.toString())
                 .setPositiveButton("OK", null)
                 .show()
         }
 
-        Log.d("DEBUG", "MainActivity started")  // Log when activity starts
-        Toast.makeText(this, "App Started", Toast.LENGTH_LONG).show()
-        
         // UI elements
         val textView: TextView = findViewById(R.id.textView1)
         val button: Button = findViewById(R.id.button1)
