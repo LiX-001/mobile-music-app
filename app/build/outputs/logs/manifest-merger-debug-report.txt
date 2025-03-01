@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:1:1-16:12
-INJECTED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:1:1-16:12
-INJECTED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:1:1-16:12
-INJECTED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:1:1-16:12
+ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:1:1-17:12
+INJECTED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:1:1-17:12
+INJECTED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:1:1-17:12
+INJECTED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:1:1-17:12
 MERGED from [com.google.android.material:material:1.11.0] /home/codespace/.gradle/caches/8.11.1/transforms/070e7717620f9db0bcc1bbf33f81e0bc/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /home/codespace/.gradle/caches/8.11.1/transforms/fd73cddce14b317999e05a41e301c6e6/transformed/jetified-appcompat-resources-1.6.1/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/codespace/.gradle/caches/8.11.1/transforms/dd5ef0ff7657268a2b238b9d0421de4f/transformed/constraintlayout-2.0.1/AndroidManifest.xml:2:1-11:12
@@ -58,8 +58,8 @@ ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:3:5-79
 	android:name
 		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:3:22-77
 application
-ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:5:5-15:19
-INJECTED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:5:5-15:19
+ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:5:5-16:19
+INJECTED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:5:5-16:19
 MERGED from [com.google.android.material:material:1.11.0] /home/codespace/.gradle/caches/8.11.1/transforms/070e7717620f9db0bcc1bbf33f81e0bc/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] /home/codespace/.gradle/caches/8.11.1/transforms/070e7717620f9db0bcc1bbf33f81e0bc/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/codespace/.gradle/caches/8.11.1/transforms/dd5ef0ff7657268a2b238b9d0421de4f/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
@@ -84,22 +84,24 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /home/codespace/.gradle/cac
 		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:7:9-41
 	android:allowBackup
 		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:6:9-35
+	android:theme
+		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:8:9-53
 activity#com.example.musicapp.MainActivity
-ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:8:9-14:20
+ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:9:9-15:20
 	android:exported
-		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:9:13-36
+		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:10:13-36
 	android:name
-		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:8:19-47
+		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:9:19-47
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:10:9-13:25
+ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:11:9-14:25
 action#android.intent.action.MAIN
-ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:11:13-65
+ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:12:13-65
 	android:name
-		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:11:21-62
+		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:12:21-62
 category#android.intent.category.LAUNCHER
-ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:12:13-73
+ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:13:13-73
 	android:name
-		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:12:23-70
+		ADDED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:13:23-70
 uses-sdk
 INJECTED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /workspaces/mobile-music-app/app/src/main/AndroidManifest.xml
