@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             errorFile.writeText(e.toString())
             
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
-            AlertDialog.Builder(this, R.style.AppCompat_Dialog)
+            AlertDialog.Builder(this, R.style.MaterialComponents_Dialog)
                 .setTitle("App Crash")
                 .setMessage(e.toString())
                 .setPositiveButton("OK", null)
