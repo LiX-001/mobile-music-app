@@ -9,23 +9,62 @@ import android.os.Environment
 import java.io.File
 import android.app.AlertDialog
 
+import android.media.MediaPlayer
+import android.os.Handler
+import android.os.Looper
+
 import android.widget.Button
 import android.widget.TextView
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var playPauseButton: Button
+    private lateinit var seekBar: SeekBar
+    private val handler = Handler(Looper.getMainLooper())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+    // Using try and catch block to alert an error directly on phone.
         try {
             setContentView(R.layout.activity_main)
-            Log.d("DEBUG", "setContentView() is working.")
-            Toast.makeText(this, "setContentView() is working.", Toast.LENGTH_LONG).show()
+            
+
+            playPauseButton = findViewById(R.id.PlayPauseButton)
+            seekBar = findViewById(R.id.seekBar1)
+
+            // Initialize MediaPlayer with a local raw resource
+            mediaPlayer = MediaPlayer.create(this, R.raw.sparkle)
+
+            playPauseButton.setOnClickListener {
+                if (mediaPlayer.isPlaying) {
+                    mediaPlayer.pause()
+                    playPauseButton.text = "Play"
+                } else {
+                    mediaPlayer.start()
+                    playPauseButton.text = "Pause"
+                    updateSeekBar()
+                }
+            }
+
+            // SeekBar change listener
+            seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                    if (fromUser) {
+                        mediaPlayer.seekTo(progress)
+                    }
+                }
+                override fun onStartTrackingTouch(seekBar: SeekBar) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar) {}
+            })
+        
+
+
         } catch (e: Exception) {
             Log.e("DEBUG", "error in setContentView() : ", e)  // Log when activity starts
-            
-            // Save error to a file.
-            val errorFile = File(getExternalFilesDir(null), "error_log.txt")
-            errorFile.writeText(e.toString())
             
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
             MaterialAlertDialogBuilder(this)
@@ -37,14 +76,23 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
-        // UI elements
-        val textView: TextView = findViewById(R.id.textView1)
-        val button: Button = findViewById(R.id.button1)
+    }
 
-        // On button click 
-        button.setOnClickListener {
-            textView.text = "Build Successful!"
-        }
+    // Function to update seekbar with progress
+    private fun updateSeekBar() {
+        seekBar.max = mediaPlayer.duration
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                if (mediaPlayer.isPlaying) {
+                    seekBar.progress = mediaPlayer.currentPosition
+                    handler.postDelayed(this, 500) // Update every 500ms
+                }
+            }
+        }, 500)
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
     }
 }

@@ -3009,6 +3009,7 @@ id CTRL
 id FUNCTION
 id META
 id NO_DEBUG
+id PlayPauseButton
 id SHIFT
 id SHOW_ALL
 id SHOW_PATH
@@ -3016,6 +3017,7 @@ id SHOW_PROGRESS
 id SYM
 id TOP_END
 id TOP_START
+id TextView01
 id accelerate
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
@@ -3090,7 +3092,6 @@ id beginning
 id blocking
 id bottom
 id bounce
-id button1
 id buttonPanel
 id cancel_button
 id center
@@ -3354,6 +3355,7 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
+id seekBar1
 id select_dialog_listview
 id selected
 id selection_type
@@ -3410,7 +3412,6 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textTop
-id textView1
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
