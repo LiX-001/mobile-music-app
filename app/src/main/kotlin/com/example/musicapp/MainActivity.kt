@@ -1,5 +1,6 @@
 package com.example.musicapp
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -27,10 +28,12 @@ class MainActivity : AppCompatActivity() {
             errorFile.writeText(e.toString())
             
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
-            AlertDialog.Builder(this, R.style.MaterialComponents_Dialog)
+            MaterialAlertDialogBuilder(this)
                 .setTitle("App Crash")
                 .setMessage(e.toString())
-                .setPositiveButton("OK", null)
+                .setPositiveButton("OK") {
+                    dialog, _ -> dialog.dismiss()
+                }
                 .show()
         }
 
