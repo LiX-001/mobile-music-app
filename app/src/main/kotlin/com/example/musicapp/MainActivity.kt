@@ -39,6 +39,11 @@ class MainActivity : AppCompatActivity() {
             // Toolbar
             val toolbar: Toolbar = findViewById(R.id.toolbar)
             setSupportActionBar(toolbar)
+            toolbar.title = "Music Player"
+            supportActionBar?.title = "Music Player"
+
+
+
             playPauseButton = findViewById(R.id.PlayPauseButton)
             seekBar = findViewById(R.id.seekBar1)
 
