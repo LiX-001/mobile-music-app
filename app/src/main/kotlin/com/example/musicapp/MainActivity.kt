@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
             // UI Elements
             // Toolbar
             val toolbar: Toolbar = findViewById(R.id.toolbar)
+            val browsingSource = findViewById<TextView>(R.id.browsing_source)
             setSupportActionBar(toolbar)
             playPauseButton = findViewById(R.id.PlayPauseButton)
             seekBar = findViewById(R.id.seekBar1)
@@ -47,9 +48,16 @@ class MainActivity : AppCompatActivity() {
                 // Implement search functionality here
             }
 
-            // Browsing Location
-            browsingLocationText = findViewById(R.id.browsing_location)
-            updateBrowsingLocation("Internal Storage") // Default
+            // Browsing location
+            browsingSource.setOnClickListener {
+                val options = arrayOf("Internet", "Internal Storage", "MicroSD", "External Storage")
+                MaterialAlertDialogBuilder(this)
+                .setTitle("Select Source")
+                .setItems(options) { _, which ->
+                    browsingSource.text = options[which]
+                }
+                .show()
+            }
 
 
 

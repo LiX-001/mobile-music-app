@@ -16,8 +16,10 @@ color teal_200
 color teal_700
 color white
 id PlayPauseButton
-id TextView01
+id browsing_location
+id search_icon
 id seekBar1
+id toolbar
 layout activity_main
 raw sparkle
 string app_name
