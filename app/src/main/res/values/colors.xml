@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimary">#9E9E9E</color>
     <color name="colorPrimaryVarient">#3700B3</color>
     <color name="colorOnPrimary">#FFFFFF</color>
     <color name="colorAccent">#FF4081</color>
@@ -15,4 +15,8 @@
     <color name="holo_green_dark">#ff669900</color>
     <color name="holo_green_light">#ff99cc00</color>
     <color name="holo_orange_dark">#ffff8800</color>
+    <color name="grey">#808080</color>
+    <color name="grey_200">#E0E0E0</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_900">#212121</color>
 </resources>

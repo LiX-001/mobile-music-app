@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             // Browsing location
+            try {
             browsingSource.setOnClickListener {
                 val options = arrayOf("Internet", "Internal Storage", "MicroSD", "External Storage")
                 MaterialAlertDialogBuilder(this)
@@ -60,7 +61,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 .show()
             }
-
+            } catch (e: Exception) {
+                Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
+            }
 
 
 
