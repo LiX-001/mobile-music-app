@@ -28,23 +28,12 @@
                 android:id="@+id/browsing_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Browsing from: "
+                android:text="Browsing from: Internal Storage"
                 android:textSize="16sp"
                 android:padding="8dp"
                 android:textColor="@android:color/white"
                 />
-            <TextView
-                android:id="@+id/browsing_source"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Internal Storage"
-                android:textSize="16sp"
-                android:paddingEnd="16dp"
-                android:layout_gravity="center_vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:textColor="@android:color/white"
-                />
+            
 </androidx.appcompat.widget.Toolbar>
 
         
