@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var browsingLocationText: TextView
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var playPauseButton: Button
     private lateinit var seekBar: SeekBar
@@ -32,9 +33,30 @@ class MainActivity : AppCompatActivity() {
         try {
             setContentView(R.layout.activity_main)
             
-
+            // UI Elements
+            // Toolbar
+            val toolbar: Toolbar = findViewById(R.id.toolbar)
+            setSupportActionBar(toolbar)
             playPauseButton = findViewById(R.id.PlayPauseButton)
             seekBar = findViewById(R.id.seekBar1)
+
+            // Search icon click
+            val searchIcon: ImageButton = findViewById(R.id.search_icon)
+            searchIcon.setOnClickListener {
+                Toast.makeText(this, "Search Clicked!", Toast.LENGTH_SHORT).show()
+                // Implement search functionality here
+            }
+
+            // Browsing Location
+            browsingLocationText = findViewById(R.id.browsing_location)
+            updateBrowsingLocation("Internal Storage") // Default
+
+
+
+
+
+
+
 
             // Initialize MediaPlayer with a local raw resource
             mediaPlayer = MediaPlayer.create(this, R.raw.sparkle)
@@ -76,6 +98,11 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
+    }
+
+    // Function to update browsing location.
+    fun updateBrowsingLocation(location: String) {
+        browsingLocationText.text = "Browsing from: $location"
     }
 
     // Function to update seekbar with progress
