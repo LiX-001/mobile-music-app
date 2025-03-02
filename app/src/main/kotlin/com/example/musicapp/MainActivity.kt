@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             // UI Elements
             // Toolbar
             val toolbar: Toolbar = findViewById(R.id.toolbar)
-            val browsingSource = findViewById<TextView>(R.id.browsing_source)
             setSupportActionBar(toolbar)
             playPauseButton = findViewById(R.id.PlayPauseButton)
             seekBar = findViewById(R.id.seekBar1)
@@ -48,21 +47,6 @@ class MainActivity : AppCompatActivity() {
             searchIcon.setOnClickListener {
                 Toast.makeText(this, "Search Clicked!", Toast.LENGTH_SHORT).show()
                 // Implement search functionality here
-            }
-
-            // Browsing location
-            try {
-            browsingSource.setOnClickListener {
-                val options = arrayOf("Internet", "Internal Storage", "MicroSD", "External Storage")
-                MaterialAlertDialogBuilder(this)
-                .setTitle("Select Source")
-                .setItems(options) { _, which ->
-                    browsingSource.text = options[which]
-                }
-                .show()
-            }
-            } catch (e: Exception) {
-                Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
             }
 
 
