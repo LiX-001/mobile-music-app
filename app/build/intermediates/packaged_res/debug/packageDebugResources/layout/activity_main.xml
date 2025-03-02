@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
         <androidx.appcompat.widget.Toolbar
-    android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:title="Music Player"
-    app:titleTextColor="@android:color/white"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="Music Player"
+            app:titleTextColor="@android:color/white"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-    <ImageButton
-        android:id="@+id/search_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_search"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_gravity="end"
-        android:contentDescription="Search"/>
-    
-    <TextView
-    android:id="@+id/browsing_location"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Browsing from: Internal Storage"
-    android:textSize="16sp"
-    android:padding="8dp"
-    android:background="#E0E0E0"/>
+            <ImageButton
+                android:id="@+id/search_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_search"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_gravity="end"
+                android:contentDescription="Search"/>
+            
+            <TextView
+                android:id="@+id/browsing_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Browsing from: "
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:background="#E0E0E0"/>
+            <TextView
+                android:id="@+id/browsing_source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Internal Storage"
+                android:textSize="16sp"
+                android:paddingEnd="16dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="#E0E0E0"/>
 </androidx.appcompat.widget.Toolbar>
 
         

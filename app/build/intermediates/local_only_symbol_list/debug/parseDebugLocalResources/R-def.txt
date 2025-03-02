@@ -17,6 +17,7 @@ color teal_700
 color white
 id PlayPauseButton
 id browsing_location
+id browsing_source
 id search_icon
 id seekBar1
 id toolbar

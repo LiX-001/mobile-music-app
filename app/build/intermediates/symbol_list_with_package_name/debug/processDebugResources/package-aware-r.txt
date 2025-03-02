@@ -3017,7 +3017,6 @@ id SHOW_PROGRESS
 id SYM
 id TOP_END
 id TOP_START
-id TextView01
 id accelerate
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
@@ -3092,6 +3091,8 @@ id beginning
 id blocking
 id bottom
 id bounce
+id browsing_location
+id browsing_source
 id buttonPanel
 id cancel_button
 id center
@@ -3351,6 +3352,7 @@ id search_button
 id search_close_btn
 id search_edit_frame
 id search_go_btn
+id search_icon
 id search_mag_icon
 id search_plate
 id search_src_text
@@ -3426,6 +3428,7 @@ id title
 id titleDividerNoCustom
 id title_template
 id toggle
+id toolbar
 id top
 id topPanel
 id touch_outside
