@@ -1332,6 +1332,10 @@ color error_color_material_dark
 color error_color_material_light
 color foreground_material_dark
 color foreground_material_light
+color grey
+color grey_200
+color grey_700
+color grey_900
 color highlighted_text_material_dark
 color highlighted_text_material_light
 color holo_blue_dark

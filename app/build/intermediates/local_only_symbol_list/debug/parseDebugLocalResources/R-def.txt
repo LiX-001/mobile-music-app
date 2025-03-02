@@ -5,6 +5,10 @@ color colorAccent
 color colorOnPrimary
 color colorPrimary
 color colorPrimaryVarient
+color grey
+color grey_200
+color grey_700
+color grey_900
 color holo_blue_dark
 color holo_blue_light
 color holo_green_dark
