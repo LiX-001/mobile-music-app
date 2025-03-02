@@ -3096,7 +3096,6 @@ id blocking
 id bottom
 id bounce
 id browsing_location
-id browsing_source
 id buttonPanel
 id cancel_button
 id center
