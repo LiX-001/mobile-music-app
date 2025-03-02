@@ -38,10 +38,13 @@ class MainActivity : AppCompatActivity() {
             // UI Elements
             // Toolbar
             val toolbar: Toolbar = findViewById(R.id.toolbar)
+            try {
             setSupportActionBar(toolbar)
             toolbar.title = "Music Player"
             supportActionBar?.title = "Music Player"
-
+            } catch (e: Exception) {
+                Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
+            }
 
 
             playPauseButton = findViewById(R.id.PlayPauseButton)
