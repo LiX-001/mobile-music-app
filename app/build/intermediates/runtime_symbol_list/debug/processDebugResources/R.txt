@@ -3364,7 +3364,7 @@ int id search_mag_icon 0x7f080161
 int id search_plate 0x7f080162
 int id search_src_text 0x7f080163
 int id search_voice_btn 0x7f080164
-int id seekBar1 0x7f080165
+int id seekBar 0x7f080165
 int id select_dialog_listview 0x7f080166
 int id selected 0x7f080167
 int id selection_type 0x7f080168

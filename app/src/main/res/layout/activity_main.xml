@@ -37,11 +37,11 @@
             android:layout_height="wrap_content"
             android:text="0:00"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="10sp" />
 
         <SeekBar
-            android:id="@+id/seekBar1"
-            android:layout_width="match_parent"
+            android:id="@+id/seekBar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:max="100"
             android:progress="0"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="0:00"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
         <LinearLayout
@@ -67,6 +67,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@android:drawable/ic_media_previous"
+                android:background="@color/transparent"
                 android:scaleType="centerInside"
                 android:padding="5dp"
                 android:contentDescription="Previous"/>
@@ -84,6 +85,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@android:drawable/ic_media_next"
+                android:background="@color/transparent"
                 android:scaleType="centerInside"
                 android:padding="5dp"
                 android:contentDescription="Next"/>

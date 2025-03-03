@@ -22,9 +22,19 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
+    // All important view declarations
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var playPauseButton: ImageButton
     private lateinit var seekBar: SeekBar
+    private var initial_min: Int = 0
+    private var initial_sec: Int = 0
+    private var min: Int = 0
+    private var sec: Int = 0
+    private lateinit var duration: TextView
+    private lateinit var currentTime: TextView
+    private lateinit var previousBtn: ImageButton
+    private lateinit var nextBtn: ImageButton
+
     private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,9 +49,14 @@ class MainActivity : AppCompatActivity() {
             val toolbar: Toolbar = findViewById(R.id.toolbar)
             setSupportActionBar(toolbar)
 
-
+            // Media elements
             playPauseButton = findViewById<ImageButton>(R.id.PlayPauseButton)
-            seekBar = findViewById(R.id.seekBar1)
+            seekBar = findViewById(R.id.seekBar)
+            previousBtn = findViewById(R.id.PreviousButton)
+            nextBtn = findViewById(R.id.NextButton)
+            currentTime = findViewById(R.id.CurrentTime)
+            duration = findViewById(R.id.Duration)
+
 
             // Search icon click
             val searchIcon: ImageButton = findViewById(R.id.search_icon)
@@ -58,6 +73,8 @@ class MainActivity : AppCompatActivity() {
 
             // Initialize MediaPlayer
             mediaPlayer = MediaPlayer.create(this, R.raw.sparkle)
+
+            
 
             // Play/Pause button
             playPauseButton.setOnClickListener {
@@ -111,6 +128,31 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }, 500)
+    }
+
+    // Set timed duration of the track.
+    fun updateTime() {
+        initial_min = 0
+        initial_sec = 0
+        min = (((mediaPlayer.duration)/1000)/60)
+        sec = (((mediaPlayer.duration)/1000)%60)
+        duration.text = String.format("%02d:%02d", min, sec)
+        currentTime.text = String.format("%02d:%02d", initial_min, initial_sec)
+
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                if (mediaPlayer.isPlaying) {
+                    if (initial_sec == 59) {
+                        initial_min += 1
+                        initial_sec = 0
+                    } else {
+                        initial_sec +=1
+                    }
+                    currentTime.text = String.format("%02d:%02d", initial_min, initial_sec)
+                    handler.postDelayed(this, 1000) // Update every second
+                }
+            }
+        }, 1000)
     }
 
     override fun onDestroy() {

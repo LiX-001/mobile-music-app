@@ -27,7 +27,7 @@ id NextButton
 id PlayPauseButton
 id PreviousButton
 id search_icon
-id seekBar1
+id seekBar
 id toolbar
 layout activity_main
 raw sparkle
