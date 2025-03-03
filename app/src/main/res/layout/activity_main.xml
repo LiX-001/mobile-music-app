@@ -32,7 +32,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="100"
-            android:progress="0" />
+            android:progress="0"
+            android:thumbTint="@color/white"
+            android:progressTint="@color/white"
+            android:secondaryProgressTint="@color/white" />
         <ImageButton
             android:id="@+id/PlayPauseButton"
             android:layout_width="80dp"

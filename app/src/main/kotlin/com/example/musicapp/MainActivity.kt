@@ -23,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var playPauseButton: Button
+    private lateinit var playPauseButton: ImageButton
     private lateinit var seekBar: SeekBar
     private val handler = Handler(Looper.getMainLooper())
 
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             setSupportActionBar(toolbar)
 
 
-            playPauseButton = findViewById(R.id.PlayPauseButton)
+            playPauseButton = findViewById<ImageButton>(R.id.PlayPauseButton)
             seekBar = findViewById(R.id.seekBar1)
 
             // Search icon click
