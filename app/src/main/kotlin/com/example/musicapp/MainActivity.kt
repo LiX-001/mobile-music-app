@@ -56,16 +56,17 @@ class MainActivity : AppCompatActivity() {
 
 
 
-            // Initialize MediaPlayer with a local raw resource
+            // Initialize MediaPlayer
             mediaPlayer = MediaPlayer.create(this, R.raw.sparkle)
 
+            // Play/Pause button
             playPauseButton.setOnClickListener {
                 if (mediaPlayer.isPlaying) {
                     mediaPlayer.pause()
-                    playPauseButton.setBackgroundResource(android.R.drawable.ic_media_play)
+                    playPauseButton.setImageResource(android.R.drawable.ic_media_play)
                 } else {
                     mediaPlayer.start()
-                    playPauseButton.setBackgroundResource(android.R.drawable.ic_media_pause)
+                    playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
                     updateSeekBar()
                 }
             }
