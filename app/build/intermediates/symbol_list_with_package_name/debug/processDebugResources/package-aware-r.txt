@@ -2022,6 +2022,7 @@ color teal_200
 color teal_700
 color tooltip_background_dark
 color tooltip_background_light
+color transparent
 color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
@@ -3011,10 +3012,14 @@ id ALT
 id BOTTOM_END
 id BOTTOM_START
 id CTRL
+id CurrentTime
+id Duration
 id FUNCTION
 id META
 id NO_DEBUG
+id NextButton
 id PlayPauseButton
+id PreviousButton
 id SHIFT
 id SHOW_ALL
 id SHOW_PATH

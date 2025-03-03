@@ -18,9 +18,14 @@ color purple_500
 color purple_700
 color teal_200
 color teal_700
+color transparent
 color white
 drawable rounded_button
+id CurrentTime
+id Duration
+id NextButton
 id PlayPauseButton
+id PreviousButton
 id search_icon
 id seekBar1
 id toolbar
