@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var browsingLocationText: TextView
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var playPauseButton: Button
     private lateinit var seekBar: SeekBar
@@ -39,8 +38,6 @@ class MainActivity : AppCompatActivity() {
             // Toolbar
             val toolbar: Toolbar = findViewById(R.id.toolbar)
             setSupportActionBar(toolbar)
-            toolbar.title = "Music Player"
-            supportActionBar?.title = "Music Player"
 
 
             playPauseButton = findViewById(R.id.PlayPauseButton)
@@ -65,10 +62,10 @@ class MainActivity : AppCompatActivity() {
             playPauseButton.setOnClickListener {
                 if (mediaPlayer.isPlaying) {
                     mediaPlayer.pause()
-                    playPauseButton.text = "Play"
+                    playPauseButton.setBackgroundResource(android.R.drawable.ic_media_play)
                 } else {
                     mediaPlayer.start()
-                    playPauseButton.text = "Pause"
+                    playPauseButton.setBackgroundResource(android.R.drawable.ic_media_pause)
                     updateSeekBar()
                 }
             }
@@ -101,10 +98,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    // Function to update browsing location.
-    fun updateBrowsingLocation(location: String) {
-        browsingLocationText.text = "Browsing from: $location"
-    }
 
     // Function to update seekbar with progress
     private fun updateSeekBar() {

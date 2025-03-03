@@ -19,8 +19,8 @@ color purple_700
 color teal_200
 color teal_700
 color white
+drawable rounded_button
 id PlayPauseButton
-id browsing_location
 id search_icon
 id seekBar1
 id toolbar
