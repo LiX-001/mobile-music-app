@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                     if (fromUser) {
                         mediaPlayer.seekTo(progress)
+                        updateTime()
                     }
                 }
                 override fun onStartTrackingTouch(seekBar: SeekBar) {}
