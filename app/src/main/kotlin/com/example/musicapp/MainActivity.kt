@@ -133,8 +133,8 @@ class MainActivity : AppCompatActivity() {
 
     // Set timed duration of the track.
     fun updateTime() {
-        initial_min = 0
-        initial_sec = 0
+        initial_min = (((mediaPlayer.currentPosition)/1000)/60)
+        initial_sec = (((mediaPlayer.currentPosition)/1000)%60)
         min = (((mediaPlayer.duration)/1000)/60)
         sec = (((mediaPlayer.duration)/1000)%60)
         duration.text = String.format("%02d:%02d", min, sec)
