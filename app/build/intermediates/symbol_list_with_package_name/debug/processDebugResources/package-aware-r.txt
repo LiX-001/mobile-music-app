@@ -3024,6 +3024,7 @@ id NO_DEBUG
 id NextButton
 id PlayPauseButton
 id PreviousButton
+id RepeatButton
 id SHIFT
 id SHOW_ALL
 id SHOW_PATH

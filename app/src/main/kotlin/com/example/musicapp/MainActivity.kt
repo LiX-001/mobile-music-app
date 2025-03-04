@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                     if (fromUser) {
                         mediaPlayer.seekTo(progress)
+                        updateTime()
                     }
                 }
                 override fun onStartTrackingTouch(seekBar: SeekBar) {}
@@ -142,7 +143,7 @@ class MainActivity : AppCompatActivity() {
         duration.text = String.format("%02d:%02d", min, sec)
         currentTime.text = String.format("%02d:%02d", initial_min, initial_sec)
 
-        handler.postDelayed(object : Runnable {
+        val updateRunnable = object : Runnable {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
                     if (initial_sec == 59) {
@@ -156,7 +157,9 @@ class MainActivity : AppCompatActivity() {
                     handler.postDelayed(this, 1000) // Update every second
                 }
             }
-        }, 1000)
+        }
+
+    handler.postDelayed(updateRunnable, 1000)
     }
 
     override fun onDestroy() {

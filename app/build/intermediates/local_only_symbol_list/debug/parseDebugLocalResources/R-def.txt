@@ -30,6 +30,7 @@ id Duration
 id NextButton
 id PlayPauseButton
 id PreviousButton
+id RepeatButton
 id SongTitle
 id search_icon
 id seekBar
