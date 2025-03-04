@@ -26,14 +26,10 @@
             
     </androidx.appcompat.widget.Toolbar>
 
-<LinearLayout
+<FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/player_layout"
-    android:padding="16dp"
-    android:layout_margin="10dp"
-    android:elevation="8dp"
-    android:orientation="vertical">
+    android:layout_height="0dp"
+    android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,55 +91,40 @@
             android:textSize="10sp" />
     </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <ImageButton
-                android:id="@+id/PreviousButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@android:drawable/ic_media_previous"
-                android:background="@color/transparent"
-                android:scaleType="centerInside"
-                android:padding="5dp"
-                android:contentDescription="Previous"/>
-            <ImageButton
-                android:id="@+id/PlayPauseButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@android:drawable/ic_media_play"
-                android:background="@drawable/rounded_button"
-                android:scaleType="centerInside"
-                android:padding="5dp"
-                android:contentDescription="Play/Pause"/>
-            <ImageButton
-                android:id="@+id/NextButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@android:drawable/ic_media_next"
-                android:background="@color/transparent"
-                android:scaleType="centerInside"
-                android:padding="5dp"
-                android:contentDescription="Next"/>
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/PreviousButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@android:drawable/ic_media_previous"
+            android:background="@color/transparent"
+            android:scaleType="centerInside"
+            android:padding="5dp"
+            android:contentDescription="Previous"/>
+        <ImageButton
+            android:id="@+id/PlayPauseButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@android:drawable/ic_media_play"
+            android:background="@drawable/rounded_button"
+            android:scaleType="centerInside"
+            android:padding="5dp"
+            android:contentDescription="Play/Pause"/>
+        <ImageButton
+            android:id="@+id/NextButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@android:drawable/ic_media_next"
+            android:background="@color/transparent"
+            android:scaleType="centerInside"
+            android:padding="5dp"
+            android:contentDescription="Next"/>
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <ImageButton
-                android:id="@+id/RepeatButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@android:drawable/ic_menu_revert"
-                android:background="@color/transparent"
-                android:scaleType="centerInside"
-                android:padding="5dp"
-                android:contentDescription="Repeat"/>
-            </LinearLayout>
-</LinearLayout>
+</FrameLayout>
     
 </LinearLayout>

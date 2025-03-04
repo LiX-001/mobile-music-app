@@ -1,7 +1,7 @@
 [
     {
-        "merged": "com.example.musicapp-debug-31:/raw_sparkle.mp3.flat",
-        "source": "com.example.musicapp-main-33:/raw/sparkle.mp3"
+        "merged": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-debug-31:/drawable_player_layout.xml.flat",
+        "source": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-main-33:/drawable/player_layout.xml"
     },
     {
         "merged": "com.example.musicapp-debug-31:/drawable_player_layout.xml.flat",
@@ -12,11 +12,19 @@
         "source": "com.example.musicapp-main-33:/layout/activity_main.xml"
     },
     {
-        "merged": "com.example.musicapp-debug-31:/drawable_rounded_button.xml.flat",
-        "source": "com.example.musicapp-main-33:/drawable/rounded_button.xml"
+        "merged": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-debug-31:/drawable_random_1000x1000.png.flat",
+        "source": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-main-33:/drawable/random_1000x1000.png"
     },
     {
-        "merged": "com.example.musicapp-debug-31:/drawable_random_1000x1000.png.flat",
-        "source": "com.example.musicapp-main-33:/drawable/random_1000x1000.png"
+        "merged": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-debug-31:/raw_sparkle.mp3.flat",
+        "source": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-main-33:/raw/sparkle.mp3"
+    },
+    {
+        "merged": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-debug-31:/layout_activity_main.xml.flat",
+        "source": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-main-33:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-debug-31:/drawable_rounded_button.xml.flat",
+        "source": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-main-33:/drawable/rounded_button.xml"
     }
 ]

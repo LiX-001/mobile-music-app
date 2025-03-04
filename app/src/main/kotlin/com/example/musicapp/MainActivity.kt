@@ -35,6 +35,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var previousBtn: ImageButton
     private lateinit var nextBtn: ImageButton
 
+    // Player view
+    private lateinit var playerLayout: LinearLayout
+    private var isExpanded = true
+    private val animationDuration = 300L
+
     private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +53,9 @@ class MainActivity : AppCompatActivity() {
             // Toolbar
             val toolbar: Toolbar = findViewById(R.id.toolbar)
             setSupportActionBar(toolbar)
+
+            // Player layout
+            playerLayout = findViewById(R.id.playerLayout)
 
             // Media elements
             playPauseButton = findViewById<ImageButton>(R.id.PlayPauseButton)
@@ -65,6 +73,31 @@ class MainActivity : AppCompatActivity() {
                 // Implement search functionality here
             }
 
+            override fun onTouchEvent(event: MotionEvent?): Boolean {
+                return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
+            }
+
+            playerLayout.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> true
+                    MotionEvent.ACTION_MOVE -> {
+                        playerLayout.translationY = event.rawY
+                        true
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        if (playerLayout.translationY > playerLayout.height / 2) {
+                            collapsePlayer()
+                        } else {
+                            expandPlayer()
+                        }
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+
+        
 
 
 
@@ -161,6 +194,61 @@ class MainActivity : AppCompatActivity() {
 
     handler.postDelayed(updateRunnable, 1000)
     }
+
+    // Guesture to swipe the player to the bottom (or from thr botton to view)
+    private val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+        private val SWIPE_THRESHOLD = 100
+        private val SWIPE_VELOCITY_THRESHOLD = 100
+
+        override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+            if (e1 == null || e2 == null) return false
+
+            val diffY = e2.y - e1.y
+            val diffX = e2.x - e1.x
+
+            if (Math.abs(diffY) > Math.abs(diffX)) { // Vertical swipe
+                if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffY > 0) {
+                        // Swipe down (collapse)
+                        collapsePlayer()
+                    } else {
+                        // Swipe up (expand)
+                        expandPlayer()
+                    }
+                    return true
+                }
+            }
+            return false
+        }
+    })
+
+    private fun collapsePlayer() {
+        if (isExpanded) {
+            isExpanded = false
+            ObjectAnimator.ofFloat(playerLayout, "translationY", playerLayout.height.toFloat()).apply {
+                duration = animationDuration
+                start()
+            }
+            // Shrink elements (Example: Hide seekbar & text)
+            seekBar.visibility = View.GONE
+            currentTime.visibility = View.GONE
+            duration.visibility = View.GONE
+        }
+    }
+    private fun expandPlayer() {
+        if (!isExpanded) {
+            isExpanded = true
+            ObjectAnimator.ofFloat(playerLayout, "translationY", 0f).apply {
+                duration = animationDuration
+                start()
+            }
+            // Show elements again
+            seekBar.visibility = View.VISIBLE
+            currentTime.visibility = View.VISIBLE
+            duration.visibility = View.VISIBLE
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
