@@ -3004,11 +3004,15 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable player_layout
+drawable random_1000x1000
 drawable rounded_button
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
+id AlbumArt
+id ArtistName
 id BOTTOM_END
 id BOTTOM_START
 id CTRL
@@ -3025,6 +3029,7 @@ id SHOW_ALL
 id SHOW_PATH
 id SHOW_PROGRESS
 id SYM
+id SongTitle
 id TOP_END
 id TOP_START
 id accelerate

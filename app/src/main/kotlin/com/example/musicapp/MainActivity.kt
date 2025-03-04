@@ -94,7 +94,6 @@ class MainActivity : AppCompatActivity() {
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                     if (fromUser) {
                         mediaPlayer.seekTo(progress)
-                        updateTime()
                     }
                 }
                 override fun onStartTrackingTouch(seekBar: SeekBar) {}
@@ -134,6 +133,8 @@ class MainActivity : AppCompatActivity() {
 
     // Set timed duration of the track.
     fun updateTime() {
+        handler.removeCallbacksAndMessages(null)
+
         initial_min = (((mediaPlayer.currentPosition)/1000)/60)
         initial_sec = (((mediaPlayer.currentPosition)/1000)%60)
         min = (((mediaPlayer.duration)/1000)/60)
@@ -151,6 +152,7 @@ class MainActivity : AppCompatActivity() {
                         initial_sec +=1
                     }
                     currentTime.text = String.format("%02d:%02d", initial_min, initial_sec)
+                    
                     handler.postDelayed(this, 1000) // Update every second
                 }
             }
