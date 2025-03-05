@@ -201,6 +201,10 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             seekBar.visibility = View.VISIBLE
             currentTime.visibility = View.VISIBLE
             duration.visibility = View.VISIBLE
+            playerLayout.visibility = View.VISIBLE
+            playPauseButton.visibility = View.VISIBLE
+            previousBtn.visibility = View.VISIBLE
+            nextBtn.visibility = View.VISIBLE
         }
     }
 
