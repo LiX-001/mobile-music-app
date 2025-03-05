@@ -17,8 +17,6 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import android.view.GestureDetector
-import android.view.MotionEvent
 import android.view.View
 
 class MainActivity : AppCompatActivity() {
