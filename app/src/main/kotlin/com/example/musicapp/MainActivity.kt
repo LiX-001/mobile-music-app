@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var currentTime: TextView
     private lateinit var previousBtn: ImageButton
     private lateinit var nextBtn: ImageButton
-    private lateinit var playerLayout: LinearLayout
 
 
     private val handler = Handler(Looper.getMainLooper())
@@ -47,7 +46,6 @@ class MainActivity : AppCompatActivity() {
             setSupportActionBar(toolbar)
 
             // UI Elements
-            playerLayout = findViewById(R.id.playerLayout)
             playPauseButton = findViewById(R.id.PlayPauseButton)
             seekBar = findViewById(R.id.seekBar)
             previousBtn = findViewById(R.id.PreviousButton)
