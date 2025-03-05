@@ -7,140 +7,71 @@ import android.widget.Toast
 import android.content.Context
 import android.os.Environment
 import java.io.File
-import android.app.AlertDialog
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.View
 import android.animation.ObjectAnimator
 import android.widget.LinearLayout
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
-
-import android.widget.Button
-import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
 import android.widget.ImageButton
 import android.widget.SeekBar
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
-    // All important view declarations
+    // UI elements
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var playPauseButton: ImageButton
     private lateinit var seekBar: SeekBar
-    private var initial_min: Int = 0
-    private var initial_sec: Int = 0
-    private var min: Int = 0
-    private var sec: Int = 0
     private lateinit var duration: TextView
     private lateinit var currentTime: TextView
     private lateinit var previousBtn: ImageButton
     private lateinit var nextBtn: ImageButton
-
-    // Player view
     private lateinit var playerLayout: LinearLayout
+
     private var isExpanded = true
     private val animationDuration = 300L
-
     private lateinit var gestureDetector: GestureDetector
-
-
     private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-    // Using try and catch block to alert an error directly on phone.
         try {
             setContentView(R.layout.activity_main)
-            
-            // UI Elements
-            // Toolbar
+
+            // Toolbar setup
             val toolbar: Toolbar = findViewById(R.id.toolbar)
             setSupportActionBar(toolbar)
 
-            // Player layout
+            // UI Elements
             playerLayout = findViewById(R.id.playerLayout)
-
-            // Media elements
-            playPauseButton = findViewById<ImageButton>(R.id.PlayPauseButton)
+            playPauseButton = findViewById(R.id.PlayPauseButton)
             seekBar = findViewById(R.id.seekBar)
             previousBtn = findViewById(R.id.PreviousButton)
             nextBtn = findViewById(R.id.NextButton)
             currentTime = findViewById(R.id.CurrentTime)
             duration = findViewById(R.id.Duration)
 
-
-            // Search icon click
             val searchIcon: ImageButton = findViewById(R.id.search_icon)
             searchIcon.setOnClickListener {
                 Toast.makeText(this, "Search Clicked!", Toast.LENGTH_SHORT).show()
-                // Implement search functionality here
             }
 
+            // Gesture detector
+            gestureDetector = GestureDetector(this, this)
 
-
-            // Guesture to swipe the player to the bottom (or from thr botton to view)
-            gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
-                override fun onFling(
-                    e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float
-                ): Boolean {
-                    if (e1 == null || e2 == null) return false
-
-                    val diffY = e2.y - e1.y
-                    val diffX = e2.x - e1.x
-                    val SWIPE_THRESHOLD = 100
-                    val SWIPE_VELOCITY_THRESHOLD = 100
-
-                    if (kotlin.math.abs(diffY) > kotlin.math.abs(diffX)) { // Vertical swipe
-                        if (kotlin.math.abs(diffY) > SWIPE_THRESHOLD && kotlin.math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                            if (diffY > 0) {
-                                collapsePlayer()  // Swipe down
-                            } else {
-                                expandPlayer()  // Swipe up
-                            }
-                            return true
-                        }
-                    }
-                    return false
-                }
-            })
-
-
-
-
-
+            // Set touch listener for swipe gestures
             playerLayout.setOnTouchListener { _, event ->
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> true
-                    MotionEvent.ACTION_MOVE -> {
-                        playerLayout.translationY = event.rawY
-                        true
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        if (playerLayout.translationY > playerLayout.height / 2) {
-                            collapsePlayer()
-                        } else {
-                            expandPlayer()
-                        }
-                        true
-                    }
-                    else -> false
-                }
+                gestureDetector.onTouchEvent(event)
             }
-        
-
-
-
-
-
 
             // Initialize MediaPlayer
             mediaPlayer = MediaPlayer.create(this, R.raw.sparkle)
-
-            
 
             // Play/Pause button
             playPauseButton.setOnClickListener {
@@ -155,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            // SeekBar change listener
+            // SeekBar listener
             seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                     if (fromUser) {
@@ -166,68 +97,86 @@ class MainActivity : AppCompatActivity() {
                 override fun onStartTrackingTouch(seekBar: SeekBar) {}
                 override fun onStopTrackingTouch(seekBar: SeekBar) {}
             })
-        
-
 
         } catch (e: Exception) {
-            Log.e("DEBUG", "error in setContentView() : ", e)  // Log when activity starts
-            
+            Log.e("DEBUG", "Error in setContentView()", e)
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
             MaterialAlertDialogBuilder(this)
                 .setTitle("App Crash")
                 .setMessage(e.toString())
-                .setPositiveButton("OK") {
-                    dialog, _ -> dialog.dismiss()
-                }
+                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
                 .show()
         }
-
     }
 
+    // Gesture Methods
+    override fun onDown(e: MotionEvent): Boolean = false
+    override fun onShowPress(e: MotionEvent) {}
+    override fun onSingleTapUp(e: MotionEvent): Boolean = false
+    override fun onScroll(
+        e1: MotionEvent?, e2: MotionEvent, distanceX: Float, distanceY: Float
+    ): Boolean = false
+    override fun onLongPress(e: MotionEvent) {}
 
-    // Function to update seekbar with progress
+    override fun onFling(
+        e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float
+    ): Boolean {
+        if (e1 == null || e2 == null) return false
+
+        val diffY = e2.y - e1.y
+        val diffX = e2.x - e1.x
+        val SWIPE_THRESHOLD = 100
+        val SWIPE_VELOCITY_THRESHOLD = 100
+
+        if (kotlin.math.abs(diffY) > kotlin.math.abs(diffX)) { // Vertical swipe
+            if (kotlin.math.abs(diffY) > SWIPE_THRESHOLD && kotlin.math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                if (diffY > 0) {
+                    collapsePlayer()  // Swipe down
+                } else {
+                    expandPlayer()  // Swipe up
+                }
+                return true
+            }
+        }
+        return false
+    }
+
+    // Updates SeekBar
     private fun updateSeekBar() {
         seekBar.max = mediaPlayer.duration
         handler.postDelayed(object : Runnable {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
                     seekBar.progress = mediaPlayer.currentPosition
-                    handler.postDelayed(this, 500) // Update every 500ms
+                    handler.postDelayed(this, 500)
                 }
             }
         }, 500)
     }
 
-    // Set timed duration of the track.
+    // Updates Current Time Display
     fun updateTime() {
         handler.removeCallbacksAndMessages(null)
 
-        initial_min = (((mediaPlayer.currentPosition)/1000)/60)
-        initial_sec = (((mediaPlayer.currentPosition)/1000)%60)
-        min = (((mediaPlayer.duration)/1000)/60)
-        sec = (((mediaPlayer.duration)/1000)%60)
+        val initialMin = (mediaPlayer.currentPosition / 1000) / 60
+        val initialSec = (mediaPlayer.currentPosition / 1000) % 60
+        val min = (mediaPlayer.duration / 1000) / 60
+        val sec = (mediaPlayer.duration / 1000) % 60
         duration.text = String.format("%02d:%02d", min, sec)
-        currentTime.text = String.format("%02d:%02d", initial_min, initial_sec)
+        currentTime.text = String.format("%02d:%02d", initialMin, initialSec)
 
         val updateRunnable = object : Runnable {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
-                    if (initial_sec == 59) {
-                        initial_min += 1
-                        initial_sec = 0
-                    } else {
-                        initial_sec +=1
-                    }
-                    currentTime.text = String.format("%02d:%02d", initial_min, initial_sec)
-                    
-                    handler.postDelayed(this, 1000) // Update every second
+                    currentTime.text = String.format(
+                        "%02d:%02d", (mediaPlayer.currentPosition / 1000) / 60, (mediaPlayer.currentPosition / 1000) % 60
+                    )
+                    handler.postDelayed(this, 1000)
                 }
             }
         }
-
-    handler.postDelayed(updateRunnable, 1000)
+        handler.postDelayed(updateRunnable, 1000)
     }
-
 
     private fun collapsePlayer() {
         if (isExpanded) {
@@ -254,12 +203,6 @@ class MainActivity : AppCompatActivity() {
             duration.visibility = View.VISIBLE
         }
     }
-
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return event?.let { gestureDetector.onTouchEvent(it) } ?: super.onTouchEvent(event)
-    }
-
 
     override fun onDestroy() {
         super.onDestroy()
