@@ -21,7 +21,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 
-class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+class MainActivity : AppCompatActivity() {
 
     // UI elements
     private lateinit var mediaPlayer: MediaPlayer
@@ -33,9 +33,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     private lateinit var nextBtn: ImageButton
     private lateinit var playerLayout: LinearLayout
 
-    private var isExpanded = true
-    private val animationDuration = 300L
-    private lateinit var gestureDetector: GestureDetector
+
     private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,13 +60,10 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
                 Toast.makeText(this, "Search Clicked!", Toast.LENGTH_SHORT).show()
             }
 
-            // Gesture detector
-            gestureDetector = GestureDetector(this, this)
+            
 
-            // Set touch listener for swipe gestures
-            playerLayout.setOnTouchListener { _, event ->
-                gestureDetector.onTouchEvent(event)
-            }
+
+
 
             // Initialize MediaPlayer
             mediaPlayer = MediaPlayer.create(this, R.raw.sparkle)
@@ -109,38 +104,6 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         }
     }
 
-    // Gesture Methods
-    override fun onDown(e: MotionEvent): Boolean = false
-    override fun onShowPress(e: MotionEvent) {}
-    override fun onSingleTapUp(e: MotionEvent): Boolean = false
-    override fun onScroll(
-        e1: MotionEvent?, e2: MotionEvent, distanceX: Float, distanceY: Float
-    ): Boolean = false
-    override fun onLongPress(e: MotionEvent) {}
-
-    override fun onFling(
-        e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float
-    ): Boolean {
-        if (e1 == null || e2 == null) return false
-
-        val diffY = e2.y - e1.y
-        val diffX = e2.x - e1.x
-        val SWIPE_THRESHOLD = 100
-        val SWIPE_VELOCITY_THRESHOLD = 100
-
-        if (kotlin.math.abs(diffY) > kotlin.math.abs(diffX)) { // Vertical swipe
-            if (kotlin.math.abs(diffY) > SWIPE_THRESHOLD && kotlin.math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                if (diffY > 0) {
-                    collapsePlayer()  // Swipe down
-                } else {
-                    expandPlayer()  // Swipe up
-                }
-                return true
-            }
-        }
-        return false
-    }
-
     // Updates SeekBar
     private fun updateSeekBar() {
         seekBar.max = mediaPlayer.duration
@@ -176,36 +139,6 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             }
         }
         handler.postDelayed(updateRunnable, 1000)
-    }
-
-    private fun collapsePlayer() {
-        if (isExpanded) {
-            isExpanded = false
-            ObjectAnimator.ofFloat(playerLayout, "translationY", playerLayout.height.toFloat()).apply {
-                duration = animationDuration
-                start()
-            }
-            seekBar.visibility = View.GONE
-            currentTime.visibility = View.GONE
-            duration.visibility = View.GONE
-        }
-    }
-
-    private fun expandPlayer() {
-        if (!isExpanded) {
-            isExpanded = true
-            ObjectAnimator.ofFloat(playerLayout, "translationY", 0f).apply {
-                duration = animationDuration
-                start()
-            }
-            seekBar.visibility = View.VISIBLE
-            currentTime.visibility = View.VISIBLE
-            duration.visibility = View.VISIBLE
-            playerLayout.visibility = View.VISIBLE
-            playPauseButton.visibility = View.VISIBLE
-            previousBtn.visibility = View.VISIBLE
-            nextBtn.visibility = View.VISIBLE
-        }
     }
 
     override fun onDestroy() {
