@@ -3024,7 +3024,6 @@ id NO_DEBUG
 id NextButton
 id PlayPauseButton
 id PreviousButton
-id RepeatButton
 id SHIFT
 id SHOW_ALL
 id SHOW_PATH
@@ -3334,6 +3333,7 @@ id pathRelative
 id peekHeight
 id percent
 id pin
+id playerLayout
 id position
 id postLayout
 id pressed

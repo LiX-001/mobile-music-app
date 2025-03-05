@@ -8,7 +8,11 @@ import android.content.Context
 import android.os.Environment
 import java.io.File
 import android.app.AlertDialog
-
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
+import android.animation.ObjectAnimator
+import android.widget.LinearLayout
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
@@ -39,6 +43,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var playerLayout: LinearLayout
     private var isExpanded = true
     private val animationDuration = 300L
+
+    private lateinit var gestureDetector: GestureDetector
+
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -73,9 +80,37 @@ class MainActivity : AppCompatActivity() {
                 // Implement search functionality here
             }
 
-            override fun onTouchEvent(event: MotionEvent?): Boolean {
-                return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
-            }
+
+
+            // Guesture to swipe the player to the bottom (or from thr botton to view)
+            gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+                override fun onFling(
+                    e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float
+                ): Boolean {
+                    if (e1 == null || e2 == null) return false
+
+                    val diffY = e2.y - e1.y
+                    val diffX = e2.x - e1.x
+                    val SWIPE_THRESHOLD = 100
+                    val SWIPE_VELOCITY_THRESHOLD = 100
+
+                    if (kotlin.math.abs(diffY) > kotlin.math.abs(diffX)) { // Vertical swipe
+                        if (kotlin.math.abs(diffY) > SWIPE_THRESHOLD && kotlin.math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffY > 0) {
+                                collapsePlayer()  // Swipe down
+                            } else {
+                                expandPlayer()  // Swipe up
+                            }
+                            return true
+                        }
+                    }
+                    return false
+                }
+            })
+
+
+
+
 
             playerLayout.setOnTouchListener { _, event ->
                 when (event.action) {
@@ -95,8 +130,6 @@ class MainActivity : AppCompatActivity() {
                     else -> false
                 }
             }
-
-
         
 
 
@@ -195,32 +228,6 @@ class MainActivity : AppCompatActivity() {
     handler.postDelayed(updateRunnable, 1000)
     }
 
-    // Guesture to swipe the player to the bottom (or from thr botton to view)
-    private val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
-        private val SWIPE_THRESHOLD = 100
-        private val SWIPE_VELOCITY_THRESHOLD = 100
-
-        override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-            if (e1 == null || e2 == null) return false
-
-            val diffY = e2.y - e1.y
-            val diffX = e2.x - e1.x
-
-            if (Math.abs(diffY) > Math.abs(diffX)) { // Vertical swipe
-                if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                    if (diffY > 0) {
-                        // Swipe down (collapse)
-                        collapsePlayer()
-                    } else {
-                        // Swipe up (expand)
-                        expandPlayer()
-                    }
-                    return true
-                }
-            }
-            return false
-        }
-    })
 
     private fun collapsePlayer() {
         if (isExpanded) {
@@ -229,12 +236,12 @@ class MainActivity : AppCompatActivity() {
                 duration = animationDuration
                 start()
             }
-            // Shrink elements (Example: Hide seekbar & text)
             seekBar.visibility = View.GONE
             currentTime.visibility = View.GONE
             duration.visibility = View.GONE
         }
     }
+
     private fun expandPlayer() {
         if (!isExpanded) {
             isExpanded = true
@@ -242,11 +249,15 @@ class MainActivity : AppCompatActivity() {
                 duration = animationDuration
                 start()
             }
-            // Show elements again
             seekBar.visibility = View.VISIBLE
             currentTime.visibility = View.VISIBLE
             duration.visibility = View.VISIBLE
         }
+    }
+
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return event?.let { gestureDetector.onTouchEvent(it) } ?: super.onTouchEvent(event)
     }
 
 
