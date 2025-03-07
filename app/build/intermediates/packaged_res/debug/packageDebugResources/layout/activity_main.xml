@@ -38,6 +38,7 @@
     android:padding="16dp">
 
     <LinearLayout
+        android:id="@+id/albumArtLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -50,20 +51,27 @@
             android:layout_height="300dp"
             android:src="@drawable/random_1000x1000"
             android:contentDescription="Album Art"/>
-        <TextView
-            android:id="@+id/SongTitle"
+        <LinearLayout
+            android:contentDescription="Song Details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Song Title"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
-        <TextView
-            android:id="@+id/ArtistName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Artist Name"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/SongTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Song Title"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+            <TextView
+                android:id="@+id/ArtistName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Artist Name"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+            </LinearLayout>
     </LinearLayout>
     
     <LinearLayout

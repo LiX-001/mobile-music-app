@@ -12,6 +12,7 @@ import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -178,6 +179,20 @@ class MainActivity : AppCompatActivity() {
                 start()
             }
             isMiniPlayer = true
+            
+            // Changing cover size
+            val albumArt = findViewById<ImageView>(R.id.AlbumArt)
+            val layoutParams = albumArt.layoutParams
+            layoutParams.width = 100 // in px
+            layoutParams.height = 100 // in px
+            albumArt.layoutParams = layoutParams
+
+            findViewById<TextView>(R.id.SongTitle).textSize = 14f
+            findViewById<TextView>(R.id.ArtistName).textSize = 10f
+            currentTime.visibility = View.GONE
+            duration.visibility = View.GONE
+            findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
+
         }
 
     private fun expandToFullPlayer() {
