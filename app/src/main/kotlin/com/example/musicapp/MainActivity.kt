@@ -182,7 +182,7 @@ class MainActivity : AppCompatActivity() {
             
             // Changing cover size
             val albumArt = findViewById<ImageView>(R.id.AlbumArt)
-            val layoutParams = albumArt.layoutParams
+            var layoutParams = albumArt.layoutParams
             layoutParams.width = 100 // in px
             layoutParams.height = 100 // in px
             albumArt.layoutParams = layoutParams
@@ -192,6 +192,10 @@ class MainActivity : AppCompatActivity() {
             currentTime.visibility = View.GONE
             duration.visibility = View.GONE
             findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
+
+            layoutParams = playerLayout.layoutParams
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+            playerLayout.layoutParams = layoutParams
 
         }
 
