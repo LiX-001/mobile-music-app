@@ -20,6 +20,7 @@ color teal_200
 color teal_700
 color transparent
 color white
+drawable miniplayer
 drawable player_layout
 drawable random_1000x1000
 drawable rounded_button

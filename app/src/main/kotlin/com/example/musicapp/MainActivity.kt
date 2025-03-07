@@ -180,6 +180,7 @@ class MainActivity : AppCompatActivity() {
             }
             isMiniPlayer = true
             
+
             // Changing cover size
             val albumArt = findViewById<ImageView>(R.id.AlbumArt)
             var layoutParams = albumArt.layoutParams
@@ -194,9 +195,8 @@ class MainActivity : AppCompatActivity() {
             findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
 
             layoutParams = playerLayout.layoutParams
-            layoutParams.height = 500
+            layoutParams.height = 
             playerLayout.layoutParams = layoutParams
-
         }
 
     private fun expandToFullPlayer() {
