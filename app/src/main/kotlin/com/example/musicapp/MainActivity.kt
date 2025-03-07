@@ -194,7 +194,7 @@ class MainActivity : AppCompatActivity() {
             findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
 
             layoutParams = playerLayout.layoutParams
-            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+            layoutParams.height = 500
             playerLayout.layoutParams = layoutParams
 
         }
