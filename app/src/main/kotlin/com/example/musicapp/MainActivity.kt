@@ -7,7 +7,6 @@ import android.widget.Toast
 import android.content.Context
 import android.os.Environment
 import java.io.File
-import android.animation.ObjectAnimator
 import android.widget.LinearLayout
 import android.media.MediaPlayer
 import android.os.Handler
@@ -17,7 +16,12 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+
+import android.animation.ObjectAnimator
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +33,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var currentTime: TextView
     private lateinit var previousBtn: ImageButton
     private lateinit var nextBtn: ImageButton
+
+    private lateinit var playerLayout: LinearLayout
+    private lateinit var gestureDetector: GestureDetector
+    private var isMiniPlayer = false
 
 
     private val handler = Handler(Looper.getMainLooper())
@@ -56,7 +64,28 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Search Clicked!", Toast.LENGTH_SHORT).show()
             }
 
-            
+            playerLayout = findViewById(R.id.playerLayout)
+            @Suppress("NOTHING_TO_OVERRIDE", "ACCIDENTAL_OVERRIDE")
+            // Gesture detector for swiping into MiniPlayer
+            // Initialize GestureDetector properly
+                    gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+                        override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+                            if (e1 == null || e2 == null) return false
+
+                            val deltaY = e2.y - e1.y
+                            if (deltaY > 150) {  
+                                collapseToMiniPlayer() // Swipe down
+                                return true
+                            } else if (deltaY < -150) {
+                                expandToFullPlayer() // Swipe up
+                                return true
+                            }
+                            return false
+                        }
+                    })
+
+            // Touch listener to detect swipe
+            playerLayout.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }
 
 
 
@@ -135,6 +164,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
         handler.postDelayed(updateRunnable, 1000)
+    }
+
+
+    private fun collapseToMiniPlayer() {
+        if (!isMiniPlayer) {
+            val animator = ObjectAnimator.ofFloat(playerLayout, "translationY", 800f)
+            animator.duration = 300
+            animator.interpolator = DecelerateInterpolator()
+            animator.start()
+            isMiniPlayer = true
+        }
+    }
+
+    private fun expandToFullPlayer() {
+        if (isMiniPlayer) {
+            val animator = ObjectAnimator.ofFloat(playerLayout, "translationY", 0f)
+            animator.duration = 300
+            animator.interpolator = DecelerateInterpolator()
+            animator.start()
+            isMiniPlayer = false
+        }
     }
 
     override fun onDestroy() {
