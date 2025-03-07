@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nextBtn: ImageButton
 
     private lateinit var playerLayout: LinearLayout
-    private lateinit var gestureDetector: GestureDetector
+    private var startY = 0f
     private var isMiniPlayer = false
 
 
@@ -66,27 +66,31 @@ class MainActivity : AppCompatActivity() {
 
             playerLayout = findViewById(R.id.playerLayout)
             @Suppress("NOTHING_TO_OVERRIDE", "ACCIDENTAL_OVERRIDE")
-            // Gesture detector for swiping into MiniPlayer
-            // Initialize GestureDetector properly
-                    gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
-                        override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-                            if (e1 == null || e2 == null) return false
-
-                            val deltaY = e2.y - e1.y
-                            if (deltaY > 150) {  
-                                collapseToMiniPlayer() // Swipe down
-                                return true
-                            } else if (deltaY < -150) {
-                                expandToFullPlayer() // Swipe up
-                                return true
-                            }
-                            return false
+            // Touch listener for swiping into MiniPlayer
+            playerLayout.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        startY = event.rawY // Store the starting position
+                        true
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        val deltaY = event.rawY - startY
+                        playerLayout.translationY += deltaY // Move the layout
+                        startY = event.rawY // Update start position for smooth movement
+                        true
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        // Snap to full or mini position based on final position
+                        if (playerLayout.translationY > 400) {
+                            collapseToMiniPlayer()
+                        } else {
+                            expandToFullPlayer()
                         }
-                    })
-
-            // Touch listener to detect swipe
-            playerLayout.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }
-
+                        true
+                    }
+                    else -> false
+                }
+            }
 
 
 
@@ -168,22 +172,19 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun collapseToMiniPlayer() {
-        if (!isMiniPlayer) {
-            val animator = ObjectAnimator.ofFloat(playerLayout, "translationY", 800f)
-            animator.duration = 300
-            animator.interpolator = DecelerateInterpolator()
-            animator.start()
+        ObjectAnimator.ofFloat(playerLayout, "translationY", 800f).apply {
+                duration = 300
+                interpolator = DecelerateInterpolator()
+                start()
+            }
             isMiniPlayer = true
         }
-    }
 
     private fun expandToFullPlayer() {
-        if (isMiniPlayer) {
-            val animator = ObjectAnimator.ofFloat(playerLayout, "translationY", 0f)
-            animator.duration = 300
-            animator.interpolator = DecelerateInterpolator()
-            animator.start()
-            isMiniPlayer = false
+        ObjectAnimator.ofFloat(playerLayout, "translationY", 0f).apply {
+            duration = 300
+            interpolator = DecelerateInterpolator()
+            start()
         }
     }
 
