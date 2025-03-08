@@ -194,6 +194,7 @@ class MainActivity : AppCompatActivity() {
             duration.visibility = View.GONE
             findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
             playerLayout.orientation = LinearLayout.HORIZONTAL
+            
         }
 
     private fun expandToFullPlayer() {
