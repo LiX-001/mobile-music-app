@@ -1,1 +1,1 @@
-ÍnørÖs
+ÍnørÖsét
