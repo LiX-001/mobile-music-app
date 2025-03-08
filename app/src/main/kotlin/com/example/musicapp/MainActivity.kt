@@ -173,9 +173,9 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun collapseToMiniPlayer() {
-        // val params = playerLayout.layoutParams
-        // params.height = (80 * resources.displayMetrics.density).toInt()
-        // playerLayout.layoutParams = params
+        val params = playerLayout.layoutParams
+        params.height = (80 * resources.displayMetrics.density).toInt()
+        playerLayout.layoutParams = params
 
         ObjectAnimator.ofFloat(playerLayout, "translationY", 800f).apply {
                 duration = 300
@@ -196,8 +196,8 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.ArtistName).textSize = 10f
 
 
-            // findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
-            // playerLayout.orientation = LinearLayout.HORIZONTAL
+            findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
+            playerLayout.orientation = LinearLayout.HORIZONTAL
 
             // findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
             nextBtn.visibility = View.GONE
