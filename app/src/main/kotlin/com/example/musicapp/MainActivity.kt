@@ -191,10 +191,15 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.SongTitle).textSize = 14f
             findViewById<TextView>(R.id.ArtistName).textSize = 10f
             currentTime.visibility = View.GONE
+            seekBar.visibility = View.GONE
             duration.visibility = View.GONE
             findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
             playerLayout.orientation = LinearLayout.HORIZONTAL
-            
+
+            nextBtn.visibility = View.GONE
+            previousBtn.visibility = View.GONE
+
+            playerLayout.setBackgroundResource(R.drawable.miniplayer)
         }
 
     private fun expandToFullPlayer() {
