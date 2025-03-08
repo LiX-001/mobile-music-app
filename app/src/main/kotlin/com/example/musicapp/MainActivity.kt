@@ -196,7 +196,7 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.ArtistName).textSize = 10f
 
 
-            findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
+            // findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
             // playerLayout.orientation = LinearLayout.HORIZONTAL
 
             findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
