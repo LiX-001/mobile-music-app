@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity() {
 
             // Changing cover size
             val albumArt = findViewById<ImageView>(R.id.AlbumArt)
-            var layoutParams = albumArt.layoutParams
+            val layoutParams = albumArt.layoutParams
             layoutParams.width = 100 // in px
             layoutParams.height = 100 // in px
             albumArt.layoutParams = layoutParams
@@ -199,7 +199,7 @@ class MainActivity : AppCompatActivity() {
             // findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
             // playerLayout.orientation = LinearLayout.HORIZONTAL
 
-            findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
+            // findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
             nextBtn.visibility = View.GONE
             previousBtn.visibility = View.GONE
             playPauseButton.visibility = View.GONE
