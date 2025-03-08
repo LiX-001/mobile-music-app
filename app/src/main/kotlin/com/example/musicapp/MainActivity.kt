@@ -188,8 +188,8 @@ class MainActivity : AppCompatActivity() {
             // Changing cover size
             val albumArt = findViewById<ImageView>(R.id.AlbumArt)
             val layoutParams = albumArt.layoutParams
-            layoutParams.width = 100 // in px
-            layoutParams.height = 100 // in px
+            layoutParams.width = 150 // in px
+            layoutParams.height = 150 // in px
             albumArt.layoutParams = layoutParams
 
             findViewById<TextView>(R.id.SongTitle).textSize = 14f
@@ -202,7 +202,6 @@ class MainActivity : AppCompatActivity() {
             // findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
             nextBtn.visibility = View.GONE
             previousBtn.visibility = View.GONE
-            playPauseButton.visibility = View.GONE
 
         }
 
