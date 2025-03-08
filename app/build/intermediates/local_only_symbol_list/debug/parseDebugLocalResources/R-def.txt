@@ -36,6 +36,7 @@ id albumArtLayout
 id playerLayout
 id search_icon
 id seekBar
+id seekBarLayout
 id toolbar
 layout activity_main
 raw sparkle
