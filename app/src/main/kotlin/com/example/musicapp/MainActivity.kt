@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun collapseToMiniPlayer() {
         val params = playerLayout.layoutParams
-        params.height = (80 * resources.displayMetrics.density).toInt()
+        params.height = (200 * resources.displayMetrics.density).toInt()
         playerLayout.layoutParams = params
 
         ObjectAnimator.ofFloat(playerLayout, "translationY", 800f).apply {
