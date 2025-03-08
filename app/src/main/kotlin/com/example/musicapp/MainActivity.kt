@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun collapseToMiniPlayer() {
         val params = playerLayout.layoutParams
-        params.height = (200 * resources.displayMetrics.density).toInt()
+        params.height = (150 * resources.displayMetrics.density).toInt()
         playerLayout.layoutParams = params
 
         ObjectAnimator.ofFloat(playerLayout, "translationY", 800f).apply {
@@ -205,7 +205,11 @@ class MainActivity : AppCompatActivity() {
             duration.visibility = View.GONE
             nextBtn.visibility = View.GONE
             previousBtn.visibility = View.GONE
-
+            playPauseButton.visibility = View.VISIBLE
+            
+            val sickBarParams = seekBar.layoutParams as LinearLayout.LayoutParams
+            sickBarParams.weight = 0.3f
+            seekBar.layoutParams = layoutParams
         }
 
     private fun expandToFullPlayer() {
