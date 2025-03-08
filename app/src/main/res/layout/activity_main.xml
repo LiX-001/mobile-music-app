@@ -74,6 +74,12 @@
     </LinearLayout>
     
     <LinearLayout
+        android:id="@+id/controlLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+    <LinearLayout
         android:id="@+id/seekBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,6 +113,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:contentDescription="Control Buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -138,6 +145,7 @@
             android:scaleType="centerInside"
             android:padding="5dp"
             android:contentDescription="Next"/>
+    </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

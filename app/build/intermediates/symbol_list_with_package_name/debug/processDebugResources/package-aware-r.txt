@@ -3132,6 +3132,7 @@ id container
 id content
 id contentPanel
 id contiguous
+id controlLayout
 id coordinator
 id cos
 id counterclockwise

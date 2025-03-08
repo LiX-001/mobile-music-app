@@ -33,6 +33,7 @@ id PlayPauseButton
 id PreviousButton
 id SongTitle
 id albumArtLayout
+id controlLayout
 id playerLayout
 id search_icon
 id seekBar
