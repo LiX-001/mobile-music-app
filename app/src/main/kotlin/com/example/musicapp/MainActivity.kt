@@ -202,7 +202,6 @@ class MainActivity : AppCompatActivity() {
             previousBtn.visibility = View.GONE
             playPauseButton.visibility = View.GONE
 
-            playerLayout.setBackgroundResource(R.drawable.miniplayer)
         }
 
     private fun expandToFullPlayer() {
