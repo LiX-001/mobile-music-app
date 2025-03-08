@@ -1,0 +1,223 @@
+/workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:3: Warning: READ_EXTERNAL_STORAGE is deprecated (and is not granted) when targeting Android 13+. If you need to query or interact with MediaStore or media files on the shared storage, you should instead use one or more new storage permissions: READ_MEDIA_IMAGES, READ_MEDIA_VIDEO or READ_MEDIA_AUDIO. [ScopedStorage]
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "ScopedStorage":
+   Scoped storage is enforced on Android 10+ (or Android 11+ if using
+   requestLegacyExternalStorage). In particular, WRITE_EXTERNAL_STORAGE will
+   no longer provide write access to all files; it will provide the equivalent
+   of READ_EXTERNAL_STORAGE instead.
+
+   As of Android 13, if you need to query or interact with MediaStore or media
+   files on the shared storage, you should be using instead one or more new
+   storage permissions:
+   * android.permission.READ_MEDIA_IMAGES
+   * android.permission.READ_MEDIA_VIDEO
+   * android.permission.READ_MEDIA_AUDIO
+
+   and then add maxSdkVersion="33" to the older permission. See the developer
+   guide for how to do this:
+   https://developer.android.com/about/versions/13/behavior-changes-13#granula
+   r-media-permissions
+
+   The MANAGE_EXTERNAL_STORAGE permission can be used to manage all files, but
+   it is rarely necessary and most apps on Google Play are not allowed to use
+   it. Most apps should instead migrate to use scoped storage. To modify or
+   delete files, apps should request write access from the user as described
+   at https://goo.gle/android-mediastore-createwriterequest.
+
+   To learn more, read these resources: Play policy:
+   https://goo.gle/policy-storage-help Allowable use cases:
+   https://goo.gle/policy-storage-usecases
+
+   https://goo.gle/android-storage-usecases
+
+/workspaces/mobile-music-app/app/build.gradle:38: Warning: A newer version of androidx.core:core-ktx than 1.12.0 is available: 1.15.0 [GradleDependency]
+    implementation "androidx.core:core-ktx:1.12.0"
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/build.gradle:39: Warning: A newer version of androidx.appcompat:appcompat than 1.6.1 is available: 1.7.0 [GradleDependency]
+    implementation "androidx.appcompat:appcompat:1.6.1"
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/build.gradle:40: Warning: A newer version of com.google.android.material:material than 1.11.0 is available: 1.12.0 [GradleDependency]
+    implementation "com.google.android.material:material:1.11.0"
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "GradleDependency":
+   This detector looks for usages of libraries where the version you are using
+   is not the current stable release. Using older versions is fine, and there
+   are cases where you deliberately want to stick with an older version.
+   However, you may simply not be aware that a more recent version is
+   available, and that is what this lint check helps find.
+
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:29: Warning: Use a layout_height of 0dp instead of (undefined) for better performance [InefficientWeight]
+<LinearLayout
+ ~~~~~~~~~~~~
+
+   Explanation for issues of type "InefficientWeight":
+   When only a single widget in a LinearLayout defines a weight, it is more
+   efficient to assign a width/height of 0dp to it since it will absorb all
+   the remaining space anyway. With a declared width/height of 0dp it does not
+   have to measure its own size first.
+
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:43: Warning: Nested weights are bad for performance [NestedWeights]
+        android:layout_weight="1"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "NestedWeights":
+   Layout weights require a widget to be measured twice. When a LinearLayout
+   with non-zero weights is nested inside another LinearLayout with non-zero
+   weights, then the number of measurements increase exponentially.
+
+/workspaces/mobile-music-app/app/src/main/res/values/colors.xml:4: Warning: The resource R.color.colorPrimaryVarient appears to be unused [UnusedResources]
+    <color name="colorPrimaryVarient">#616161</color>
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/values/colors.xml:5: Warning: The resource R.color.colorOnPrimary appears to be unused [UnusedResources]
+    <color name="colorOnPrimary">#FFFFFF</color>
+           ~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/values/colors.xml:6: Warning: The resource R.color.colorAccent appears to be unused [UnusedResources]
+    <color name="colorAccent">#FF4081</color>
+           ~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/values/colors.xml:8: Warning: The resource R.color.purple_500 appears to be unused [UnusedResources]
+    <color name="purple_500">#6200EE</color>
+           ~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/values/colors.xml:9: Warning: The resource R.color.purple_700 appears to be unused [UnusedResources]
+    <color name="purple_700">#3700B3</color>
+           ~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/values/colors.xml:14: Warning: The resource R.color.holo_blue_dark appears to be unused [UnusedResources]
+    <color name="holo_blue_dark">#ff0000ff</color>
+           ~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/values/colors.xml:15: Warning: The resource R.color.holo_blue_light appears to be unused [UnusedResources]
+    <color name="holo_blue_light">#ff33b5e5</color>
+           ~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/values/colors.xml:16: Warning: The resource R.color.holo_green_dark appears to be unused [UnusedResources]
+    <color name="holo_green_dark">#ff669900</color>
+           ~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/values/colors.xml:17: Warning: The resource R.color.holo_green_light appears to be unused [UnusedResources]
+    <color name="holo_green_light">#ff99cc00</color>
+           ~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/values/colors.xml:18: Warning: The resource R.color.holo_orange_dark appears to be unused [UnusedResources]
+    <color name="holo_orange_dark">#ffff8800</color>
+           ~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/values/colors.xml:19: Warning: The resource R.color.grey appears to be unused [UnusedResources]
+    <color name="grey">#808080</color>
+           ~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/drawable/miniplayer.xml:2: Warning: The resource R.drawable.miniplayer appears to be unused [UnusedResources]
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+^
+
+   Explanation for issues of type "UnusedResources":
+   Unused resources make applications larger and slow down builds.
+
+
+   The unused resource check can ignore tests. If you want to include
+   resources that are only referenced from tests, consider packaging them in a
+   test source set instead.
+
+   You can include test sources in the unused resource check by setting the
+   system property lint.unused-resources.include-tests =true, and to exclude
+   them (usually for performance reasons), use
+   lint.unused-resources.exclude-tests =true.
+   ,
+
+/workspaces/mobile-music-app/app/src/main/res/drawable/random_1000x1000.png: Warning: Found bitmap drawable res/drawable/random_1000x1000.png in densityless folder [IconLocation]
+
+   Explanation for issues of type "IconLocation":
+   The res/drawable folder is intended for density-independent graphics such
+   as shapes defined in XML. For bitmaps, move it to drawable-mdpi and
+   consider providing higher and lower resolution versions in drawable-ldpi,
+   drawable-hdpi and drawable-xhdpi. If the icon really is density independent
+   (for example a solid color) you can place it in drawable-nodpi.
+
+   https://developer.android.com/guide/practices/screens_support.html
+
+/workspaces/mobile-music-app/app/src/main/AndroidManifest.xml:5: Warning: Should explicitly set android:icon, there is no default [MissingApplicationIcon]
+    <application
+     ~~~~~~~~~~~
+
+   Explanation for issues of type "MissingApplicationIcon":
+   You should set an icon for the application as whole because there is no
+   default. This attribute must be set as a reference to a drawable resource
+   containing the image (for example @drawable/icon).
+
+   https://developer.android.com/studio/publish/preparing#publishing-configure
+
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:88: Warning: Avoid using sizes smaller than 11sp: 10sp [SmallSp]
+            android:textSize="10sp" />
+            ~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:106: Warning: Avoid using sizes smaller than 11sp: 10sp [SmallSp]
+            android:textSize="10sp" />
+            ~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "SmallSp":
+   Avoid using sizes smaller than 11sp.
+
+/workspaces/mobile-music-app/app/src/main/kotlin/com/example/musicapp/MainActivity.kt:71: Warning: Custom view `LinearLayout` has setOnTouchListener called on it but does not override performClick [ClickableViewAccessibility]
+            playerLayout.setOnTouchListener { _, event ->
+            ^
+/workspaces/mobile-music-app/app/src/main/kotlin/com/example/musicapp/MainActivity.kt:71: Warning: onTouch lambda should call View#performClick when a click is detected [ClickableViewAccessibility]
+            playerLayout.setOnTouchListener { _, event ->
+                                            ^
+
+   Explanation for issues of type "ClickableViewAccessibility":
+   If a View that overrides onTouchEvent or uses an OnTouchListener does not
+   also implement performClick and call it when clicks are detected, the View
+   may not handle accessibility actions properly. Logic handling the click
+   actions should ideally be placed in View#performClick as some accessibility
+   services invoke performClick when a click action should occur.
+
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:25: Warning: Hardcoded string "Search", should use @string resource [HardcodedText]
+                android:contentDescription="Search"/>
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:53: Warning: Hardcoded string "Album Art", should use @string resource [HardcodedText]
+            android:contentDescription="Album Art"/>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:55: Warning: Hardcoded string "Song Details", should use @string resource [HardcodedText]
+            android:contentDescription="Song Details"
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:64: Warning: Hardcoded string "Song Title", should use @string resource [HardcodedText]
+                android:text="Song Title"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:71: Warning: Hardcoded string "Artist Name", should use @string resource [HardcodedText]
+                android:text="Artist Name"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:86: Warning: Hardcoded string "00:00", should use @string resource [HardcodedText]
+            android:text="00:00"
+            ~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:104: Warning: Hardcoded string "00:00", should use @string resource [HardcodedText]
+            android:text="00:00"
+            ~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:122: Warning: Hardcoded string "Previous", should use @string resource [HardcodedText]
+            android:contentDescription="Previous"/>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:131: Warning: Hardcoded string "Play/Pause", should use @string resource [HardcodedText]
+            android:contentDescription="Play/Pause"/>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/mobile-music-app/app/src/main/res/layout/activity_main.xml:140: Warning: Hardcoded string "Next", should use @string resource [HardcodedText]
+            android:contentDescription="Next"/>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "HardcodedText":
+   Hardcoding text attributes directly in layout files is bad for several
+   reasons:
+
+   * When creating configuration variations (for example for landscape or
+   portrait) you have to repeat the actual text (and keep it up to date when
+   making changes)
+
+   * The application cannot be translated to other languages by just adding
+   new translations for existing string resources.
+
+   There are quickfixes to automatically extract this hardcoded string into a
+   resource lookup.
+
+/workspaces/mobile-music-app/app/src/main/AndroidManifest.xml: Warning: The project references RTL attributes, but does not explicitly enable or disable RTL support with android:supportsRtl in the manifest [RtlEnabled]
+
+   Explanation for issues of type "RtlEnabled":
+   To enable right-to-left support, when running on API 17 and higher, you
+   must set the android:supportsRtl attribute in the manifest <application>
+   element.
+
+   If you have started adding RTL attributes, but have not yet finished the
+   migration, you can set the attribute to false to satisfy this lint check.
+
+0 errors, 35 warnings

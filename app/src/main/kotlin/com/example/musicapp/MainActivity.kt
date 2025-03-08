@@ -184,8 +184,8 @@ class MainActivity : AppCompatActivity() {
             // Changing cover size
             val albumArt = findViewById<ImageView>(R.id.AlbumArt)
             var layoutParams = albumArt.layoutParams
-            layoutParams.width = 100 // in px
-            layoutParams.height = 100 // in px
+            layoutParams.width = 150 // in px
+            layoutParams.height = 150 // in px
             albumArt.layoutParams = layoutParams
 
             findViewById<TextView>(R.id.SongTitle).textSize = 14f
@@ -193,10 +193,7 @@ class MainActivity : AppCompatActivity() {
             currentTime.visibility = View.GONE
             duration.visibility = View.GONE
             findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
-
-            layoutParams = playerLayout.layoutParams
-            layoutParams.height = 
-            playerLayout.layoutParams = layoutParams
+            playerLayout.orientation = LinearLayout.HORIZONTAL
         }
 
     private fun expandToFullPlayer() {
