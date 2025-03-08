@@ -188,8 +188,8 @@ class MainActivity : AppCompatActivity() {
             // Changing cover size
             val albumArt = findViewById<ImageView>(R.id.AlbumArt)
             var layoutParams = albumArt.layoutParams
-            layoutParams.width = 150 // in px
-            layoutParams.height = 150 // in px
+            layoutParams.width = 100 // in px
+            layoutParams.height = 100 // in px
             albumArt.layoutParams = layoutParams
 
             findViewById<TextView>(R.id.SongTitle).textSize = 14f
@@ -202,6 +202,12 @@ class MainActivity : AppCompatActivity() {
             previousBtn.visibility = View.GONE
 
             playerLayout.setBackgroundResource(R.drawable.miniplayer)
+
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Debug Info")
+                .setMessage("AlbumArt Visibility: ${findViewById<ImageView>(R.id.AlbumArt).visibility}"+"\n SongTitle Visibility: ${findViewById<TextView>(R.id.SongTitle).visibility}")
+                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                .show()
         }
 
     private fun expandToFullPlayer() {
