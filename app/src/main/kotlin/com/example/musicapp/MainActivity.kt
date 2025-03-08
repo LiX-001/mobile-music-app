@@ -23,6 +23,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import android.view.Gravity
 
 class MainActivity : AppCompatActivity() {
 
@@ -199,6 +200,7 @@ class MainActivity : AppCompatActivity() {
             findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
             // playerLayout.orientation = LinearLayout.HORIZONTAL
             findViewById<LinearLayout>(R.id.controlLayout).orientation = LinearLayout.HORIZONTAL
+            findViewById<LinearLayout>(R.id.controlLayout).gravity = Gravity.LEFT
 
             // findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
             currentTime.visibility = View.GONE
@@ -208,7 +210,7 @@ class MainActivity : AppCompatActivity() {
             playPauseButton.visibility = View.VISIBLE
             
             val sickBarParams = seekBar.layoutParams as LinearLayout.LayoutParams
-            sickBarParams.weight = 0.3f
+            sickBarParams.weight = 0.9f
             seekBar.layoutParams = layoutParams
         }
 
