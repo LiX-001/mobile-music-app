@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.example.musicapp-debug-31:/raw_sparkle.mp3.flat",
+        "source": "com.example.musicapp-main-33:/raw/sparkle.mp3"
+    },
+    {
+        "merged": "com.example.musicapp-debug-31:/drawable_player_layout.xml.flat",
+        "source": "com.example.musicapp-main-33:/drawable/player_layout.xml"
+    },
+    {
+        "merged": "com.example.musicapp-debug-31:/drawable_miniplayer.xml.flat",
+        "source": "com.example.musicapp-main-33:/drawable/miniplayer.xml"
+    },
+    {
+        "merged": "com.example.musicapp-debug-31:/layout_activity_main.xml.flat",
+        "source": "com.example.musicapp-main-33:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.musicapp-debug-31:/drawable_rounded_button.xml.flat",
+        "source": "com.example.musicapp-main-33:/drawable/rounded_button.xml"
+    },
+    {
+        "merged": "com.example.musicapp-debug-31:/drawable_random_1000x1000.png.flat",
+        "source": "com.example.musicapp-main-33:/drawable/random_1000x1000.png"
+    }
+]
