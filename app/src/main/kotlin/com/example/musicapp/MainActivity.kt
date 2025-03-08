@@ -194,12 +194,10 @@ class MainActivity : AppCompatActivity() {
 
             findViewById<TextView>(R.id.SongTitle).textSize = 14f
             findViewById<TextView>(R.id.ArtistName).textSize = 10f
-            albumArt.requestLayout()
-            findViewById<TextView>(R.id.SongTitle).requestLayout()
 
 
             findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
-            playerLayout.orientation = LinearLayout.HORIZONTAL
+            // playerLayout.orientation = LinearLayout.HORIZONTAL
 
             findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
             nextBtn.visibility = View.GONE
