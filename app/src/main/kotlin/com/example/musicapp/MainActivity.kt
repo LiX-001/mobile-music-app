@@ -200,6 +200,9 @@ class MainActivity : AppCompatActivity() {
             playerLayout.orientation = LinearLayout.HORIZONTAL
 
             // findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
+            currentTime.visibility = View.GONE
+            duration.visibility = View.GONE
+            seekBar.visibility = View.GONE
             nextBtn.visibility = View.GONE
             previousBtn.visibility = View.GONE
 
