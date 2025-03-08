@@ -8,6 +8,7 @@
     <shape android:shape="rectangle">
         <solid android:color="#000000" />
         <corners android:radius="16dp" />
+        <size android:height="match_parent" />
     </shape>
 </item>
 </layer-list>
