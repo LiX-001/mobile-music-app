@@ -200,14 +200,9 @@ class MainActivity : AppCompatActivity() {
             findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
             nextBtn.visibility = View.GONE
             previousBtn.visibility = View.GONE
+            playPauseButton.visibility = View.GONE
 
             playerLayout.setBackgroundResource(R.drawable.miniplayer)
-
-            MaterialAlertDialogBuilder(this)
-                .setTitle("Debug Info")
-                .setMessage("AlbumArt Visibility: ${findViewById<ImageView>(R.id.AlbumArt).visibility}"+"\n SongTitle Visibility: ${findViewById<TextView>(R.id.SongTitle).visibility}")
-                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
-                .show()
         }
 
     private fun expandToFullPlayer() {
