@@ -199,7 +199,7 @@ class MainActivity : AppCompatActivity() {
             findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
             playerLayout.orientation = LinearLayout.HORIZONTAL
 
-            // findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
+            findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
             currentTime.visibility = View.GONE
             duration.visibility = View.GONE
             seekBar.visibility = View.GONE
