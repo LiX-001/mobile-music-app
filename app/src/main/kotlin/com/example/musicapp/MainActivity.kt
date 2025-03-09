@@ -101,13 +101,13 @@ class MainActivity : AppCompatActivity() {
                         MotionEvent.ACTION_UP -> {
                             velocityTracker?.computeCurrentVelocity(1000) // Get swipe speed
                             val velocityY = velocityTracker?.yVelocity ?: 0f
-                            val halfScreen = playerLayout.height / 2
+                            val minDistance = playerLayout.height / 3
 
                             velocityTracker?.recycle()
                             velocityTracker = null
 
                             // Determine final position based on speed or distance
-                            if (velocityY > 1000 || playerLayout.translationY > halfScreen) {
+                            if (velocityY > 1000 || playerLayout.translationY > minDistance) {
                                 collapseToMiniPlayer() // Collapse if swiped fast down or past halfway
                             } else {
                                 expandToFullPlayer() // Expand if swiped fast up or past halfway
