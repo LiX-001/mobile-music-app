@@ -3,6 +3,7 @@ package com.example.musicapp
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.widget.Toast
 import android.content.Context
 import android.os.Environment
@@ -22,6 +23,7 @@ import android.animation.ObjectAnimator
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.view.Gravity
 
@@ -179,11 +181,11 @@ class MainActivity : AppCompatActivity() {
         val albumArt = findViewById<ImageView>(R.id.AlbumArt)
         val albumArtLayout = findViewById<LinearLayout>(R.id.albumArtLayout)
         val albumArtParams = albumArt.layoutParams
-        
+
         params.height = (150 * resources.displayMetrics.density).toInt()
         playerLayout.layoutParams = params
 
-        ObjectAnimator.ofFloat(playerLayout, "translationY", playerLayout.dpToPx(500f)).apply {
+        ObjectAnimator.ofFloat(playerLayout, "translationY", 500f * resources.displayMetrics.density).apply {
                 duration = 300
                 interpolator = DecelerateInterpolator()
                 start()
@@ -191,31 +193,63 @@ class MainActivity : AppCompatActivity() {
             isMiniPlayer = true
             
 
-            // Changing cover size
-            albumArtParams.width = 150 // in px
-            albumArtParams.height = 150 // in px
-            albumArt.layoutParams = albumArtParams
+        // Changing cover size
+        albumArtParams.width = 150 // in px
+        albumArtParams.height = 150 // in px
+        albumArt.layoutParams = albumArtParams
 
-            findViewById<TextView>(R.id.SongTitle).textSize = 14f
-            findViewById<TextView>(R.id.ArtistName).textSize = 10f
+        // Changing text size
+        findViewById<TextView>(R.id.SongTitle).textSize = 14f
+        findViewById<TextView>(R.id.ArtistName).textSize = 10f
 
-            albumArtLayout.orientation = LinearLayout.HORIZONTAL
-            albumArtLayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
-            albumArtLayout.gravity = Gravity.START
+        // Changing view settings
+        albumArtLayout.orientation = LinearLayout.HORIZONTAL
+        albumArtLayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        albumArtLayout.gravity = Gravity.START
 
-            currentTime.visibility = View.GONE
-            duration.visibility = View.GONE
+        // Changing visibilities
+        currentTime.visibility = View.GONE
+        duration.visibility = View.GONE
+        
+        playPauseButton.setBackgroundResource(0)
             
-            playPauseButton.setBackgroundResource(0)
-            
-        }
+    }
 
     private fun expandToFullPlayer() {
+        // initial declarations
+        val params = playerLayout.layoutParams
+        val albumArt = findViewById<ImageView>(R.id.AlbumArt)
+        val albumArtLayout = findViewById<LinearLayout>(R.id.albumArtLayout)
+        val albumArtParams = albumArt.layoutParams
+
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT
+        playerLayout.layoutParams = params
+
         ObjectAnimator.ofFloat(playerLayout, "translationY", 0f).apply {
             duration = 300
             interpolator = DecelerateInterpolator()
             start()
         }
+
+         // Changing cover size
+        albumArtParams.width = 300 * resources.displayMetrics.density.toInt()
+        albumArtParams.height = 300 * resources.displayMetrics.density.toInt()
+        albumArt.layoutParams = albumArtParams
+
+        // Changing text size
+        findViewById<TextView>(R.id.SongTitle).textSize = 25f * resources.displayMetrics.scaledDensity
+        findViewById<TextView>(R.id.ArtistName).textSize = 15f * resources.displayMetrics.scaledDensity
+
+        // Changing view settings
+        albumArtLayout.orientation = LinearLayout.VERTICAL
+        albumArtLayout.layoutDirection = View.LAYOUT_DIRECTION_INHERIT
+        albumArtLayout.gravity = Gravity.CENTER
+
+        // Changing visibilities
+        currentTime.visibility = View.VISIBLE
+        duration.visibility = View.VISIBLE
+        
+        playPauseButton.setBackgroundResource(R.drawable.rounded_button)
     }
 
     override fun onDestroy() {
@@ -223,8 +257,4 @@ class MainActivity : AppCompatActivity() {
         mediaPlayer.release()
     }
 
-    // Some personal functions
-    fun View.dpToPx(dp: Float): Float {
-        return dp * resources.displayMetrics.density
-    }
 }
