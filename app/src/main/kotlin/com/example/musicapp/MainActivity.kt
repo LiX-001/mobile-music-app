@@ -196,9 +196,10 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.SongTitle).textSize = 14f
             findViewById<TextView>(R.id.ArtistName).textSize = 10f
 
-
-            findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
-            findViewById<LinearLayout>(R.id.albumArtLayout).layoutDirection = View.LAYOUT_DIRECTION_LTR
+            val albumArtLayout = findViewById<LinearLayout>(R.id.albumArtLayout)
+            albumArtLayout.orientation = LinearLayout.HORIZONTAL
+            albumArtLayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            albumArtLayout.gravity = Gravity.START
 
             currentTime.visibility = View.GONE
             duration.visibility = View.GONE
