@@ -183,9 +183,9 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun collapseToMiniPlayer() {
-        val params = playerLayout.layoutParams
-        params.height = (150 * resources.displayMetrics.density).toInt()
-        playerLayout.layoutParams = params
+        //val params = playerLayout.layoutParams
+        //params.height = (150 * resources.displayMetrics.density).toInt()
+        //playerLayout.layoutParams = params
         animatePlayer(expand = false)
         playPauseButton.setBackgroundResource(0)
         
