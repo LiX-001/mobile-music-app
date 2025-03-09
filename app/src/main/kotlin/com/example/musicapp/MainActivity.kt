@@ -22,6 +22,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 
 import android.animation.ObjectAnimator
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ValueAnimator
+
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -227,29 +232,55 @@ class MainActivity : AppCompatActivity() {
         params.height = ViewGroup.LayoutParams.MATCH_PARENT
         playerLayout.layoutParams = params
 
-        ObjectAnimator.ofFloat(playerLayout, "translationY", 0f).apply {
+        val playerSize = ObjectAnimator.ofFloat(playerLayout, "translationY", 0f).apply {
             duration = 300
             interpolator = DecelerateInterpolator()
+        }
+
+        val fadeOut = ObjectAnimator.ofFloat(playerLayout, "alpha", 1f, 0f).apply {
+            duration = 200
+        }
+
+        val fadeIn = ObjectAnimator.ofFloat(playerLayout, "alpha", 0f, 1f).apply {
+            duration = 200
+            startDelay = 200 // Start after fadeOut completes
+        }
+
+        // Animate text size change smoothly
+        val textSizeSong = ValueAnimator.ofFloat(14f, 25f).apply {
+            duration = 200
+            addUpdateListener { animator ->
+                findViewById<TextView>(R.id.SongTitle).textSize = (animator.animatedValue as Float)
+            }
+        }
+
+        val textSizeArtist = ValueAnimator.ofFloat(10f, 15f).apply {
+            duration = 200
+            addUpdateListener { animator ->
+                findViewById<TextView>(R.id.ArtistName).textSize = (animator.animatedValue as Float)
+            }
+        }
+
+        // Apply layout changes after fade out completes
+        fadeOut.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                // Changing view settings
+                albumArtLayout.orientation = LinearLayout.VERTICAL
+                albumArtLayout.layoutDirection = View.LAYOUT_DIRECTION_INHERIT
+                albumArtLayout.gravity = Gravity.CENTER
+
+                // Changing visibility (with fade-in effect)
+                currentTime.animate().alpha(1f).setDuration(200).start()
+                duration.animate().alpha(1f).setDuration(200).start()
+            }
+        })
+
+        // Run all animations together in sequence
+        AnimatorSet().apply {
+            playSequentially(fadeOut, textSizeSong, textSizeArtist, fadeIn, playerSize)
             start()
         }
 
-        // Changing cover size
-        albumArtParams.width = 300 * resources.displayMetrics.density.roundToInt()
-        albumArtParams.height = 300 * resources.displayMetrics.density.roundToInt()
-        albumArt.layoutParams = albumArtParams
-
-        // Changing text size
-        findViewById<TextView>(R.id.SongTitle).textSize = spToPx(25f, this)
-        findViewById<TextView>(R.id.ArtistName).textSize = spToPx(15f, this)
-
-        // Changing view settings
-        albumArtLayout.orientation = LinearLayout.VERTICAL
-        albumArtLayout.layoutDirection = View.LAYOUT_DIRECTION_INHERIT
-        albumArtLayout.gravity = Gravity.CENTER
-
-        // Changing visibilities
-        currentTime.visibility = View.VISIBLE
-        duration.visibility = View.VISIBLE
         
         playPauseButton.setBackgroundResource(R.drawable.rounded_button)
     }
