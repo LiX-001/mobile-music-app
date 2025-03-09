@@ -76,7 +76,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             playerLayout = findViewById(R.id.playerLayout)
-            @Suppress("NOTHING_TO_OVERRIDE", "ACCIDENTAL_OVERRIDE")
             // Touch listener for swiping into MiniPlayer
             playerLayout.setOnTouchListener { _, event ->
                 when (event.action) {
@@ -94,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                         // Snap to full or mini position based on final position
                         if (playerLayout.translationY > 200) {
                             collapseToMiniPlayer()
-                        } else {
+                        } else if (playerLayout.translationY < 200) {
                             expandToFullPlayer()
                         }
                         true
