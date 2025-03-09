@@ -178,7 +178,7 @@ class MainActivity : AppCompatActivity() {
         params.height = (150 * resources.displayMetrics.density).toInt()
         playerLayout.layoutParams = params
 
-        ObjectAnimator.ofFloat(playerLayout, "translationY", 800f).apply {
+        ObjectAnimator.ofFloat(playerLayout, "translationY", playerLayout.dpToPx(500f)).apply {
                 duration = 300
                 interpolator = DecelerateInterpolator()
                 start()
@@ -198,11 +198,12 @@ class MainActivity : AppCompatActivity() {
 
 
             findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
-            
+            findViewById<LinearLayout>(R.id.albumArtLayout).layoutDirection = View.LAYOUT_DIRECTION_LTR
+
             currentTime.visibility = View.GONE
             duration.visibility = View.GONE
             
-            playPauseButton.setBackgroundResource(android.R.drawable.ic_media_play)
+            playPauseButton.setBackgroundResource(0)
             
         }
 
@@ -217,5 +218,10 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.release()
+    }
+
+    // Some personal functions
+    fun View.dpToPx(dp: Float): Float {
+        return dp * resources.displayMetrics.density
     }
 }
