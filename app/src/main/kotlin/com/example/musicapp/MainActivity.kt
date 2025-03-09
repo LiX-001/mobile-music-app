@@ -198,21 +198,13 @@ class MainActivity : AppCompatActivity() {
 
 
             findViewById<LinearLayout>(R.id.albumArtLayout).orientation = LinearLayout.HORIZONTAL
-            // playerLayout.orientation = LinearLayout.HORIZONTAL
-            findViewById<LinearLayout>(R.id.controlLayout).orientation = LinearLayout.HORIZONTAL
-
-            // findViewById<LinearLayout>(R.id.seekBarLayout).visibility = View.GONE
+            
             currentTime.visibility = View.GONE
             duration.visibility = View.GONE
             nextBtn.visibility = View.GONE
             previousBtn.visibility = View.GONE
             playPauseButton.visibility = View.VISIBLE
             
-            val sickBarParams = seekBar.layoutParams as LinearLayout.LayoutParams
-            sickBarParams.weight = 0.6f
-            seekBar.layoutParams = layoutParams
-
-            playerLayout.gravity = Gravity.START 
         }
 
     private fun expandToFullPlayer() {
