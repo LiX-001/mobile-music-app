@@ -1,7 +1,5 @@
 package com.example.musicapp
 
-import kotlin.math.roundToInt
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.os.Bundle
 import android.util.Log
@@ -33,6 +31,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.view.Gravity
+import android.view.VelocityTracker
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -77,39 +77,48 @@ class MainActivity : AppCompatActivity() {
 
             playerLayout = findViewById(R.id.playerLayout)
             // Touch listener for swiping into MiniPlayer
-            playerLayout.setOnTouchListener { _, event ->
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        startY = event.rawY // Store the starting position
-                        true
-                    }
-                    MotionEvent.ACTION_MOVE -> {
-                        val deltaY = event.rawY - startY
-                        playerLayout.translationY += deltaY // Move the layout
-                        startY = event.rawY // Update start position for smooth movement
-                        true
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        val minUpwardMovement = 100 // Minimum pixels to move up for expansion
-                        val minDownwardMovement = 200 // Minimum pixels to move down for collapse
+            playerLayout.setOnTouchListener(object : View.OnTouchListener {
+                private var startY = 0f
+                private var velocityTracker: VelocityTracker? = null
 
-                        when {
-                            playerLayout.translationY > minDownwardMovement -> collapseToMiniPlayer()
-                            playerLayout.translationY < minUpwardMovement -> expandToFullPlayer()
-                            else -> {
-                                // Snap back to the nearest position
-                                if (playerLayout.translationY > minDownwardMovement / 2) {
-                                    collapseToMiniPlayer()
-                                } else {
-                                    expandToFullPlayer()
-                                }
-                            }
+                override fun onTouch(v: View, event: MotionEvent): Boolean {
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            startY = event.rawY // Store the initial position
+                            velocityTracker = VelocityTracker.obtain()
+                            velocityTracker?.addMovement(event)
+                            return true
                         }
-                        true
+
+                        MotionEvent.ACTION_MOVE -> {
+                            velocityTracker?.addMovement(event)
+                            val deltaY = event.rawY - startY
+                            playerLayout.translationY += deltaY // Move the layout
+                            startY = event.rawY // Update start position for smooth movement
+                            return true
+                        }
+
+                        MotionEvent.ACTION_UP -> {
+                            velocityTracker?.computeCurrentVelocity(1000) // Get swipe speed
+                            val velocityY = velocityTracker?.yVelocity ?: 0f
+                            val halfScreen = playerLayout.height / 2
+
+                            velocityTracker?.recycle()
+                            velocityTracker = null
+
+                            // Determine final position based on speed or distance
+                            if (velocityY > 1000 || playerLayout.translationY > halfScreen) {
+                                collapseToMiniPlayer() // Collapse if swiped fast down or past halfway
+                            } else {
+                                expandToFullPlayer() // Expand if swiped fast up or past halfway
+                            }
+                            return true
+                        }
                     }
-                    else -> false
+                    return false // Add default return for other cases
                 }
-            }
+            })
+
 
 
 
