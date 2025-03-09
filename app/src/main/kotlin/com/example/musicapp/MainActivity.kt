@@ -172,14 +172,14 @@ class MainActivity : AppCompatActivity() {
         handler.postDelayed(updateRunnable, 1000)
     }
 
-    // initial declarations
-    val params = playerLayout.layoutParams
-    val albumArt = findViewById<ImageView>(R.id.AlbumArt)
-    val albumArtLayout = findViewById<LinearLayout>(R.id.albumArtLayout)
-    val albumArtParams = albumArt.layoutParams
-
 
     private fun collapseToMiniPlayer() {
+        // initial declarations
+        val params = playerLayout.layoutParams
+        val albumArt = findViewById<ImageView>(R.id.AlbumArt)
+        val albumArtLayout = findViewById<LinearLayout>(R.id.albumArtLayout)
+        val albumArtParams = albumArt.layoutParams
+        
         params.height = (150 * resources.displayMetrics.density).toInt()
         playerLayout.layoutParams = params
 
