@@ -229,15 +229,32 @@ class MainActivity : AppCompatActivity() {
         val albumArtLayout = findViewById<LinearLayout>(R.id.albumArtLayout)
         val albumArtParams = albumArt.layoutParams
 
-        params.height = ViewGroup.LayoutParams.MATCH_PARENT
-        playerLayout.layoutParams = params
+        val playerHeight = ValueAnimator.ofInt(playerLayout.height, ViewGroup.LayoutParams.MATCH_PARENT).apply {
+            duration = 300
+            addUpdateListener { animation ->
+                val newHeight = animation.animatedValue as Int
+                params.height = newHeight
+                playerLayout.layoutParams = params
+            }
+        }
 
-        // Changing cover size
-        albumArtParams.width = 150 // in px
-        albumArtParams.height = 150 // in px
-        albumArt.layoutParams = albumArtParams
+        val coverWidth = ValueAnimator.ofInt(albumArt.width, 300 * resources.displayMetrics.density.roundToInt()).apply {
+            duration = 300
+            addUpdateListener { animation ->
+                albumArtParams.width = animation.animatedValue as Int
+                albumArt.layoutParams = albumArtParams
+            }
+        }
 
-        val playerSize = ObjectAnimator.ofFloat(playerLayout, "translationY", 0f).apply {
+        val coverHeight = ValueAnimator.ofInt(albumArt.height, 300 * resources.displayMetrics.density.roundToInt()).apply {
+            duration = 300
+            addUpdateListener { animation ->
+                albumArtParams.height = animation.animatedValue as Int
+                albumArt.layoutParams = albumArtParams
+            }
+        }
+
+        val playerLocation = ObjectAnimator.ofFloat(playerLayout, "translationY", 0f).apply {
             duration = 300
             interpolator = DecelerateInterpolator()
         }
@@ -282,7 +299,7 @@ class MainActivity : AppCompatActivity() {
 
         // Run all animations together in sequence
         AnimatorSet().apply {
-            playSequentially(fadeOut, textSizeSong, textSizeArtist, fadeIn, playerSize)
+            playSequentially(playerHeight, coverWidth, coverHeight, fadeOut, textSizeSong, textSizeArtist, fadeIn, playerLocation)
             start()
         }
 
