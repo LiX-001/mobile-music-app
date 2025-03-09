@@ -172,9 +172,14 @@ class MainActivity : AppCompatActivity() {
         handler.postDelayed(updateRunnable, 1000)
     }
 
+    // initial declarations
+    val params = playerLayout.layoutParams
+    val albumArt = findViewById<ImageView>(R.id.AlbumArt)
+    val albumArtLayout = findViewById<LinearLayout>(R.id.albumArtLayout)
+    val albumArtParams = albumArt.layoutParams
+
 
     private fun collapseToMiniPlayer() {
-        val params = playerLayout.layoutParams
         params.height = (150 * resources.displayMetrics.density).toInt()
         playerLayout.layoutParams = params
 
@@ -187,16 +192,13 @@ class MainActivity : AppCompatActivity() {
             
 
             // Changing cover size
-            val albumArt = findViewById<ImageView>(R.id.AlbumArt)
-            val layoutParams = albumArt.layoutParams
-            layoutParams.width = 150 // in px
-            layoutParams.height = 150 // in px
-            albumArt.layoutParams = layoutParams
+            albumArtParams.width = 150 // in px
+            albumArtParams.height = 150 // in px
+            albumArt.layoutParams = albumArtParams
 
             findViewById<TextView>(R.id.SongTitle).textSize = 14f
             findViewById<TextView>(R.id.ArtistName).textSize = 10f
 
-            val albumArtLayout = findViewById<LinearLayout>(R.id.albumArtLayout)
             albumArtLayout.orientation = LinearLayout.HORIZONTAL
             albumArtLayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
             albumArtLayout.gravity = Gravity.START
