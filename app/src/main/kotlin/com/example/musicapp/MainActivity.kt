@@ -1,5 +1,7 @@
 package com.example.musicapp
 
+import kotlin.math.roundToInt
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.os.Bundle
 import android.util.Log
@@ -85,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     MotionEvent.ACTION_UP -> {
                         // Snap to full or mini position based on final position
-                        if (playerLayout.translationY > 400) {
+                        if (playerLayout.translationY > 200) {
                             collapseToMiniPlayer()
                         } else {
                             expandToFullPlayer()
@@ -231,14 +233,14 @@ class MainActivity : AppCompatActivity() {
             start()
         }
 
-         // Changing cover size
-        albumArtParams.width = 300 * resources.displayMetrics.density.toInt()
-        albumArtParams.height = 300 * resources.displayMetrics.density.toInt()
+        // Changing cover size
+        albumArtParams.width = 300 * resources.displayMetrics.density.roundToInt()
+        albumArtParams.height = 300 * resources.displayMetrics.density.roundToInt()
         albumArt.layoutParams = albumArtParams
 
         // Changing text size
-        findViewById<TextView>(R.id.SongTitle).textSize = 25f * resources.displayMetrics.scaledDensity
-        findViewById<TextView>(R.id.ArtistName).textSize = 15f * resources.displayMetrics.scaledDensity
+        findViewById<TextView>(R.id.SongTitle).textSize = spToPx(25f, this)
+        findViewById<TextView>(R.id.ArtistName).textSize = spToPx(25f, this)
 
         // Changing view settings
         albumArtLayout.orientation = LinearLayout.VERTICAL
@@ -255,6 +257,11 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.release()
+    }
+
+    // Some personal functions
+    fun spToPx(sp: Float, context: Context): Float {
+        return sp * context.resources.displayMetrics.scaledDensity
     }
 
 }
