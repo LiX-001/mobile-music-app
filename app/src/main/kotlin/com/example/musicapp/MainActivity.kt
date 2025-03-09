@@ -186,7 +186,7 @@ class MainActivity : AppCompatActivity() {
         val params = playerLayout.layoutParams
         params.height = (150 * resources.displayMetrics.density).toInt()
         playerLayout.layoutParams = params
-
+        animatePlayer(expand = false)
         playPauseButton.setBackgroundResource(0)
         
     }
