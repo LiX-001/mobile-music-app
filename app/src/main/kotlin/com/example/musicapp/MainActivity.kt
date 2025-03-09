@@ -90,11 +90,20 @@ class MainActivity : AppCompatActivity() {
                         true
                     }
                     MotionEvent.ACTION_UP -> {
-                        // Snap to full or mini position based on final position
-                        if (playerLayout.translationY > 200) {
-                            collapseToMiniPlayer()
-                        } else if (playerLayout.translationY < 200) {
-                            expandToFullPlayer()
+                        val minUpwardMovement = 100 // Minimum pixels to move up for expansion
+                        val minDownwardMovement = 200 // Minimum pixels to move down for collapse
+
+                        when {
+                            playerLayout.translationY > minDownwardMovement -> collapseToMiniPlayer()
+                            playerLayout.translationY < minUpwardMovement -> expandToFullPlayer()
+                            else -> {
+                                // Snap back to the nearest position
+                                if (playerLayout.translationY > minDownwardMovement / 2) {
+                                    collapseToMiniPlayer()
+                                } else {
+                                    expandToFullPlayer()
+                                }
+                            }
                         }
                         true
                     }
