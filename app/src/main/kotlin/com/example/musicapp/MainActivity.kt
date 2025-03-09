@@ -240,7 +240,7 @@ class MainActivity : AppCompatActivity() {
 
         // Changing text size
         findViewById<TextView>(R.id.SongTitle).textSize = spToPx(25f, this)
-        findViewById<TextView>(R.id.ArtistName).textSize = spToPx(25f, this)
+        findViewById<TextView>(R.id.ArtistName).textSize = spToPx(15f, this)
 
         // Changing view settings
         albumArtLayout.orientation = LinearLayout.VERTICAL
