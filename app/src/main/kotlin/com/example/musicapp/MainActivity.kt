@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun collapseToMiniPlayer() {
-        animatePlayer(expand = true)
+        animatePlayer(expand = false)
         playPauseButton.setBackgroundResource(0)
             
     }
