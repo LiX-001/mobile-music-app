@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                         MotionEvent.ACTION_UP -> {
                             velocityTracker?.computeCurrentVelocity(1000) // Get swipe speed
                             val velocityY = velocityTracker?.yVelocity ?: 0f
-                            val minDistance = playerLayout.height / 3
+                            val minDistance = playerLayout.height / 2
 
                             velocityTracker?.recycle()
                             velocityTracker = null
