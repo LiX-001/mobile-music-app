@@ -183,9 +183,11 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun collapseToMiniPlayer() {
-        animatePlayer(expand = false)
+        params.height = (150 * resources.displayMetrics.density).toInt()
+        playerLayout.layoutParams = params
+
         playPauseButton.setBackgroundResource(0)
-            
+        
     }
 
     private fun expandToFullPlayer() {
