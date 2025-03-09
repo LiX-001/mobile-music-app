@@ -299,7 +299,7 @@ class MainActivity : AppCompatActivity() {
 
         // Run all animations together in sequence
         AnimatorSet().apply {
-            playSequentially(playerHeight, coverWidth, coverHeight, fadeOut, textSizeSong, textSizeArtist, fadeIn, playerLocation)
+            playSequentially(playerLocation, playerHeight, coverWidth, coverHeight, textSizeSong, textSizeArtist, fadeOut, fadeIn)
             start()
         }
 
