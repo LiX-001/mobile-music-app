@@ -201,9 +201,8 @@ class MainActivity : AppCompatActivity() {
             
             currentTime.visibility = View.GONE
             duration.visibility = View.GONE
-            nextBtn.visibility = View.GONE
-            previousBtn.visibility = View.GONE
-            playPauseButton.visibility = View.VISIBLE
+            
+            playPauseButton.setBackgroundResource(android.R.drawable.ic_media_play)
             
         }
 
