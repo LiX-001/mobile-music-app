@@ -232,6 +232,11 @@ class MainActivity : AppCompatActivity() {
         params.height = ViewGroup.LayoutParams.MATCH_PARENT
         playerLayout.layoutParams = params
 
+        // Changing cover size
+        albumArtParams.width = 150 // in px
+        albumArtParams.height = 150 // in px
+        albumArt.layoutParams = albumArtParams
+
         val playerSize = ObjectAnimator.ofFloat(playerLayout, "translationY", 0f).apply {
             duration = 300
             interpolator = DecelerateInterpolator()
