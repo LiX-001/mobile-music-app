@@ -183,62 +183,48 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun collapseToMiniPlayer() {
-        // initial declarations
-        val params = playerLayout.layoutParams
-        val albumArt = findViewById<ImageView>(R.id.AlbumArt)
-        val albumArtLayout = findViewById<LinearLayout>(R.id.albumArtLayout)
-        val albumArtParams = albumArt.layoutParams
-
-        params.height = (150 * resources.displayMetrics.density).toInt()
-        playerLayout.layoutParams = params
-
-        ObjectAnimator.ofFloat(playerLayout, "translationY", 500f * resources.displayMetrics.density).apply {
-                duration = 300
-                interpolator = DecelerateInterpolator()
-                start()
-            }
-            isMiniPlayer = true
-            
-
-        // Changing cover size
-        albumArtParams.width = 150 // in px
-        albumArtParams.height = 150 // in px
-        albumArt.layoutParams = albumArtParams
-
-        // Changing text size
-        findViewById<TextView>(R.id.SongTitle).textSize = 14f
-        findViewById<TextView>(R.id.ArtistName).textSize = 10f
-
-        // Changing view settings
-        albumArtLayout.orientation = LinearLayout.HORIZONTAL
-        albumArtLayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
-        albumArtLayout.gravity = Gravity.START
-
-        // Changing visibilities
-        currentTime.visibility = View.GONE
-        duration.visibility = View.GONE
-        
+        animatePlayer(expand = true)
         playPauseButton.setBackgroundResource(0)
             
     }
 
     private fun expandToFullPlayer() {
-        // initial declarations
+        animatePlayer(expand = true)
+        playPauseButton.setBackgroundResource(R.drawable.rounded_button)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
+    }
+
+    private fun animatePlayer(expand: Boolean) {
         val params = playerLayout.layoutParams
         val albumArt = findViewById<ImageView>(R.id.AlbumArt)
         val albumArtLayout = findViewById<LinearLayout>(R.id.albumArtLayout)
         val albumArtParams = albumArt.layoutParams
 
-        val playerHeight = ValueAnimator.ofInt(playerLayout.height, ViewGroup.LayoutParams.MATCH_PARENT).apply {
+        // Define target values based on state (expand or collapse)
+        val targetHeight = if (expand) ViewGroup.LayoutParams.MATCH_PARENT else (150 * resources.displayMetrics.density).toInt()
+        val targetTranslationY = if (expand) 0f else (500f * resources.displayMetrics.density)
+        val targetCoverSize = if (expand) (300 * resources.displayMetrics.density).toInt() else 150
+        val targetTextSizeSong = if (expand) 25f else 14f
+        val targetTextSizeArtist = if (expand) 15f else 10f
+        val visibility = if (expand) View.VISIBLE else View.GONE
+        val gravity = if (expand) Gravity.CENTER else Gravity.START
+        val orientation = if (expand) LinearLayout.VERTICAL else LinearLayout.HORIZONTAL
+
+        // Height animation
+        val playerHeight = ValueAnimator.ofInt(playerLayout.height, targetHeight).apply {
             duration = 300
             addUpdateListener { animation ->
-                val newHeight = animation.animatedValue as Int
-                params.height = newHeight
+                params.height = animation.animatedValue as Int
                 playerLayout.layoutParams = params
             }
         }
 
-        val coverWidth = ValueAnimator.ofInt(albumArt.width, 300 * resources.displayMetrics.density.roundToInt()).apply {
+        // Width & height animation for album art
+        val coverWidth = ValueAnimator.ofInt(albumArt.width, targetCoverSize).apply {
             duration = 300
             addUpdateListener { animation ->
                 albumArtParams.width = animation.animatedValue as Int
@@ -246,7 +232,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val coverHeight = ValueAnimator.ofInt(albumArt.height, 300 * resources.displayMetrics.density.roundToInt()).apply {
+        val coverHeight = ValueAnimator.ofInt(albumArt.height, targetCoverSize).apply {
             duration = 300
             addUpdateListener { animation ->
                 albumArtParams.height = animation.animatedValue as Int
@@ -254,62 +240,59 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val playerLocation = ObjectAnimator.ofFloat(playerLayout, "translationY", 0f).apply {
+        // Player translation animation
+        val playerLocation = ObjectAnimator.ofFloat(playerLayout, "translationY", targetTranslationY).apply {
             duration = 300
             interpolator = DecelerateInterpolator()
         }
 
+        // Fade out before layout changes
         val fadeOut = ObjectAnimator.ofFloat(playerLayout, "alpha", 1f, 0f).apply {
-            duration = 200
+            duration = 150
         }
 
+        // Fade in after layout changes
         val fadeIn = ObjectAnimator.ofFloat(playerLayout, "alpha", 0f, 1f).apply {
-            duration = 200
-            startDelay = 200 // Start after fadeOut completes
+            duration = 150
+            startDelay = 150 // Ensures it starts after fade-out completes
         }
 
-        // Animate text size change smoothly
-        val textSizeSong = ValueAnimator.ofFloat(14f, 25f).apply {
+        // Animate text size
+        val textSizeSong = ValueAnimator.ofFloat(findViewById<TextView>(R.id.SongTitle).textSize, targetTextSizeSong).apply {
             duration = 200
             addUpdateListener { animator ->
-                findViewById<TextView>(R.id.SongTitle).textSize = (animator.animatedValue as Float)
+                findViewById<TextView>(R.id.SongTitle).textSize = animator.animatedValue as Float
             }
         }
 
-        val textSizeArtist = ValueAnimator.ofFloat(10f, 15f).apply {
+        val textSizeArtist = ValueAnimator.ofFloat(findViewById<TextView>(R.id.ArtistName).textSize, targetTextSizeArtist).apply {
             duration = 200
             addUpdateListener { animator ->
-                findViewById<TextView>(R.id.ArtistName).textSize = (animator.animatedValue as Float)
+                findViewById<TextView>(R.id.ArtistName).textSize = animator.animatedValue as Float
             }
         }
 
-        // Apply layout changes after fade out completes
+        // Apply layout changes after fade-out completes
         fadeOut.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
-                // Changing view settings
-                albumArtLayout.orientation = LinearLayout.VERTICAL
+                // Update layout after fade-out
+                albumArtLayout.orientation = orientation
                 albumArtLayout.layoutDirection = View.LAYOUT_DIRECTION_INHERIT
-                albumArtLayout.gravity = Gravity.CENTER
+                albumArtLayout.gravity = gravity
 
-                // Changing visibility (with fade-in effect)
-                currentTime.animate().alpha(1f).setDuration(200).start()
-                duration.animate().alpha(1f).setDuration(200).start()
+                // Update visibilities with fade effect
+                currentTime.visibility = visibility
+                duration.visibility = visibility
             }
         })
 
-        // Run all animations together in sequence
+        // Run all animations together
         AnimatorSet().apply {
-            playTogether(playerLocation, playerHeight, coverWidth, textSizeSong, textSizeArtist, coverHeight, fadeOut, fadeIn)
+            playTogether(playerLocation, playerHeight, coverWidth, coverHeight, textSizeSong, textSizeArtist, fadeOut, fadeIn)
             start()
         }
 
-        
-        playPauseButton.setBackgroundResource(R.drawable.rounded_button)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mediaPlayer.release()
+        isMiniPlayer = !expand // Toggle the state
     }
 
     // Some personal functions
