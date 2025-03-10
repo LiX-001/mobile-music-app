@@ -204,13 +204,13 @@ class MainActivity : AppCompatActivity() {
         //params.height = (150 * resources.displayMetrics.density).toInt()
         //playerLayout.layoutParams = params
         animatePlayer(expand = false)
-        playPauseButton.setBackgroundResource(0)
-        
+        playPauseButton.setBackgroundResource(0)   
     }
 
     private fun expandToFullPlayer() {
         animatePlayer(expand = true)
         playPauseButton.setBackgroundResource(R.drawable.rounded_button)
+        playerLayout.setBackgroundResource(R.drawable.player_layout)
     }
 
     override fun onDestroy() {
