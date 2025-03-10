@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.widget.Toast
-import android.content.Context
 import android.os.Environment
 import java.io.File
 import android.widget.LinearLayout
@@ -18,6 +17,12 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import android.content.ContentResolver
+import android.content.Context
+import android.provider.MediaStore
+import android.database.Cursor
+import kotlin.collections.MutableList
+
 
 import android.animation.ObjectAnimator
 import android.animation.Animator
@@ -115,9 +120,57 @@ class MainActivity : AppCompatActivity() {
                             return true
                         }
                     }
-                    return false // Add default return for other cases
+                    return false
                 }
             })
+
+
+            val browsingSource = 0          // 0 = storage, 1 = internet
+
+            // Display local audios
+            if (browsingSource == 0) {
+                val projection = arrayOf(
+                    MediaStore.Audio.Media._ID,       // Unique ID
+                    MediaStore.Audio.Media.TITLE,     // Song Title
+                    MediaStore.Audio.Media.ARTIST,    // Artist Name
+                    MediaStore.Audio.Media.DURATION,  // Duration in milliseconds
+                    MediaStore.Audio.Media.DATA       // File path
+                )
+
+                val selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0 AND ${MediaStore.Audio.Media.DURATION} > ?"
+                val selectionArgs = arrayOf("30000") // Ignore files shorter than 30 seconds
+
+                val sortOrder = "${MediaStore.Audio.Media.DATE_ADDED} ASC"
+                val audioList = mutableListOf<AudioFile>() 
+
+                applicationContext.contentResolver.query(
+                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    sortOrder
+                )?.use { cursor ->
+                    val idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
+                    val titleColumn = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
+                    val artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
+                    val durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
+                    val dataColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DATA)
+
+                    while (cursor.moveToNext()) {
+                        val id = cursor.getLong(idColumn)
+                        val title = cursor.getString(titleColumn)
+                        val artist = cursor.getString(artistColumn)
+                        val duration = cursor.getLong(durationColumn)
+                        val filePath = cursor.getString(dataColumn)
+
+                        // Store the song data in a list
+                        audioList.add(AudioFile(id, title, artist, duration, filePath))
+                    }
+                }
+
+            }
+
+
 
 
 
@@ -160,6 +213,16 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
     }
+
+    // Data class for AudioFile
+    data class AudioFile(
+        val id: Long,
+        val title: String,
+        val artist: String?,
+        val duration: Long,
+        val filePath: String
+    )
+
 
     // Updates SeekBar
     private fun updateSeekBar() {
