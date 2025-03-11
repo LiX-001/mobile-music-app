@@ -32,6 +32,10 @@ id PlayPauseButton
 id PreviousButton
 id SongTitle
 id albumArtLayout
+id audioArtist
+id audioList
+id audioThumbnail
+id audioTitle
 id controlLayout
 id playerLayout
 id search_icon
@@ -39,6 +43,7 @@ id seekBar
 id seekBarLayout
 id toolbar
 layout activity_main
+layout item_audio
 raw sparkle
 string app_name
 style Theme.MusicApp

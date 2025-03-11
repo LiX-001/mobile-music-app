@@ -26,6 +26,13 @@
             
     </androidx.appcompat.widget.Toolbar>
 
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/audioList"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp" />
+
+
 <LinearLayout
     android:id="@+id/playerLayout"
     android:layout_width="match_parent"

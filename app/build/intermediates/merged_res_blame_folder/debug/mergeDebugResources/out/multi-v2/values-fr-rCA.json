@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.musicapp-mergeDebugResources-29:/values-fr-rCA/values-fr-rCA.xml",
+            "outputFile": "com.example.musicapp-mergeDebugResources-30:/values-fr-rCA/values-fr-rCA.xml",
             "map": [
                 {
                     "source": "/home/codespace/.gradle/caches/8.11.1/transforms/2f831163fbe8bea0f025924f990f02f1/transformed/core-1.12.0/res/values-fr-rCA/values-fr-rCA.xml",

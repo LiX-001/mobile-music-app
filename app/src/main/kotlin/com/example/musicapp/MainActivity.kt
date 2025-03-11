@@ -38,6 +38,13 @@ import android.view.animation.DecelerateInterpolator
 import android.view.Gravity
 import android.view.VelocityTracker
 
+import androidx.core.content.ContextCompat
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,8 +61,13 @@ class MainActivity : AppCompatActivity() {
     private var startY = 0f
     private var isMiniPlayer = false
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var audioAdapter: AudioAdapter
+    private val audioList = mutableListOf<AudioFile>()
 
     private val handler = Handler(Looper.getMainLooper())
+
+    private var browsingSource: Int = 0     // 0 = Local Storage ; 1 = Online Sources
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +86,18 @@ class MainActivity : AppCompatActivity() {
             nextBtn = findViewById(R.id.NextButton)
             currentTime = findViewById(R.id.CurrentTime)
             duration = findViewById(R.id.Duration)
+
+            recyclerView = findViewById(R.id.audioList)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = audioAdapter
+
+            // Check and request storage permission
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                fetchAudioFiles()
+            } else {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 101)
+            }
+
 
             val searchIcon: ImageButton = findViewById(R.id.search_icon)
             searchIcon.setOnClickListener {
@@ -124,51 +148,7 @@ class MainActivity : AppCompatActivity() {
                 }
             })
 
-
-            val browsingSource = 0          // 0 = storage, 1 = internet
-
-            // Display local audios
-            if (browsingSource == 0) {
-                val projection = arrayOf(
-                    MediaStore.Audio.Media._ID,       // Unique ID
-                    MediaStore.Audio.Media.TITLE,     // Song Title
-                    MediaStore.Audio.Media.ARTIST,    // Artist Name
-                    MediaStore.Audio.Media.DURATION,  // Duration in milliseconds
-                    MediaStore.Audio.Media.DATA       // File path
-                )
-
-                val selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0 AND ${MediaStore.Audio.Media.DURATION} > ?"
-                val selectionArgs = arrayOf("30000") // Ignore files shorter than 30 seconds
-
-                val sortOrder = "${MediaStore.Audio.Media.DATE_ADDED} ASC"
-                val audioList = mutableListOf<AudioFile>() 
-
-                applicationContext.contentResolver.query(
-                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                    projection,
-                    selection,
-                    selectionArgs,
-                    sortOrder
-                )?.use { cursor ->
-                    val idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
-                    val titleColumn = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
-                    val artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
-                    val durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
-                    val dataColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DATA)
-
-                    while (cursor.moveToNext()) {
-                        val id = cursor.getLong(idColumn)
-                        val title = cursor.getString(titleColumn)
-                        val artist = cursor.getString(artistColumn)
-                        val duration = cursor.getLong(durationColumn)
-                        val filePath = cursor.getString(dataColumn)
-
-                        // Store the song data in a list
-                        audioList.add(AudioFile(id, title, artist, duration, filePath))
-                    }
-                }
-
-            }
+            
 
 
 
@@ -213,15 +193,6 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
     }
-
-    // Data class for AudioFile
-    data class AudioFile(
-        val id: Long,
-        val title: String,
-        val artist: String?,
-        val duration: Long,
-        val filePath: String
-    )
 
 
     // Updates SeekBar
@@ -276,10 +247,73 @@ class MainActivity : AppCompatActivity() {
         playerLayout.setBackgroundResource(R.drawable.player_layout)
     }
 
+    private fun fetchAudioFiles() {
+        if (browsingSource == 0) { 
+            val projection = arrayOf(
+                MediaStore.Audio.Media._ID,
+                MediaStore.Audio.Media.TITLE,
+                MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media.DURATION,
+                MediaStore.Audio.Media.DATA
+            )
+
+            val selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0 AND ${MediaStore.Audio.Media.DURATION} > ?"
+            val selectionArgs = arrayOf("30000")
+
+            val sortOrder = "${MediaStore.Audio.Media.DATE_ADDED} ASC"
+            audioList.clear() // Clear previous data to avoid duplication
+
+            applicationContext.contentResolver.query(
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                projection,
+                selection,
+                selectionArgs,
+                sortOrder
+            )?.use { cursor ->
+                val idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
+                val titleColumn = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
+                val artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
+                val durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
+                val dataColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DATA)
+
+                while (cursor.moveToNext()) {
+                    val id = cursor.getLong(idColumn)
+                    val title = cursor.getString(titleColumn)
+                    val artist = cursor.getString(artistColumn) ?: "Unknown"
+                    val duration = cursor.getLong(durationColumn)
+                    val filePath = cursor.getString(dataColumn)
+
+                    audioList.add(AudioFile(id, title, artist, duration, filePath))
+                }
+            }
+
+            // Initialize adapter inside a function
+            runOnUiThread {
+                audioAdapter = AudioAdapter(audioList) { audio ->
+                    Toast.makeText(this, "Clicked: ${audio.title}", Toast.LENGTH_SHORT).show()
+                }
+                recyclerView.adapter = audioAdapter
+                audioAdapter.notifyDataSetChanged() // Refresh UI
+            }
+        }
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.release()
     }
+
+    // Handle permission result
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 101 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            fetchAudioFiles()
+        } else {
+            Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+        }
+    } 
+
 
     private fun animatePlayer(expand: Boolean) {
         val params = playerLayout.layoutParams

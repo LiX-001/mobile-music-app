@@ -3096,6 +3096,10 @@ id animateToStart
 id arc
 id asConfigured
 id async
+id audioArtist
+id audioList
+id audioThumbnail
+id audioTitle
 id auto
 id autoComplete
 id autoCompleteToEnd
@@ -3218,6 +3222,7 @@ id indeterminate
 id info
 id invisible
 id inward
+id is_pooling_container_tag
 id italic
 id item_touch_helper_previous_elevation
 id jumpToEnd
@@ -3336,6 +3341,7 @@ id peekHeight
 id percent
 id pin
 id playerLayout
+id pooling_container_listener_holder_tag
 id position
 id postLayout
 id pressed
@@ -3607,6 +3613,7 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_audio
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
