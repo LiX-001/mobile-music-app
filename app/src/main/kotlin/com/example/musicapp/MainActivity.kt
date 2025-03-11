@@ -104,7 +104,9 @@ class MainActivity : AppCompatActivity() {
 
             audioAdapter = AudioAdapter(audioList) { audio ->
                 // Release previous instance (if any) to avoid memory leaks
-                mediaPlayer?.release()
+                if (::mediaPlayer.isInitialized) {
+                    mediaPlayer.release()
+                }            
 
                 // Fetch audio and play
                 val audioUri = Uri.parse(audio.filePath)
