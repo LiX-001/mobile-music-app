@@ -306,7 +306,16 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 101 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             fetchAudioFiles()
         } else {
-            Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(this)
+            .setTitle("Storage Permission Needed")
+            .setMessage("This app needs access to your storage to fetch audio files. Please grant permission.")
+            .setPositiveButton("OK") { _, _ ->
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 101)
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
         }
     } 
 
