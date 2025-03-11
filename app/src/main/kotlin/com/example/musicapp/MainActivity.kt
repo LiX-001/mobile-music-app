@@ -75,6 +75,9 @@ class MainActivity : AppCompatActivity() {
         try {
             setContentView(R.layout.activity_main)
 
+            // Request necessary permissions
+            requestAudioPermission()
+
             // Toolbar setup
             val toolbar: Toolbar = findViewById(R.id.toolbar)
             setSupportActionBar(toolbar)
@@ -303,21 +306,21 @@ class MainActivity : AppCompatActivity() {
     // Handle permission result
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    
         if (requestCode == 101 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             fetchAudioFiles()
         } else {
-            MaterialAlertDialogBuilder(this)
-            .setTitle("Storage Permission Needed")
-            .setMessage("This app needs access to your storage to fetch audio files. Please grant permission.")
-            .setPositiveButton("OK") { _, _ ->
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 101)
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+            Toast.makeText(this, "Permission denied. Cannot access audio files.", Toast.LENGTH_SHORT).show()
         }
-    } 
+    }
+
+    private fun requestAudioPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_MEDIA_AUDIO), 101)
+        } else {
+            fetchAudioFiles()
+        }
+    }
 
 
     private fun animatePlayer(expand: Boolean) {
