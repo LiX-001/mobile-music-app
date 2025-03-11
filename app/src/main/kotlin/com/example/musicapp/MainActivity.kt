@@ -4,6 +4,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
+import android.net.Uri
 import android.widget.Toast
 import android.os.Environment
 import java.io.File
@@ -57,6 +58,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var previousBtn: ImageButton
     private lateinit var nextBtn: ImageButton
 
+    private lateinit var SongTitle: TextView
+    private lateinit var ArtistName: TextView  
+    private lateinit var AlbumArt: ImageView
+
     private lateinit var playerLayout: LinearLayout
     private var startY = 0f
     private var isMiniPlayer = false
@@ -90,12 +95,35 @@ class MainActivity : AppCompatActivity() {
             currentTime = findViewById(R.id.CurrentTime)
             duration = findViewById(R.id.Duration)
 
+            SongTitle = findViewById<TextView>(R.id.SongTitle)
+            ArtistName = findViewById<TextView>(R.id.ArtistName)
+            AlbumArt = findViewById<ImageView>(R.id.AlbumArt)
+
             recyclerView = findViewById(R.id.audioList)
             recyclerView.layoutManager = LinearLayoutManager(this)
 
             audioAdapter = AudioAdapter(audioList) { audio ->
-                Toast.makeText(this, "Clicked: ${audio.title}", Toast.LENGTH_SHORT).show()
+                // Release previous instance (if any) to avoid memory leaks
+                mediaPlayer?.release()
+
+                // Fetch audio and play
+                val audioUri = Uri.parse(audio.filePath)
+
+
+                mediaPlayer = MediaPlayer().apply {
+                    setDataSource(this@MainActivity, audioUri)
+                    prepare()
+                    start()
+                }
+                playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
+                SongTitle.text = audio.title
+                ArtistName.text = audio.artist
+
+                updateSeekBar()
+                updateTime()
+                
             }
+
             recyclerView.adapter = audioAdapter
             audioAdapter.notifyDataSetChanged()
 
@@ -121,7 +149,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onTouch(v: View, event: MotionEvent): Boolean {
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {
-                            startY = event.rawY // Store the initial position
+                            startY = event.rawY 
                             velocityTracker = VelocityTracker.obtain()
                             velocityTracker?.addMovement(event)
                             return true
@@ -162,9 +190,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-            // Initialize MediaPlayer
-            mediaPlayer = MediaPlayer.create(this, R.raw.sparkle)
 
             // Play/Pause button
             playPauseButton.setOnClickListener {
@@ -297,7 +322,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.release()
@@ -307,10 +331,10 @@ class MainActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     
-        if (requestCode == 101 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 201 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             fetchAudioFiles()
         } else {
-            Toast.makeText(this, "Permission denied. Cannot access audio files.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
         }
     }
 
