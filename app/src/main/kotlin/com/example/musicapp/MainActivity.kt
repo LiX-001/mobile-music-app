@@ -89,13 +89,12 @@ class MainActivity : AppCompatActivity() {
 
             recyclerView = findViewById(R.id.audioList)
             recyclerView.layoutManager = LinearLayoutManager(this)
-            recyclerView.adapter = audioAdapter
 
-             audioAdapter = AudioAdapter(audioList) { audio ->
-                    Toast.makeText(this, "Clicked: ${audio.title}", Toast.LENGTH_SHORT).show()
-                }
-                recyclerView.adapter = audioAdapter
-                audioAdapter.notifyDataSetChanged()
+            audioAdapter = AudioAdapter(audioList) { audio ->
+                Toast.makeText(this, "Clicked: ${audio.title}", Toast.LENGTH_SHORT).show()
+            }
+            recyclerView.adapter = audioAdapter
+            audioAdapter.notifyDataSetChanged()
 
             // Check and request storage permission
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
