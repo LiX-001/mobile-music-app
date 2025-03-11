@@ -269,17 +269,16 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun collapseToMiniPlayer() {
-        //val params = playerLayout.layoutParams
-        //params.height = (150 * resources.displayMetrics.density).toInt()
-        //playerLayout.layoutParams = params
         animatePlayer(expand = false)
-        playPauseButton.setBackgroundResource(0)   
+        playPauseButton.setBackgroundResource(0)
+        recyclerView.visibility = View.VISIBLE  
     }
 
     private fun expandToFullPlayer() {
         animatePlayer(expand = true)
         playPauseButton.setBackgroundResource(R.drawable.rounded_button)
         playerLayout.setBackgroundResource(R.drawable.player_layout)
+        recyclerView.visibility = View.GONE
     }
 
     private fun fetchAudioFiles() {
