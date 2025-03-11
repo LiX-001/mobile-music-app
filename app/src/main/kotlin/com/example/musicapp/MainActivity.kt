@@ -91,6 +91,12 @@ class MainActivity : AppCompatActivity() {
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = audioAdapter
 
+             audioAdapter = AudioAdapter(audioList) { audio ->
+                    Toast.makeText(this, "Clicked: ${audio.title}", Toast.LENGTH_SHORT).show()
+                }
+                recyclerView.adapter = audioAdapter
+                audioAdapter.notifyDataSetChanged()
+
             // Check and request storage permission
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 fetchAudioFiles()
@@ -285,15 +291,6 @@ class MainActivity : AppCompatActivity() {
 
                     audioList.add(AudioFile(id, title, artist, duration, filePath))
                 }
-            }
-
-            // Initialize adapter inside a function
-            runOnUiThread {
-                audioAdapter = AudioAdapter(audioList) { audio ->
-                    Toast.makeText(this, "Clicked: ${audio.title}", Toast.LENGTH_SHORT).show()
-                }
-                recyclerView.adapter = audioAdapter
-                audioAdapter.notifyDataSetChanged() // Refresh UI
             }
         }
     }
