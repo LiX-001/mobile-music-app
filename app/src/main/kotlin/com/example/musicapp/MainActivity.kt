@@ -102,6 +102,11 @@ class MainActivity : AppCompatActivity() {
             recyclerView = findViewById(R.id.audioList)
             recyclerView.layoutManager = LinearLayoutManager(this)
 
+            // Startup actions
+            collapseToMiniPlayer()
+            SongTitle.isSelected = true
+            ArtistName.isSelected = true
+
             audioAdapter = AudioAdapter(audioList) { audio ->
                 // Release previous instance (if any) to avoid memory leaks
                 if (::mediaPlayer.isInitialized) {
@@ -116,6 +121,7 @@ class MainActivity : AppCompatActivity() {
                     setDataSource(this@MainActivity, audioUri)
                     setOnPreparedListener {
                         start()
+                        seekBar.max = mediaPlayer.duration
                         playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
                         SongTitle.text = audio.title
                         ArtistName.text = audio.artist
@@ -243,7 +249,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     // Updates SeekBar
     private fun updateSeekBar() {
         seekBar.max = mediaPlayer.duration
@@ -345,9 +350,9 @@ class MainActivity : AppCompatActivity() {
     
         if (requestCode == 101) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                fetchAudioFiles() 
+                fetchAudioFiles()
             } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Permission denied. The app cannot function without it.", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -361,16 +366,37 @@ class MainActivity : AppCompatActivity() {
             } else {
                 fetchAudioFiles()
             }
-        } else {
-            // Android 12 and below
+        } else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            // Android 10-12 (API 29-32)
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 101)
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    101
+                )
             } else {
                 fetchAudioFiles()
             }
-    }
-
+        } else {
+            // Android 9 and below (API < 29)
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ),
+                    101
+                )
+            } else {
+                fetchAudioFiles()
+            }
+        }
     }
 
 
@@ -387,6 +413,7 @@ class MainActivity : AppCompatActivity() {
         val targetTextSizeSong = if (expand) 25f else 14f
         val targetTextSizeArtist = if (expand) 15f else 10f
         val visibility = if (expand) View.VISIBLE else View.GONE
+        val listvisibility = if (expand) View.GONE else View.VISIBLE
         val gravity = if (expand) Gravity.CENTER else Gravity.START
         val orientation = if (expand) LinearLayout.VERTICAL else LinearLayout.HORIZONTAL
 
@@ -463,7 +490,7 @@ class MainActivity : AppCompatActivity() {
                 // Update visibilities with fade effect
                 currentTime.visibility = visibility
                 duration.visibility = visibility
-                recyclerView.visibility = visibility
+                recyclerView.visibility = listvisibility
             }
         })
 
