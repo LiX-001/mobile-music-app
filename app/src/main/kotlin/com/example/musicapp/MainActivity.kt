@@ -114,15 +114,19 @@ class MainActivity : AppCompatActivity() {
 
                 mediaPlayer = MediaPlayer().apply {
                     setDataSource(this@MainActivity, audioUri)
-                    prepare()
-                    start()
+                    setOnPreparedListener {
+                        start()
+                        playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
+                        SongTitle.text = audio.title
+                        ArtistName.text = audio.artist
+                        updateSeekBar()
+                        updateTime()
+                    }
+                    setOnCompletionListener {
+                        playPauseButton.setImageResource(android.R.drawable.ic_media_play)
+                    }
+                    prepareAsync()
                 }
-                playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
-                SongTitle.text = audio.title
-                ArtistName.text = audio.artist
-
-                updateSeekBar()
-                updateTime()
                 
             }
 
@@ -168,16 +172,26 @@ class MainActivity : AppCompatActivity() {
                         MotionEvent.ACTION_UP -> {
                             velocityTracker?.computeCurrentVelocity(1000) // Get swipe speed
                             val velocityY = velocityTracker?.yVelocity ?: 0f
-                            val minDistance = playerLayout.height / 2
+                            val minDistance = playerLayout.height / 3 // Minimum distance to swipe to collapse
 
                             velocityTracker?.recycle()
                             velocityTracker = null
 
-                            // Determine final position based on speed or distance
-                            if (velocityY > 1000 || playerLayout.translationY > minDistance) {
-                                collapseToMiniPlayer() // Collapse if swiped fast down or past halfway
+                            // Get absolute swipe distance
+                            val totalSwipeDistance = startY - event.rawY
+
+                            // Expand if swiped up fast OR swiped up beyond minDistance
+                            if (velocityY < -1000 || totalSwipeDistance > minDistance) {  
+                                expandToFullPlayer()
+                            } else if (velocityY > 1000 || playerLayout.translationY > minDistance) {
+                                collapseToMiniPlayer()
                             } else {
-                                expandToFullPlayer() // Expand if swiped fast up or past halfway
+                                // If the swipe wasn't strong enough, reset to original state
+                                if (playerLayout.translationY > minDistance) {
+                                    collapseToMiniPlayer()
+                                } else {
+                                    expandToFullPlayer()
+                                }
                             }
                             return true
                         }
@@ -270,15 +284,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun collapseToMiniPlayer() {
         animatePlayer(expand = false)
-        playPauseButton.setBackgroundResource(0)
-        recyclerView.visibility = View.VISIBLE  
+        playPauseButton.setBackgroundResource(0) 
     }
 
     private fun expandToFullPlayer() {
         animatePlayer(expand = true)
         playPauseButton.setBackgroundResource(R.drawable.rounded_button)
-        playerLayout.setBackgroundResource(R.drawable.player_layout)
-        recyclerView.visibility = View.GONE
     }
 
     private fun fetchAudioFiles() {
@@ -379,6 +390,9 @@ class MainActivity : AppCompatActivity() {
         val gravity = if (expand) Gravity.CENTER else Gravity.START
         val orientation = if (expand) LinearLayout.VERTICAL else LinearLayout.HORIZONTAL
 
+        // Changing Play/Pause Button Style
+        if (expand) playPauseButton.setBackgroundResource(0) else playPauseButton.setBackgroundResource(R.drawable.rounded_button)
+
         // Height animation
         val playerHeight = ValueAnimator.ofInt(playerLayout.height, targetHeight).apply {
             duration = 300
@@ -444,10 +458,12 @@ class MainActivity : AppCompatActivity() {
                 albumArtLayout.orientation = orientation
                 albumArtLayout.layoutDirection = View.LAYOUT_DIRECTION_INHERIT
                 albumArtLayout.gravity = gravity
+                findViewById<LinearLayout>(R.id.songDetails).gravity = gravity
 
                 // Update visibilities with fade effect
                 currentTime.visibility = visibility
                 duration.visibility = visibility
+                recyclerView.visibility = visibility
             }
         })
 
@@ -462,7 +478,7 @@ class MainActivity : AppCompatActivity() {
 
     // Some personal functions
     fun spToPx(sp: Float, context: Context): Float {
-        return sp * context.resources.displayMetrics.scaledDensity
+        return sp * (context.resources.displayMetrics.densityDpi / 160f)
     }
 
 }

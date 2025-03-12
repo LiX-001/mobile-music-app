@@ -3395,6 +3395,7 @@ id snackbar_action
 id snackbar_text
 id snap
 id snapMargins
+id songDetails
 id spacer
 id special_effects_controller_view_tag
 id spline

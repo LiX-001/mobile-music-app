@@ -41,6 +41,7 @@ id playerLayout
 id search_icon
 id seekBar
 id seekBarLayout
+id songDetails
 id toolbar
 layout activity_main
 layout item_audio
