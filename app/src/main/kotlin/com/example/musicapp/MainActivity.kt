@@ -127,7 +127,12 @@ class MainActivity : AppCompatActivity() {
                         SongTitle.text = audio.title
                         ArtistName.text = audio.artist
                         start()
-                        updateSeekBar()
+                        handler.postDelayed(object : Runnable {
+                            override fun run() {
+                                seekBar.progress = mediaPlayer.currentPosition
+                                handler.postDelayed(this, 500)
+                            }
+                        }, 500)
                         updateTime()
                     }
                     setOnCompletionListener {
@@ -179,7 +184,7 @@ class MainActivity : AppCompatActivity() {
                         MotionEvent.ACTION_UP -> {
                             velocityTracker?.computeCurrentVelocity(1000)
                             val velocityY = velocityTracker?.yVelocity ?: 0f
-                            val halfwayPoint = playerLayout.height / 2  // Midpoint
+                            val halfwayPoint = playerLayout.height / 3  // Midpoint
                 
                             velocityTracker?.recycle()
                             velocityTracker = null
