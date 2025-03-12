@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity() {
                 // Release previous instance (if any) to avoid memory leaks
                 if (::mediaPlayer.isInitialized) {
                     mediaPlayer.release()
+                    mediaPlayer = MediaPlayer()
                 }            
 
                 // Fetch audio and play
@@ -127,16 +128,12 @@ class MainActivity : AppCompatActivity() {
                         SongTitle.text = audio.title
                         ArtistName.text = audio.artist
                         start()
-                        handler.postDelayed(object : Runnable {
-                            override fun run() {
-                                seekBar.progress = mediaPlayer.currentPosition
-                                handler.postDelayed(this, 500)
-                            }
-                        }, 500)
+                        updateSeekBar()
                         updateTime()
                     }
                     setOnCompletionListener {
                         playPauseButton.setImageResource(android.R.drawable.ic_media_play)
+                        seekBar.progress = 0
                     }
                     prepareAsync()
                 }
@@ -206,9 +203,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
-
             // Play/Pause button
             playPauseButton.setOnClickListener {
                 if (mediaPlayer.isPlaying) {
@@ -249,8 +243,10 @@ class MainActivity : AppCompatActivity() {
     private fun updateSeekBar() {
         handler.postDelayed(object : Runnable {
             override fun run() {
-                seekBar.progress = mediaPlayer.currentPosition
-                handler.postDelayed(this, 500)
+                if (::mediaPlayer.isInitialized && mediaPlayer.isPlaying) {
+                    seekBar.progress = mediaPlayer.currentPosition
+                    handler.postDelayed(this, 500)
+                }
             }
         }, 500)
     }
