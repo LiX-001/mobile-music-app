@@ -127,7 +127,12 @@ class MainActivity : AppCompatActivity() {
                         SongTitle.text = audio.title
                         ArtistName.text = audio.artist
                         start()
-                        updateSeekBar()
+                        try {
+                            updateSeekBar()
+                        } catch (e: Exception) {
+                            Log.e("DEBUG", "Error in updateSeekBar()", e)
+                            Toast.makeText(this@MainActivity, e.toString(), Toast.LENGTH_LONG).show()
+                        }
                         updateTime()
                     }
                     setOnCompletionListener {
@@ -185,7 +190,7 @@ class MainActivity : AppCompatActivity() {
                             velocityTracker = null
                 
                             // Expand if dragged up past halfway or swiped up fast
-                            if (playerLayout.translationY < halfwayPoint || velocityY < -1000) {  
+                            if (playerLayout.translationY < halfwayPoint || velocityY < -500) {  
                                 expandToFullPlayer()
                             } else {  
                                 collapseToMiniPlayer()
@@ -242,13 +247,10 @@ class MainActivity : AppCompatActivity() {
 
     // Updates SeekBar
     private fun updateSeekBar() {
-        handler.removeCallbacksAndMessages(null)
         handler.postDelayed(object : Runnable {
             override fun run() {
-                if (::mediaPlayer.isInitialized && mediaPlayer.isPlaying) {
-                    seekBar.progress = mediaPlayer.currentPosition
-                    handler.postDelayed(this, 500)
-                }
+                seekBar.progress = mediaPlayer.currentPosition
+                handler.postDelayed(this, 500)
             }
         }, 500)
     }
