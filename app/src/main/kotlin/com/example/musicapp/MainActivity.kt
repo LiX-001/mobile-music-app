@@ -122,11 +122,11 @@ class MainActivity : AppCompatActivity() {
                 mediaPlayer = MediaPlayer().apply {
                     setDataSource(this@MainActivity, audioUri)
                     setOnPreparedListener {
-                        start()
                         seekBar.max = mediaPlayer.duration
                         playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
                         SongTitle.text = audio.title
                         ArtistName.text = audio.artist
+                        start()
                         updateSeekBar()
                         updateTime()
                     }
@@ -162,43 +162,33 @@ class MainActivity : AppCompatActivity() {
                 override fun onTouch(v: View, event: MotionEvent): Boolean {
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {
-                            startY = event.rawY 
+                            startY = event.rawY
                             velocityTracker = VelocityTracker.obtain()
                             velocityTracker?.addMovement(event)
                             return true
                         }
-
+                
                         MotionEvent.ACTION_MOVE -> {
                             velocityTracker?.addMovement(event)
                             val deltaY = event.rawY - startY
-                            playerLayout.translationY += deltaY // Move the layout
-                            startY = event.rawY // Update start position for smooth movement
+                            playerLayout.translationY += deltaY
+                            startY = event.rawY
                             return true
                         }
-
+                
                         MotionEvent.ACTION_UP -> {
-                            velocityTracker?.computeCurrentVelocity(1000) // Get swipe speed
+                            velocityTracker?.computeCurrentVelocity(1000)
                             val velocityY = velocityTracker?.yVelocity ?: 0f
-                            val minDistance = playerLayout.height / 3 // Minimum distance to swipe to collapse
-
+                            val halfwayPoint = playerLayout.height / 2  // Midpoint
+                
                             velocityTracker?.recycle()
                             velocityTracker = null
-
-                            // Get absolute swipe distance
-                            val totalSwipeDistance = startY - event.rawY
-
-                            // Expand if swiped up fast OR swiped up beyond minDistance
-                            if (velocityY < -1000 || totalSwipeDistance > minDistance) {  
+                
+                            // Expand if dragged up past halfway or swiped up fast
+                            if (playerLayout.translationY < halfwayPoint || velocityY < -1000) {  
                                 expandToFullPlayer()
-                            } else if (velocityY > 1000 || playerLayout.translationY > minDistance) {
+                            } else {  
                                 collapseToMiniPlayer()
-                            } else {
-                                // If the swipe wasn't strong enough, reset to original state
-                                if (playerLayout.translationY > minDistance) {
-                                    collapseToMiniPlayer()
-                                } else {
-                                    expandToFullPlayer()
-                                }
                             }
                             return true
                         }
@@ -252,13 +242,12 @@ class MainActivity : AppCompatActivity() {
 
     // Updates SeekBar
     private fun updateSeekBar() {
+        handler.removeCallbacksAndMessages(null)
         handler.postDelayed(object : Runnable {
             override fun run() {
                 if (::mediaPlayer.isInitialized && mediaPlayer.isPlaying) {
                     seekBar.progress = mediaPlayer.currentPosition
                     handler.postDelayed(this, 500)
-                } else {
-                    Toast.makeText(this@MainActivity, "Media Player not initialized. Wtf.", Toast.LENGTH_SHORT).show()
                 }
             }
         }, 500)
