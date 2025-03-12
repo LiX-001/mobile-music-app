@@ -105,6 +105,7 @@ class MainActivity : AppCompatActivity() {
             recyclerView.layoutManager = LinearLayoutManager(this)
 
             // Startup actions
+            collapseToMiniPlayer()
             SongTitle.isSelected = true
             ArtistName.isSelected = true
 
@@ -251,12 +252,13 @@ class MainActivity : AppCompatActivity() {
 
     // Updates SeekBar
     private fun updateSeekBar() {
-        seekBar.max = mediaPlayer.duration
         handler.postDelayed(object : Runnable {
             override fun run() {
-                if (mediaPlayer.isPlaying) {
+                if (::mediaPlayer.isInitialized && mediaPlayer.isPlaying) {
                     seekBar.progress = mediaPlayer.currentPosition
                     handler.postDelayed(this, 500)
+                } else {
+                    Toast.makeText(this@MainActivity, "Media Player not initialized. Wtf.", Toast.LENGTH_SHORT).show()
                 }
             }
         }, 500)
@@ -342,19 +344,6 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.release()
-    }
-
-    // Handle permission result
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    
-        if (requestCode == 101) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                fetchAudioFiles()
-            } else {
-                Toast.makeText(this, "Permission denied. The app cannot function without it.", Toast.LENGTH_LONG).show()
-            }
-        }
     }
 
     private fun requestAudioPermission() {
