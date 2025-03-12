@@ -105,7 +105,6 @@ class MainActivity : AppCompatActivity() {
             recyclerView.layoutManager = LinearLayoutManager(this)
 
             // Startup actions
-            collapseToMiniPlayer()
             SongTitle.isSelected = true
             ArtistName.isSelected = true
 
