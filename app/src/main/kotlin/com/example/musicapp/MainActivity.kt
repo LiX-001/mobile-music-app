@@ -95,6 +95,8 @@ class MainActivity : AppCompatActivity() {
             currentTime = findViewById(R.id.CurrentTime)
             duration = findViewById(R.id.Duration)
 
+            playerLayout = findViewById(R.id.playerLayout)
+
             SongTitle = findViewById<TextView>(R.id.SongTitle)
             ArtistName = findViewById<TextView>(R.id.ArtistName)
             AlbumArt = findViewById<ImageView>(R.id.AlbumArt)
@@ -152,7 +154,6 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Search Clicked!", Toast.LENGTH_SHORT).show()
             }
 
-            playerLayout = findViewById(R.id.playerLayout)
             // Touch listener for swiping into MiniPlayer
             playerLayout.setOnTouchListener(object : View.OnTouchListener {
                 private var startY = 0f
