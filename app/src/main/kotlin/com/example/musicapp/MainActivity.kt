@@ -122,17 +122,12 @@ class MainActivity : AppCompatActivity() {
                 mediaPlayer = MediaPlayer().apply {
                     setDataSource(this@MainActivity, audioUri)
                     setOnPreparedListener {
-                        seekBar.max = mediaPlayer.duration
+                        seekBar.max = it.duration
                         playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
                         SongTitle.text = audio.title
                         ArtistName.text = audio.artist
                         start()
-                        try {
-                            updateSeekBar()
-                        } catch (e: Exception) {
-                            Log.e("DEBUG", "Error in updateSeekBar()", e)
-                            Toast.makeText(this@MainActivity, e.toString(), Toast.LENGTH_LONG).show()
-                        }
+                        updateSeekBar()
                         updateTime()
                     }
                     setOnCompletionListener {
@@ -190,7 +185,7 @@ class MainActivity : AppCompatActivity() {
                             velocityTracker = null
                 
                             // Expand if dragged up past halfway or swiped up fast
-                            if (playerLayout.translationY < halfwayPoint || velocityY < -500) {  
+                            if (playerLayout.translationY < halfwayPoint || velocityY < -100) {  
                                 expandToFullPlayer()
                             } else {  
                                 collapseToMiniPlayer()
