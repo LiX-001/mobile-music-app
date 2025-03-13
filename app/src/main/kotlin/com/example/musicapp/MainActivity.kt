@@ -202,7 +202,7 @@ class MainActivity : AppCompatActivity() {
             })
 
             
-
+            MediaPlayer.create(this, R.raw.sparkle)
 
 
             // Play/Pause button
