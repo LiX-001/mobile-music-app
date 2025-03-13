@@ -1,26 +1,26 @@
 [
     {
-        "merged": "com.example.musicapp-debug-32:/drawable_player_layout.xml.flat",
-        "source": "com.example.musicapp-main-34:/drawable/player_layout.xml"
+        "merged": "com.example.musicapp-debug-33:/layout_item_audio.xml.flat",
+        "source": "com.example.musicapp-main-35:/layout/item_audio.xml"
     },
     {
-        "merged": "com.example.musicapp-debug-32:/raw_sparkle.mp3.flat",
-        "source": "com.example.musicapp-main-34:/raw/sparkle.mp3"
+        "merged": "com.example.musicapp-debug-33:/raw_sparkle.mp3.flat",
+        "source": "com.example.musicapp-main-35:/raw/sparkle.mp3"
     },
     {
-        "merged": "com.example.musicapp-debug-32:/layout_activity_main.xml.flat",
-        "source": "com.example.musicapp-main-34:/layout/activity_main.xml"
+        "merged": "com.example.musicapp-debug-33:/drawable_player_layout.xml.flat",
+        "source": "com.example.musicapp-main-35:/drawable/player_layout.xml"
     },
     {
-        "merged": "com.example.musicapp-debug-32:/layout_item_audio.xml.flat",
-        "source": "com.example.musicapp-main-34:/layout/item_audio.xml"
+        "merged": "com.example.musicapp-debug-33:/layout_activity_main.xml.flat",
+        "source": "com.example.musicapp-main-35:/layout/activity_main.xml"
     },
     {
-        "merged": "com.example.musicapp-debug-32:/drawable_random_1000x1000.png.flat",
-        "source": "com.example.musicapp-main-34:/drawable/random_1000x1000.png"
+        "merged": "com.example.musicapp-debug-33:/drawable_rounded_button.xml.flat",
+        "source": "com.example.musicapp-main-35:/drawable/rounded_button.xml"
     },
     {
-        "merged": "com.example.musicapp-debug-32:/drawable_rounded_button.xml.flat",
-        "source": "com.example.musicapp-main-34:/drawable/rounded_button.xml"
+        "merged": "com.example.musicapp-debug-33:/drawable_random_1000x1000.png.flat",
+        "source": "com.example.musicapp-main-35:/drawable/random_1000x1000.png"
     }
 ]

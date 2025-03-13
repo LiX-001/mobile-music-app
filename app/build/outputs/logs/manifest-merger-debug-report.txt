@@ -8,6 +8,7 @@ MERGED from [com.google.android.material:material:1.11.0] /home/codespace/.gradl
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /home/codespace/.gradle/caches/8.11.1/transforms/fd73cddce14b317999e05a41e301c6e6/transformed/jetified-appcompat-resources-1.6.1/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/codespace/.gradle/caches/8.11.1/transforms/dd5ef0ff7657268a2b238b9d0421de4f/transformed/constraintlayout-2.0.1/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat:1.6.1] /home/codespace/.gradle/caches/8.11.1/transforms/298e2c6b7c4bc4971ce50fa0ece37ded/transformed/appcompat-1.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.bumptech.glide:glide:4.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/014d77284bf7c16560d0b2abab8245da/transformed/jetified-glide-4.12.0/AndroidManifest.xml:2:1-12:12
 MERGED from [androidx.recyclerview:recyclerview:1.3.2] /home/codespace/.gradle/caches/8.11.1/transforms/7c78fef786f10eb4cf56e725323a5456/transformed/recyclerview-1.3.2/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.viewpager2:viewpager2:1.1.0-beta02] /home/codespace/.gradle/caches/8.11.1/transforms/572288047c235dda48f7c87e1c9805ef/transformed/jetified-viewpager2-1.1.0-beta02/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.fragment:fragment:1.3.6] /home/codespace/.gradle/caches/8.11.1/transforms/b91af665f50fb4a817f1ea4a76567080/transformed/fragment-1.3.6/AndroidManifest.xml:17:1-24:12
@@ -37,6 +38,8 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1] /home/code
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] /home/codespace/.gradle/caches/8.11.1/transforms/5bb3e42b1f46638621611d02857f13b8/transformed/jetified-annotation-experimental-1.3.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/codespace/.gradle/caches/8.11.1/transforms/afa4152094dfb2d035edb6319c6a5690/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cardview:cardview:1.0.0] /home/codespace/.gradle/caches/8.11.1/transforms/dc2259d5810b54027f7b495361bab957/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/668652902cdf378fe4500ad5a4002372/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.exifinterface:exifinterface:1.2.0] /home/codespace/.gradle/caches/8.11.1/transforms/340f5475bcce5cf4de1d220b2821fd51/transformed/exifinterface-1.2.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] /home/codespace/.gradle/caches/8.11.1/transforms/1a5c47106c242465df9f19bf0a589c08/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/codespace/.gradle/caches/8.11.1/transforms/ff831c6bb800d24859e554ad44908fdb/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /home/codespace/.gradle/caches/8.11.1/transforms/087a3dfbdfbba45406e155aebcf161ca/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:17:1-55:12
@@ -69,12 +72,16 @@ MERGED from [com.google.android.material:material:1.11.0] /home/codespace/.gradl
 MERGED from [com.google.android.material:material:1.11.0] /home/codespace/.gradle/caches/8.11.1/transforms/070e7717620f9db0bcc1bbf33f81e0bc/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/codespace/.gradle/caches/8.11.1/transforms/dd5ef0ff7657268a2b238b9d0421de4f/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/codespace/.gradle/caches/8.11.1/transforms/dd5ef0ff7657268a2b238b9d0421de4f/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
+MERGED from [com.github.bumptech.glide:glide:4.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/014d77284bf7c16560d0b2abab8245da/transformed/jetified-glide-4.12.0/AndroidManifest.xml:10:5-20
+MERGED from [com.github.bumptech.glide:glide:4.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/014d77284bf7c16560d0b2abab8245da/transformed/jetified-glide-4.12.0/AndroidManifest.xml:10:5-20
 MERGED from [androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/8.11.1/transforms/b53b02f5c025663c880dd0420e8bb03a/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/8.11.1/transforms/b53b02f5c025663c880dd0420e8bb03a/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.core:core:1.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/2f831163fbe8bea0f025924f990f02f1/transformed/core-1.12.0/AndroidManifest.xml:28:5-89
 MERGED from [androidx.core:core:1.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/2f831163fbe8bea0f025924f990f02f1/transformed/core-1.12.0/AndroidManifest.xml:28:5-89
 MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /home/codespace/.gradle/caches/8.11.1/transforms/3a7bc085f8d45841b61934d0a4589e7b/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.lifecycle:lifecycle-process:2.6.1] /home/codespace/.gradle/caches/8.11.1/transforms/3a7bc085f8d45841b61934d0a4589e7b/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:23:5-33:19
+MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/668652902cdf378fe4500ad5a4002372/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:9:5-20
+MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/668652902cdf378fe4500ad5a4002372/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:9:5-20
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/codespace/.gradle/caches/8.11.1/transforms/ff831c6bb800d24859e554ad44908fdb/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/codespace/.gradle/caches/8.11.1/transforms/ff831c6bb800d24859e554ad44908fdb/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /home/codespace/.gradle/caches/8.11.1/transforms/087a3dfbdfbba45406e155aebcf161ca/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:23:5-53:19
@@ -129,6 +136,8 @@ MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/codespace/.
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/codespace/.gradle/caches/8.11.1/transforms/dd5ef0ff7657268a2b238b9d0421de4f/transformed/constraintlayout-2.0.1/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.appcompat:appcompat:1.6.1] /home/codespace/.gradle/caches/8.11.1/transforms/298e2c6b7c4bc4971ce50fa0ece37ded/transformed/appcompat-1.6.1/AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat:1.6.1] /home/codespace/.gradle/caches/8.11.1/transforms/298e2c6b7c4bc4971ce50fa0ece37ded/transformed/appcompat-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [com.github.bumptech.glide:glide:4.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/014d77284bf7c16560d0b2abab8245da/transformed/jetified-glide-4.12.0/AndroidManifest.xml:6:5-8:41
+MERGED from [com.github.bumptech.glide:glide:4.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/014d77284bf7c16560d0b2abab8245da/transformed/jetified-glide-4.12.0/AndroidManifest.xml:6:5-8:41
 MERGED from [androidx.recyclerview:recyclerview:1.3.2] /home/codespace/.gradle/caches/8.11.1/transforms/7c78fef786f10eb4cf56e725323a5456/transformed/recyclerview-1.3.2/AndroidManifest.xml:20:5-44
 MERGED from [androidx.recyclerview:recyclerview:1.3.2] /home/codespace/.gradle/caches/8.11.1/transforms/7c78fef786f10eb4cf56e725323a5456/transformed/recyclerview-1.3.2/AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager2:viewpager2:1.1.0-beta02] /home/codespace/.gradle/caches/8.11.1/transforms/572288047c235dda48f7c87e1c9805ef/transformed/jetified-viewpager2-1.1.0-beta02/AndroidManifest.xml:5:5-44
@@ -187,6 +196,10 @@ MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/codespace/.gradle
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/codespace/.gradle/caches/8.11.1/transforms/afa4152094dfb2d035edb6319c6a5690/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] /home/codespace/.gradle/caches/8.11.1/transforms/dc2259d5810b54027f7b495361bab957/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] /home/codespace/.gradle/caches/8.11.1/transforms/dc2259d5810b54027f7b495361bab957/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/668652902cdf378fe4500ad5a4002372/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /home/codespace/.gradle/caches/8.11.1/transforms/668652902cdf378fe4500ad5a4002372/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.exifinterface:exifinterface:1.2.0] /home/codespace/.gradle/caches/8.11.1/transforms/340f5475bcce5cf4de1d220b2821fd51/transformed/exifinterface-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.2.0] /home/codespace/.gradle/caches/8.11.1/transforms/340f5475bcce5cf4de1d220b2821fd51/transformed/exifinterface-1.2.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.interpolator:interpolator:1.0.0] /home/codespace/.gradle/caches/8.11.1/transforms/1a5c47106c242465df9f19bf0a589c08/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] /home/codespace/.gradle/caches/8.11.1/transforms/1a5c47106c242465df9f19bf0a589c08/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/codespace/.gradle/caches/8.11.1/transforms/ff831c6bb800d24859e554ad44908fdb/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41

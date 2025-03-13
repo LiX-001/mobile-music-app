@@ -1,32 +1,12 @@
 package com.example.musicapp
-// Can't bother specific imports, just copy pasted.
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.media.MediaPlayer
-import android.os.Handler
-import android.os.Looper
-import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.SeekBar
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
-import androidx.appcompat.app.AppCompatActivity
-import android.content.ContentResolver
-import android.content.Context
-import android.provider.MediaStore
-import android.database.Cursor
-import kotlin.collections.MutableList
-import android.view.VelocityTracker
-import com.example.musicapp.AudioFile
-import androidx.core.content.ContextCompat
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import com.bumptech.glide.Glide
 
 class AudioAdapter(
     private val audioList: List<AudioFile>,
@@ -41,6 +21,10 @@ class AudioAdapter(
         fun bind(audio: AudioFile, onItemClick: (AudioFile) -> Unit) {
             title.text = audio.title
             artist.text = audio.artist
+            Glide.with(itemView.context)
+                .load(audio.thumbnail)
+                .placeholder(R.drawable.random_1000x1000) // Add a placeholder image
+                .into(thumbnail)
             itemView.setOnClickListener { onItemClick(audio) }
         }
     }

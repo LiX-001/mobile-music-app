@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.musicapp-mergeDebugResources-30:/values-ru/values-ru.xml",
+            "outputFile": "com.example.musicapp-mergeDebugResources-31:/values-ru/values-ru.xml",
             "map": [
                 {
                     "source": "/home/codespace/.gradle/caches/8.11.1/transforms/298e2c6b7c4bc4971ce50fa0ece37ded/transformed/appcompat-1.6.1/res/values-ru/values-ru.xml",

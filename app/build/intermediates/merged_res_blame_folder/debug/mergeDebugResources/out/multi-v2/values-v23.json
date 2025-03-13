@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.musicapp-mergeDebugResources-30:/values-v23/values-v23.xml",
+            "outputFile": "com.example.musicapp-mergeDebugResources-31:/values-v23/values-v23.xml",
             "map": [
                 {
                     "source": "/home/codespace/.gradle/caches/8.11.1/transforms/dc2259d5810b54027f7b495361bab957/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",

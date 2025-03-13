@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
     private val audioList = mutableListOf<AudioFile>()
 
     private val handler = Handler(Looper.getMainLooper())
+    private val seekBarHandler = Handler(Looper.getMainLooper())
 
     private var browsingSource: Int = 0     // 0 = Local Storage ; 1 = Online Sources
 
@@ -249,7 +250,7 @@ class MainActivity : AppCompatActivity() {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
                     seekBar.progress = mediaPlayer.currentPosition
-                    handler.postDelayed(this, 500) // Update every 500ms
+                    seekBarHandler.postDelayed(this, 500) // Update every 0.5 seconds
                 }
             }
         })
@@ -297,7 +298,8 @@ class MainActivity : AppCompatActivity() {
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.ARTIST,
                 MediaStore.Audio.Media.DURATION,
-                MediaStore.Audio.Media.DATA
+                MediaStore.Audio.Media.DATA,
+                MediaStore.Audio.Albums.ALBUM_ID
             )
 
             val selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0 AND ${MediaStore.Audio.Media.DURATION} > ?"
@@ -318,6 +320,7 @@ class MainActivity : AppCompatActivity() {
                 val artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
                 val durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
                 val dataColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DATA)
+                val albumIdColumn = cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ID)
 
                 while (cursor.moveToNext()) {
                     val id = cursor.getLong(idColumn)
@@ -325,8 +328,15 @@ class MainActivity : AppCompatActivity() {
                     val artist = cursor.getString(artistColumn) ?: "Unknown"
                     val duration = cursor.getLong(durationColumn)
                     val filePath = cursor.getString(dataColumn)
+                    val albumId = cursor.getLong(albumIdColumn)
 
-                    audioList.add(AudioFile(id, title, artist, duration, filePath))
+                    val thumbnail = Uri.withAppendedPath(
+                        Uri.parse("content://media/external/audio/albumart"),
+                        albumId.toString()
+                    ).toString()
+
+
+                    audioList.add(AudioFile(id, title, artist, duration, filePath, thumbnail))
                 }
             }
         }
