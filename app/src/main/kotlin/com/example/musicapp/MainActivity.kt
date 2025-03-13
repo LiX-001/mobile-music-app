@@ -207,6 +207,7 @@ class MainActivity : AppCompatActivity() {
             playPauseButton.setOnClickListener {
                 if (mediaPlayer.isPlaying) {
                     mediaPlayer.pause()
+                    handler.removeCallbacksAndMessages(null)
                     playPauseButton.setImageResource(android.R.drawable.ic_media_play)
                 } else {
                     mediaPlayer.start()
@@ -241,14 +242,14 @@ class MainActivity : AppCompatActivity() {
 
     // Updates SeekBar
     private fun updateSeekBar() {
-        handler.postDelayed(object : Runnable {
+        handler.post(object : Runnable {
             override fun run() {
                 if (::mediaPlayer.isInitialized && mediaPlayer.isPlaying) {
                     seekBar.progress = mediaPlayer.currentPosition
-                    handler.postDelayed(this, 500)
+                    handler.postDelayed(this, 500)  // Keeps updating
                 }
             }
-        }, 500)
+        })
     }
 
     // Updates Current Time Display
