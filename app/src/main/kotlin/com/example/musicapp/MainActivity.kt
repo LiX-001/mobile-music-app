@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private val handler = Handler(Looper.getMainLooper())
+    private val seekBarHandler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,8 +167,8 @@ class MainActivity : AppCompatActivity() {
     private fun updateSeekBar() {
         Toast.makeText(this, "Updating SeekBar", Toast.LENGTH_SHORT).show()
         seekBar.max = mediaPlayer.duration
-    
-        handler.post(object : Runnable {
+
+        seekBarHandler.post(object : Runnable {
             override fun run() {
                 Toast.makeText(this@MainActivity, "Post runs", Toast.LENGTH_SHORT).show()
                 if (mediaPlayer.isPlaying) {
