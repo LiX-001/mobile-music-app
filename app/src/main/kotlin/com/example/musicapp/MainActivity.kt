@@ -246,8 +246,15 @@ class MainActivity : AppCompatActivity() {
             Log.d("DEBUG", "updateSeekBar() called")
             Toast.makeText(this, "Updating SeekBar", Toast.LENGTH_SHORT).show()
     
+            // Log before posting the Runnable
+            Log.d("DEBUG", "Posting updateSeekBar runnable...")
+            Toast.makeText(this, "Posting updateSeekBar runnable...", Toast.LENGTH_SHORT).show()
+    
             handler.postDelayed(object : Runnable {
                 override fun run() {
+                    Log.d("DEBUG", "Runnable started!")
+                    Toast.makeText(this@MainActivity, "Runnable started!", Toast.LENGTH_SHORT).show()
+    
                     if (::mediaPlayer.isInitialized) {
                         Log.d("DEBUG", "MediaPlayer Initialized")
                         Toast.makeText(this@MainActivity, "MediaPlayer Initialized", Toast.LENGTH_SHORT).show()
@@ -256,12 +263,11 @@ class MainActivity : AppCompatActivity() {
                             Log.d("DEBUG", "MediaPlayer is playing. Current position: ${mediaPlayer.currentPosition}")
                             Toast.makeText(this@MainActivity, "MediaPlayer is playing. Current position: ${mediaPlayer.currentPosition}", Toast.LENGTH_SHORT).show()
     
-                            // Force UI update
                             runOnUiThread {
                                 seekBar.progress = mediaPlayer.currentPosition
                             }
     
-                            handler.postDelayed(this, 1000) // Keep updating
+                            handler.postDelayed(this, 1000)
                         } else {
                             Log.d("DEBUG", "MediaPlayer is NOT playing. Stopping seekBar updates.")
                             Toast.makeText(this@MainActivity, "MediaPlayer is NOT playing. Stopping seekBar updates.", Toast.LENGTH_SHORT).show()
@@ -283,6 +289,7 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
     }
+    
     
 
     // Updates Current Time Display
