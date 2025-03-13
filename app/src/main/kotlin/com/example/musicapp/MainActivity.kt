@@ -242,36 +242,17 @@ class MainActivity : AppCompatActivity() {
 
     // Updates SeekBar
     private fun updateSeekBar() {
-        try {
-            Log.d("DEBUG", "updateSeekBar() called")
-            Toast.makeText(this, "Updating SeekBar", Toast.LENGTH_SHORT).show()
-    
-            // Log before posting the Runnable
-            Log.d("DEBUG", "Posting updateSeekBar runnable...")
-            Toast.makeText(this, "Posting updateSeekBar runnable...", Toast.LENGTH_SHORT).show()
-            if (Looper.myLooper() == Looper.getMainLooper()) {
-                Log.d("DEBUG", "Running on Main Thread")
-                Toast.makeText(this, "Running on Main Thread", Toast.LENGTH_SHORT).show()
-            } else {
-                Log.e("DEBUG", "NOT Running on Main Thread")
-                Toast.makeText(this, "NOT Running on Main Thread", Toast.LENGTH_SHORT).show()
-            }
-            handler.post(object : Runnable {
-                override fun run() {
-                    Log.d("DEBUG", "Runnable started immediately!")
-                    Toast.makeText(this@MainActivity, "Runnable started immediately!", Toast.LENGTH_SHORT).show()
+        handler.removeCallbacksAndMessages(null)
+
+        val updateRunnable = object : Runnable {
+            override fun run() {
+                if (mediaPlayer.isPlaying) {
+                    seekBar.progress = mediaPlayer.currentPosition
+                    handler.postDelayed(this, 1000)
                 }
-            })
-    
-        } catch (e: Exception) {
-            Log.e("DEBUG", "Error in updateSeekBar()", e)
-            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
-            MaterialAlertDialogBuilder(this)
-                .setTitle("App Crash")
-                .setMessage(e.toString())
-                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
-                .show()
+            }
         }
+        handler.postDelayed(updateRunnable, 1000)
     }
     
     
