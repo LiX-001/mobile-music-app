@@ -243,7 +243,6 @@ class MainActivity : AppCompatActivity() {
     // Updates SeekBar
     private fun updateSeekBar() {
         handler.removeCallbacksAndMessages(null)
-
         val updateRunnable = object : Runnable {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
