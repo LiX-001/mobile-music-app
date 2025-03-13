@@ -250,22 +250,13 @@ class MainActivity : AppCompatActivity() {
             Log.d("DEBUG", "Posting updateSeekBar runnable...")
             Toast.makeText(this, "Posting updateSeekBar runnable...", Toast.LENGTH_SHORT).show()
     
-            try {
-                handler.postDelayed(object : Runnable {
-                    override fun run() {
-                        try {
-                            Log.d("DEBUG", "Runnable started!")
-                            Toast.makeText(this@MainActivity, "Runnable started!", Toast.LENGTH_SHORT).show()
-                        } catch (e: Exception) {
-                            Log.e("DEBUG", "Error inside Runnable", e)
-                            Toast.makeText(this@MainActivity, "Error inside Runnable: ${e.message}", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }, 1000)
-            } catch (e: Exception) {
-                Log.e("DEBUG", "Error posting Runnable", e)
-                Toast.makeText(this, "Error posting Runnable: ${e.message}", Toast.LENGTH_LONG).show()
-            }
+            handler.post(object : Runnable {
+                override fun run() {
+                    Log.d("DEBUG", "Runnable started immediately!")
+                    Toast.makeText(this@MainActivity, "Runnable started immediately!", Toast.LENGTH_SHORT).show()
+                }
+            })
+    
         } catch (e: Exception) {
             Log.e("DEBUG", "Error in updateSeekBar()", e)
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
