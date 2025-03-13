@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
             ArtistName.isSelected = true
 
             audioAdapter = AudioAdapter(audioList) { audio ->
-                // Release previous instance (if any) to avoid memory leaks
+                // Code in notepad.txt
                 
                 
             }
@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity() {
             })
 
             
-            MediaPlayer.create(this, R.raw.sparkle)
+            mediaPlayer = MediaPlayer.create(this, R.raw.sparkle)
 
 
             // Play/Pause button
