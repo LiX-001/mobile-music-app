@@ -163,13 +163,16 @@ class MainActivity : AppCompatActivity() {
 
     // Updates SeekBar
     private fun updateSeekBar() {
+        Toast.makeText(this, "Updating SeekBar", Toast.LENGTH_SHORT).show()
         seekBar.max = mediaPlayer.duration
     
         handler.post(object : Runnable {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
+                    Log.d("SeekBarDebug", "Current Position: ${mediaPlayer.currentPosition}")
+                    Toast.makeText(this@MainActivity, "Current Position: ${mediaPlayer.currentPosition}", Toast.LENGTH_SHORT).show()
                     seekBar.progress = mediaPlayer.currentPosition
-                    handler.postDelayed(this, 500) // Update every 500ms
+                    handler.postDelayed(this, 500) // Keep updating every 500ms
                 }
             }
         })
