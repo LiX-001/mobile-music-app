@@ -250,35 +250,22 @@ class MainActivity : AppCompatActivity() {
             Log.d("DEBUG", "Posting updateSeekBar runnable...")
             Toast.makeText(this, "Posting updateSeekBar runnable...", Toast.LENGTH_SHORT).show()
     
-            handler.postDelayed(object : Runnable {
-                override fun run() {
-                    Log.d("DEBUG", "Runnable started!")
-                    Toast.makeText(this@MainActivity, "Runnable started!", Toast.LENGTH_SHORT).show()
-    
-                    if (::mediaPlayer.isInitialized) {
-                        Log.d("DEBUG", "MediaPlayer Initialized")
-                        Toast.makeText(this@MainActivity, "MediaPlayer Initialized", Toast.LENGTH_SHORT).show()
-    
-                        if (mediaPlayer.isPlaying) {
-                            Log.d("DEBUG", "MediaPlayer is playing. Current position: ${mediaPlayer.currentPosition}")
-                            Toast.makeText(this@MainActivity, "MediaPlayer is playing. Current position: ${mediaPlayer.currentPosition}", Toast.LENGTH_SHORT).show()
-    
-                            runOnUiThread {
-                                seekBar.progress = mediaPlayer.currentPosition
-                            }
-    
-                            handler.postDelayed(this, 1000)
-                        } else {
-                            Log.d("DEBUG", "MediaPlayer is NOT playing. Stopping seekBar updates.")
-                            Toast.makeText(this@MainActivity, "MediaPlayer is NOT playing. Stopping seekBar updates.", Toast.LENGTH_SHORT).show()
+            try {
+                handler.postDelayed(object : Runnable {
+                    override fun run() {
+                        try {
+                            Log.d("DEBUG", "Runnable started!")
+                            Toast.makeText(this@MainActivity, "Runnable started!", Toast.LENGTH_SHORT).show()
+                        } catch (e: Exception) {
+                            Log.e("DEBUG", "Error inside Runnable", e)
+                            Toast.makeText(this@MainActivity, "Error inside Runnable: ${e.message}", Toast.LENGTH_LONG).show()
                         }
-                    } else {
-                        Log.e("DEBUG", "MediaPlayer not initialized!")
-                        Toast.makeText(this@MainActivity, "MediaPlayer not initialized!", Toast.LENGTH_SHORT).show()
                     }
-                }
-            }, 1000)
-    
+                }, 1000)
+            } catch (e: Exception) {
+                Log.e("DEBUG", "Error posting Runnable", e)
+                Toast.makeText(this, "Error posting Runnable: ${e.message}", Toast.LENGTH_LONG).show()
+            }
         } catch (e: Exception) {
             Log.e("DEBUG", "Error in updateSeekBar()", e)
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
