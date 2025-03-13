@@ -168,7 +168,7 @@ class MainActivity : AppCompatActivity() {
     
         handler.post(object : Runnable {
             override fun run() {
-                Toast.makeText(this@MainActivity, "Updating SeekBar", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "Post runs", Toast.LENGTH_SHORT).show()
                 if (mediaPlayer.isPlaying) {
                     Log.d("SeekBarDebug", "Current Position: ${mediaPlayer.currentPosition}")
                     Toast.makeText(this@MainActivity, "Current Position: ${mediaPlayer.currentPosition}", Toast.LENGTH_SHORT).show()
