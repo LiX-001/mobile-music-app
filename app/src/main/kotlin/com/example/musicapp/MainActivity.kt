@@ -245,15 +245,16 @@ class MainActivity : AppCompatActivity() {
 
     // Updates SeekBar
     private fun updateSeekBar() {
-        val updateRunnable = object : Runnable {
+        seekBar.max = mediaPlayer.duration
+    
+        handler.post(object : Runnable {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
                     seekBar.progress = mediaPlayer.currentPosition
-                    handler.postDelayed(this, 1000)
+                    handler.postDelayed(this, 500) // Update every 500ms
                 }
             }
-        }
-        handler.postDelayed(updateRunnable, 1000)
+        })
     }
 
     // Updates Current Time Display
