@@ -120,14 +120,23 @@ class MainActivity : AppCompatActivity() {
                 val audioUri = Uri.parse(audio.filePath)
 
 
-                mediaPlayer = MediaPlayer.create(this@MainActivity, audioUri)
-                mediaPlayer.start()
-                playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
-                SongTitle.text = audio.title
-                ArtistName.text = audio.artist
-                
-                updateSeekBar()
-                updateTime()
+                mediaPlayer = MediaPlayer().apply {
+                    setDataSource(this@MainActivity, audioUri)
+                    setOnPreparedListener {
+                        seekBar.max = mediaPlayer.duration
+                        playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
+                        SongTitle.text = audio.title
+                        ArtistName.text = audio.artist
+                        mediaPlayer.start()
+                        updateSeekBar()
+                        updateTime()
+                    }
+                    setOnCompletionListener {
+                        playPauseButton.setImageResource(android.R.drawable.ic_media_play)
+                        seekBar.progress = 0
+                    }
+                    prepareAsync()
+                }
                 
             }
 
@@ -233,8 +242,6 @@ class MainActivity : AppCompatActivity() {
 
     // Updates SeekBar
     private fun updateSeekBar() {
-        handler.removeCallbacksAndMessages(null)
-        seekBar.max = mediaPlayer.duration
         val updateRunnable = object : Runnable {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
