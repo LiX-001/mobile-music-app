@@ -249,7 +249,13 @@ class MainActivity : AppCompatActivity() {
             // Log before posting the Runnable
             Log.d("DEBUG", "Posting updateSeekBar runnable...")
             Toast.makeText(this, "Posting updateSeekBar runnable...", Toast.LENGTH_SHORT).show()
-    
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+                Log.d("DEBUG", "Running on Main Thread")
+                Toast.makeText(this, "Running on Main Thread", Toast.LENGTH_SHORT).show()
+            } else {
+                Log.e("DEBUG", "NOT Running on Main Thread")
+                Toast.makeText(this, "NOT Running on Main Thread", Toast.LENGTH_SHORT).show()
+            }
             handler.post(object : Runnable {
                 override fun run() {
                     Log.d("DEBUG", "Runnable started immediately!")
