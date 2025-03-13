@@ -164,15 +164,17 @@ class MainActivity : AppCompatActivity() {
     // Updates SeekBar
     private fun updateSeekBar() {
         seekBar.max = mediaPlayer.duration
-        handler.postDelayed(object : Runnable {
+    
+        handler.post(object : Runnable {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
                     seekBar.progress = mediaPlayer.currentPosition
-                    handler.postDelayed(this, 500)
+                    handler.postDelayed(this, 500) // Update every 500ms
                 }
             }
-        }, 500)
+        })
     }
+    
 
     // Updates Current Time Display
     fun updateTime() {
