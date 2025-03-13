@@ -242,6 +242,7 @@ class MainActivity : AppCompatActivity() {
 
     // Updates SeekBar
     private fun updateSeekBar() {
+        try {
         Toast.makeText(this, "Updating SeekBar", Toast.LENGTH_SHORT).show()
         handler.postDelayed(object : Runnable {
             override fun run() {
@@ -251,6 +252,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }, 1000)
+        } catch (e: Exception) {
+            Log.e("DEBUG", "Error in updateSeekBar()", e)
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
+            MaterialAlertDialogBuilder(this)
+                .setTitle("App Crash")
+                .setMessage(e.toString())
+                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                .show()
+        }
     }
 
     // Updates Current Time Display
