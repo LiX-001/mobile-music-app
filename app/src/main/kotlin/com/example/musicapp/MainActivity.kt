@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
                 mediaPlayer = MediaPlayer().apply {
                     setDataSource(this@MainActivity, audioUri)
                     setOnPreparedListener {
-                        seekBar.max = mediaPlayer.duration
+                        seekBar.max = mediaPlayer.duration.toInt()
                         playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
                         SongTitle.text = audio.title
                         ArtistName.text = audio.artist
@@ -134,6 +134,9 @@ class MainActivity : AppCompatActivity() {
                     setOnCompletionListener {
                         playPauseButton.setImageResource(android.R.drawable.ic_media_play)
                         seekBar.progress = 0
+                    }
+                    setOnSeekCompleteListener {
+                        updateSeekBar() // Restart updates after seeking
                     }
                     prepareAsync()
                 }
