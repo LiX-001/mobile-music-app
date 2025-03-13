@@ -134,7 +134,6 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     mediaPlayer.start()
                     playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
-                    Toast.makeText(this, "Calling updateSeekBar()", Toast.LENGTH_SHORT).show()
                     updateSeekBar()
                     updateTime()
                 }
@@ -170,15 +169,10 @@ class MainActivity : AppCompatActivity() {
 
         seekBarHandler.post(object : Runnable {
             override fun run() {
-                Toast.makeText(this@MainActivity, "Post runs", Toast.LENGTH_SHORT).show()
                 if (mediaPlayer.isPlaying) {
-                    Log.d("SeekBarDebug", "Current Position: ${mediaPlayer.currentPosition}")
-                    Toast.makeText(this@MainActivity, "Current Position: ${mediaPlayer.currentPosition}", Toast.LENGTH_SHORT).show()
                     seekBar.progress = mediaPlayer.currentPosition
                     handler.postDelayed(this, 500) // Keep updating every 500ms
-                } else {
-                    Toast.makeText(this@MainActivity, "Media Player is not playing", Toast.LENGTH_SHORT).show()
-                }
+                } 
             }
         })
     }
