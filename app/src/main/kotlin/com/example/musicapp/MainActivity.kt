@@ -9,6 +9,7 @@ import android.widget.Toast
 import android.os.Environment
 import java.io.File
 import android.widget.LinearLayout
+import android.widget.SearchView
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
@@ -154,8 +155,14 @@ class MainActivity : AppCompatActivity() {
 
 
             val searchIcon: ImageButton = findViewById(R.id.search_icon)
+            val searchView: SearchView = findViewById(R.id.searchView)
             searchIcon.setOnClickListener {
                 Toast.makeText(this, "Search Clicked!", Toast.LENGTH_SHORT).show()
+                if (searchView.visibility == View.VISIBLE) {
+                    searchView.visibility = View.GONE
+                } else {
+                    searchView.visibility = View.VISIBLE
+                }
             }
 
             // Touch listener for swiping into MiniPlayer
@@ -201,8 +208,6 @@ class MainActivity : AppCompatActivity() {
                 }
             })
 
-            
-            mediaPlayer = MediaPlayer.create(this, R.raw.sparkle)
 
 
             // Play/Pause button
@@ -246,7 +251,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateSeekBar() {
         seekBar.max = mediaPlayer.duration
     
-        handler.post(object : Runnable {
+        seekBarHandler.post(object : Runnable {
             override fun run() {
                 if (mediaPlayer.isPlaying) {
                     seekBar.progress = mediaPlayer.currentPosition

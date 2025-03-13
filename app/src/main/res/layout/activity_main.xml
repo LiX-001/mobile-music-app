@@ -14,6 +14,18 @@
             app:title="Music Player"
             app:titleTextColor="@android:color/white"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:queryHint="Search..."
+                android:iconifiedByDefault="false"
+                android:layout_gravity="end"
+                android:padding="5dp"
+                android:visibility="gone"
+                android:radius="10dp" />
 
             <ImageButton
                 android:id="@+id/search_icon"

@@ -38,6 +38,7 @@ id audioThumbnail
 id audioTitle
 id controlLayout
 id playerLayout
+id searchView
 id search_icon
 id seekBar
 id seekBarLayout
