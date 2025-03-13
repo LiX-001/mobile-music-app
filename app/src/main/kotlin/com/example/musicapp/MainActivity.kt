@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     mediaPlayer.start()
                     playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
-                    updateSeekBar()
+                    // updateSeekBar()
                     updateTime()
                 }
             }
