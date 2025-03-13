@@ -123,7 +123,6 @@ class MainActivity : AppCompatActivity() {
                 mediaPlayer = MediaPlayer().apply {
                     setDataSource(this@MainActivity, audioUri)
                     setOnPreparedListener {
-                        seekBar.max = mediaPlayer.duration.toInt()
                         playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
                         SongTitle.text = audio.title
                         ArtistName.text = audio.artist
