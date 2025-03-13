@@ -123,11 +123,11 @@ class MainActivity : AppCompatActivity() {
                 mediaPlayer = MediaPlayer().apply {
                     setDataSource(this@MainActivity, audioUri)
                     setOnPreparedListener {
-                        seekBar.max = it.duration
+                        seekBar.max = mediaPlayer.duration
                         playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
                         SongTitle.text = audio.title
                         ArtistName.text = audio.artist
-                        start()
+                        mediaPlayer.start()
                         updateSeekBar()
                         updateTime()
                     }
@@ -242,14 +242,15 @@ class MainActivity : AppCompatActivity() {
 
     // Updates SeekBar
     private fun updateSeekBar() {
-        handler.post(object : Runnable {
+        Toast.makeText(this, "Updating SeekBar", Toast.LENGTH_SHORT).show()
+        handler.postDelayed(object : Runnable {
             override fun run() {
                 if (::mediaPlayer.isInitialized && mediaPlayer.isPlaying) {
                     seekBar.progress = mediaPlayer.currentPosition
-                    handler.postDelayed(this, 500)  // Keeps updating
+                    handler.postDelayed(this, 1000)  // Update every second
                 }
             }
-        })
+        }, 1000)
     }
 
     // Updates Current Time Display
