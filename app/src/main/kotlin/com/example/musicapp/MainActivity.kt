@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 
             audioAdapter = AudioAdapter(audioList) { audio ->
                 // Release previous instance (if any) to avoid memory leaks
-                if (::mediaPlayer.isInitialized) {
+                /* if (::mediaPlayer.isInitialized) {
                     mediaPlayer.release()
                     mediaPlayer = MediaPlayer()
                 }            
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                 val audioUri = Uri.parse(audio.filePath)
 
 
-                /* mediaPlayer = MediaPlayer().apply {
+                 mediaPlayer = MediaPlayer().apply {
                     setDataSource(this@MainActivity, audioUri)
                     setOnPreparedListener {
                         playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
