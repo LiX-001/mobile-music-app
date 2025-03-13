@@ -47,6 +47,9 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+import android.text.Editable
+import android.text.TextWatcher
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -154,6 +157,7 @@ class MainActivity : AppCompatActivity() {
             }
 
 
+            // Search Feature
             val searchIcon: ImageButton = findViewById(R.id.search_icon)
             val searchView: SearchView = findViewById(R.id.searchView)
             searchIcon.setOnClickListener {
@@ -164,6 +168,19 @@ class MainActivity : AppCompatActivity() {
                     searchView.visibility = View.VISIBLE
                 }
             }
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    audioAdapter.filter(newText ?: "")
+                    return true
+                }
+            })
+
+            
 
             // Touch listener for swiping into MiniPlayer
             playerLayout.setOnTouchListener(object : View.OnTouchListener {

@@ -13,6 +13,8 @@ class AudioAdapter(
     private val onItemClick: (AudioFile) -> Unit
 ) : RecyclerView.Adapter<AudioAdapter.AudioViewHolder>() {
 
+    private var filteredList: List<AudioFile> = audioList
+
     class AudioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.audioTitle)
         val artist: TextView = itemView.findViewById(R.id.audioArtist)
@@ -34,10 +36,21 @@ class AudioAdapter(
             .inflate(R.layout.item_audio, parent, false)
         return AudioViewHolder(view)
     }
-
     override fun onBindViewHolder(holder: AudioViewHolder, position: Int) {
-        holder.bind(audioList[position], onItemClick)
+        holder.bind(filteredList[position], onItemClick)
     }
 
-    override fun getItemCount(): Int = audioList.size
+    override fun getItemCount(): Int = filteredList.size
+
+    fun filter(query: String) {
+        filteredList = if (query.isEmpty()) {
+            audioList  // Reset to full list if query is empty
+        } else {
+            audioList.filter { 
+                it.title.contains(query, ignoreCase = true) || 
+                it.artist?.contains(query, ignoreCase = true) == true
+            }
+        }
+        notifyDataSetChanged() // Refresh RecyclerView
+    }
 }
