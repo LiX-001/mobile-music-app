@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                 val audioUri = Uri.parse(audio.filePath)
 
 
-                mediaPlayer = MediaPlayer().apply {
+                /* mediaPlayer = MediaPlayer().apply {
                     setDataSource(this@MainActivity, audioUri)
                     setOnPreparedListener {
                         playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
                         updateSeekBar() // Restart updates after seeking
                     }
                     prepareAsync()
-                }
+                }*/
                 
             }
 
