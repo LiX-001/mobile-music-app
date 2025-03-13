@@ -111,34 +111,7 @@ class MainActivity : AppCompatActivity() {
 
             audioAdapter = AudioAdapter(audioList) { audio ->
                 // Release previous instance (if any) to avoid memory leaks
-                /* if (::mediaPlayer.isInitialized) {
-                    mediaPlayer.release()
-                    mediaPlayer = MediaPlayer()
-                }            
-
-                // Fetch audio and play
-                val audioUri = Uri.parse(audio.filePath)
-
-
-                 mediaPlayer = MediaPlayer().apply {
-                    setDataSource(this@MainActivity, audioUri)
-                    setOnPreparedListener {
-                        playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
-                        SongTitle.text = audio.title
-                        ArtistName.text = audio.artist
-                        mediaPlayer.start()
-                        updateSeekBar()
-                        updateTime()
-                    }
-                    setOnCompletionListener {
-                        playPauseButton.setImageResource(android.R.drawable.ic_media_play)
-                        seekBar.progress = 0
-                    }
-                    setOnSeekCompleteListener {
-                        updateSeekBar() // Restart updates after seeking
-                    }
-                    prepareAsync()
-                }*/
+                
                 
             }
 
