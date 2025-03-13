@@ -243,15 +243,36 @@ class MainActivity : AppCompatActivity() {
     // Updates SeekBar
     private fun updateSeekBar() {
         try {
-        Toast.makeText(this, "Updating SeekBar", Toast.LENGTH_SHORT).show()
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                if (::mediaPlayer.isInitialized && mediaPlayer.isPlaying) {
-                    seekBar.progress = mediaPlayer.currentPosition
-                    handler.postDelayed(this, 1000)  // Update every second
+            Log.d("DEBUG", "updateSeekBar() called")
+            Toast.makeText(this, "Updating SeekBar", Toast.LENGTH_SHORT).show()
+    
+            handler.postDelayed(object : Runnable {
+                override fun run() {
+                    if (::mediaPlayer.isInitialized) {
+                        Log.d("DEBUG", "MediaPlayer Initialized")
+                        Toast.makeText(this@MainActivity, "MediaPlayer Initialized", Toast.LENGTH_SHORT).show()
+    
+                        if (mediaPlayer.isPlaying) {
+                            Log.d("DEBUG", "MediaPlayer is playing. Current position: ${mediaPlayer.currentPosition}")
+                            Toast.makeText(this@MainActivity, "MediaPlayer is playing. Current position: ${mediaPlayer.currentPosition}", Toast.LENGTH_SHORT).show()
+    
+                            // Force UI update
+                            runOnUiThread {
+                                seekBar.progress = mediaPlayer.currentPosition
+                            }
+    
+                            handler.postDelayed(this, 1000) // Keep updating
+                        } else {
+                            Log.d("DEBUG", "MediaPlayer is NOT playing. Stopping seekBar updates.")
+                            Toast.makeText(this@MainActivity, "MediaPlayer is NOT playing. Stopping seekBar updates.", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Log.e("DEBUG", "MediaPlayer not initialized!")
+                        Toast.makeText(this@MainActivity, "MediaPlayer not initialized!", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-        }, 1000)
+            }, 1000)
+    
         } catch (e: Exception) {
             Log.e("DEBUG", "Error in updateSeekBar()", e)
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
@@ -262,6 +283,7 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
     }
+    
 
     // Updates Current Time Display
     fun updateTime() {
