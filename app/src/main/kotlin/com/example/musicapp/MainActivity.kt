@@ -151,8 +151,30 @@ class MainActivity : AppCompatActivity() {
                     songList.visibility = View.VISIBLE
                 } else {
                     queueLayout.visibility = View.VISIBLE
-                    songList.visibility = View.GONE
                     collapseToMiniPlayer()
+                    songList.visibility = View.GONE
+                }
+            }
+
+
+
+            // Previous and Next buttons
+            previousBtn.setOnClickListener {
+                val currentIndex = queue.indexOfFirst { it.id == audioList[0].id }
+                if (currentIndex > 0) {
+                    val previousAudio = queue[currentIndex - 1]
+                    playAudio(previousAudio)
+                } else {
+                    Toast.makeText(this, "No previous song in queue.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            nextBtn.setOnClickListener {
+                val currentIndex = queue.indexOfFirst { it.id == audioList[0].id }
+                if (currentIndex < queue.size - 1) {
+                    val nextAudio = queue[currentIndex + 1]
+                    playAudio(nextAudio)
+                } else {
+                    Toast.makeText(this, "No next song in queue.", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -292,10 +314,21 @@ class MainActivity : AppCompatActivity() {
                 updateTime()
             }
             setOnCompletionListener {
+                // Play next song in queue
                 val currentIndex = queue.indexOfFirst { it.id == audio.id }
-
-                val nextAudio = queue[currentIndex + 1]
-                playAudio(nextAudio)
+                // If the current index is last in the queue, stop playback
+                if (currentIndex == queue.size - 1) {
+                    mediaPlayer.stop()
+                    playPauseButton.setImageResource(android.R.drawable.ic_media_play)
+                    handler.removeCallbacksAndMessages(null)
+                    seekBar.progress = 0
+                    currentTime.text = "00:00"
+                    return@setOnCompletionListener
+                } else {
+                    // Otherwise, play the next song
+                    val nextAudio = queue[currentIndex + 1]
+                    playAudio(nextAudio)
+                }
                 
             }
             setOnSeekCompleteListener {
@@ -544,6 +577,7 @@ class MainActivity : AppCompatActivity() {
                 currentTime.visibility = visibility
                 duration.visibility = visibility
                 songList.visibility = listvisibility
+                queueLayout.visibility = visibility
             }
         })
 
