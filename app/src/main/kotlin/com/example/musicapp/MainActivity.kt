@@ -70,7 +70,8 @@ class MainActivity : AppCompatActivity() {
     private var startY = 0f
     private var isMiniPlayer = false
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var songList: RecyclerView
+    private lateinit var queueRecyclerView: RecyclerView
     private lateinit var audioAdapter: AudioAdapter
     private val audioList = mutableListOf<AudioFile>()
 
@@ -106,69 +107,40 @@ class MainActivity : AppCompatActivity() {
             ArtistName = findViewById<TextView>(R.id.ArtistName)
             AlbumArt = findViewById<ImageView>(R.id.AlbumArt)
 
-            recyclerView = findViewById(R.id.audioList)
-            recyclerView.layoutManager = LinearLayoutManager(this)
+            songList = findViewById(R.id.audioList)
+            songList.layoutManager = LinearLayoutManager(this)
+
+            queueRecyclerView = findViewById(R.id.queueRecyclerView)
+            queueRecyclerView.layoutManager = LinearLayoutManager(this)
 
             // Startup actions
             collapseToMiniPlayer()
             SongTitle.isSelected = true
             ArtistName.isSelected = true
 
-            var queue = mutableListOf<AudioFile>()
-
-            audioAdapter = AudioAdapter(audioList,
-            onItemClick = { audio: AudioFile ->
-                if (::mediaPlayer.isInitialized) mediaPlayer.release()
-                mediaPlayer = MediaPlayer()
-
-                val audioUri = Uri.parse(audio.filePath)
-
-                mediaPlayer = MediaPlayer().apply {
-                    setDataSource(this@MainActivity, audioUri)
-                    setOnPreparedListener {
-                        playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
-                        SongTitle.text = audio.title
-                        ArtistName.text = audio.artist
-                        mediaPlayer.start()
-                        updateSeekBar()
-                        updateTime()
-                    }
-                    setOnCompletionListener {
-                        for (i in queue.indices) {
-                            if (queue[i].id == audio.id) {
-                                if (i == queue.size - 1) {
-                                    mediaPlayer.release()
-                                    mediaPlayer = MediaPlayer()
-                                    playPauseButton.setImageResource(android.R.drawable.ic_media_play)
-                                    seekBar.progress = 0
-                                    break
-                                } else {
-                                    val nextAudio = queue[i + 1]
-                                    val nextAudioUri = Uri.parse(nextAudio.filePath)
-                                    mediaPlayer.reset()
-                                    setDataSource(this@MainActivity, nextAudioUri)
-                                    prepareAsync()
-                                    SongTitle.text = nextAudio.title
-                                    ArtistName.text = nextAudio.artist
-                                    break
-                                }
-                            }
-                        }
-                    }
-                    setOnSeekCompleteListener {
-                        updateSeekBar() // Restart updates after seeking
-                    }
-                    prepareAsync()
-                }
-            },
-            onAddClick = { audio: AudioFile ->
-                queue.add(audio)
-                Toast.makeText(this, "${audio.title} was added to queue.", Toast.LENGTH_SHORT).show()
+            val queueAdapter = QueueAdapter(queue) { audio -> playAudio(audio) }
+            
+            // Initialize queue RecyclerView
+            queueRecyclerView.apply {
+                layoutManager = LinearLayoutManager(this@MainActivity)
+                adapter = queueAdapter
             }
+            
+            // Initialize main song list adapter
+            audioAdapter = AudioAdapter(audioList,
+                onItemClick = { audio: AudioFile ->
+                    playAudio(audio) // Play song when clicked
+                },
+                onAddClick = { audio: AudioFile ->
+                    queue.add(audio)
+                    queueAdapter.notifyDataSetChanged() // Update queue RecyclerView
+                    queueRecyclerView.visibility = View.VISIBLE // Show queue
+                    Toast.makeText(this, "${audio.title} was added to queue.", Toast.LENGTH_SHORT).show()
+                }
             )
-
-            recyclerView.adapter = audioAdapter
-            audioAdapter.notifyDataSetChanged()
+            
+            songList.adapter = audioAdapter
+            audioAdapter.notifyDataSetChanged()            
 
             
             
@@ -285,6 +257,47 @@ class MainActivity : AppCompatActivity() {
                 .setMessage(e.toString())
                 .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
                 .show()
+        }
+    }
+    var queue = mutableListOf<AudioFile>()
+    // Play audio file
+    private fun playAudio(audio: AudioFile) {
+        if (::mediaPlayer.isInitialized) mediaPlayer.release()
+        mediaPlayer = MediaPlayer()
+    
+        val audioUri = Uri.parse(audio.filePath)
+    
+        mediaPlayer = MediaPlayer().apply {
+            setDataSource(this@MainActivity, audioUri)
+            setOnPreparedListener {
+                playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
+                SongTitle.text = audio.title
+                ArtistName.text = audio.artist
+                mediaPlayer.start()
+                updateSeekBar()
+                updateTime()
+            }
+            setOnCompletionListener {
+                for (i in queue.indices) {
+                    if (queue[i].id == audio.id) {
+                        if (i == queue.size - 1) {
+                            mediaPlayer.release()
+                            mediaPlayer = MediaPlayer()
+                            playPauseButton.setImageResource(android.R.drawable.ic_media_play)
+                            seekBar.progress = 0
+                            break
+                        } else {
+                            val nextAudio = queue[i + 1]
+                            playAudio(nextAudio) // Recursively play next song
+                            break
+                        }
+                    }
+                }
+            }
+            setOnSeekCompleteListener {
+                updateSeekBar() // Restart updates after seeking
+            }
+            prepareAsync()
         }
     }
 
@@ -526,7 +539,7 @@ class MainActivity : AppCompatActivity() {
                 // Update visibilities with fade effect
                 currentTime.visibility = visibility
                 duration.visibility = visibility
-                recyclerView.visibility = listvisibility
+                songList.visibility = listvisibility
             }
         })
 

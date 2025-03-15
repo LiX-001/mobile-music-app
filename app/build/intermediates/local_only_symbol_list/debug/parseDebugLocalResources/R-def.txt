@@ -39,6 +39,11 @@ id audioThumbnail
 id audioTitle
 id controlLayout
 id playerLayout
+id queueArtist
+id queueRecyclerView
+id queueThumbnail
+id queueTitle
+id removeFromQueue
 id searchView
 id search_icon
 id seekBar
@@ -47,6 +52,7 @@ id songDetails
 id toolbar
 layout activity_main
 layout item_audio
+layout item_queue
 raw sparkle
 string app_name
 style Theme.MusicApp

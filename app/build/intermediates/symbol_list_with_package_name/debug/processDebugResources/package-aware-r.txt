@@ -3349,9 +3349,14 @@ id postLayout
 id pressed
 id progress_circular
 id progress_horizontal
+id queueArtist
+id queueRecyclerView
+id queueThumbnail
+id queueTitle
 id radio
 id ratio
 id rectangles
+id removeFromQueue
 id report_drawn
 id reverseSawtooth
 id right
@@ -3618,6 +3623,7 @@ layout design_text_input_start_icon
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_audio
+layout item_queue
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
