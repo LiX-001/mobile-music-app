@@ -583,7 +583,6 @@ class MainActivity : AppCompatActivity() {
                     queueLayout.visibility = listvisibility
                     songList.visibility = visibility
                 }
-                songList.visibility = listvisibility
                 findViewById<Button>(R.id.queueButton).visibility = visibility
             }
         })
