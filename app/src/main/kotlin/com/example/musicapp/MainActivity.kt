@@ -293,16 +293,10 @@ class MainActivity : AppCompatActivity() {
             }
             setOnCompletionListener {
                 val currentIndex = queue.indexOfFirst { it.id == audio.id }
-                if (currentIndex != -1 && currentIndex < queue.size - 1) {
-                    val nextAudio = queue[currentIndex + 1]
-                    playAudio(nextAudio)
-                } else {
-                    // If it's the last song, reset UI elements
-                    mediaPlayer.release()
-                    mediaPlayer = MediaPlayer()
-                    playPauseButton.setImageResource(android.R.drawable.ic_media_play)
-                    seekBar.progress = 0
-                }
+
+                val nextAudio = queue[currentIndex + 1]
+                playAudio(nextAudio)
+                
             }
             setOnSeekCompleteListener {
                 updateSeekBar() // Restart updates after seeking
