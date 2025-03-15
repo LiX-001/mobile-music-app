@@ -33,4 +33,12 @@
             android:textSize="14sp"
             android:textColor="@color/grey_700" />
     </LinearLayout>
+<ImageButton
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_input_add"
+        android:background="@color/transparent"
+        android:contentDescription="Add to Queue"
+        />
 </LinearLayout>

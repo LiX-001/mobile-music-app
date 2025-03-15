@@ -31,6 +31,7 @@ id NextButton
 id PlayPauseButton
 id PreviousButton
 id SongTitle
+id addButton
 id albumArtLayout
 id audioArtist
 id audioList

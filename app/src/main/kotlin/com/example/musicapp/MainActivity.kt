@@ -114,17 +114,16 @@ class MainActivity : AppCompatActivity() {
             SongTitle.isSelected = true
             ArtistName.isSelected = true
 
-            audioAdapter = AudioAdapter(audioList) { audio ->
-                if (::mediaPlayer.isInitialized) {
-                    mediaPlayer.release()
-                    mediaPlayer = MediaPlayer()
-                }            
+            var queue = mutableListOf<AudioFile>()
 
-                // Fetch audio and play
+            audioAdapter = AudioAdapter(audioList,
+            onItemClick = { audio: AudioFile ->
+                if (::mediaPlayer.isInitialized) mediaPlayer.release()
+                mediaPlayer = MediaPlayer()
+
                 val audioUri = Uri.parse(audio.filePath)
 
-
-                 mediaPlayer = MediaPlayer().apply {
+                mediaPlayer = MediaPlayer().apply {
                     setDataSource(this@MainActivity, audioUri)
                     setOnPreparedListener {
                         playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
@@ -135,19 +134,44 @@ class MainActivity : AppCompatActivity() {
                         updateTime()
                     }
                     setOnCompletionListener {
-                        playPauseButton.setImageResource(android.R.drawable.ic_media_play)
-                        seekBar.progress = 0
+                        for (i in queue.indices) {
+                            if (queue[i].id == audio.id) {
+                                if (i == queue.size - 1) {
+                                    mediaPlayer.release()
+                                    mediaPlayer = MediaPlayer()
+                                    playPauseButton.setImageResource(android.R.drawable.ic_media_play)
+                                    seekBar.progress = 0
+                                    break
+                                } else {
+                                    val nextAudio = queue[i + 1]
+                                    val nextAudioUri = Uri.parse(nextAudio.filePath)
+                                    mediaPlayer.reset()
+                                    setDataSource(this@MainActivity, nextAudioUri)
+                                    prepareAsync()
+                                    SongTitle.text = nextAudio.title
+                                    ArtistName.text = nextAudio.artist
+                                    break
+                                }
+                            }
+                        }
                     }
                     setOnSeekCompleteListener {
                         updateSeekBar() // Restart updates after seeking
                     }
                     prepareAsync()
                 }
-                
+            },
+            onAddClick = { audio: AudioFile ->
+                queue.add(audio)
+                Toast.makeText(this, "${audio.title} was added to queue.", Toast.LENGTH_SHORT).show()
             }
+            )
 
             recyclerView.adapter = audioAdapter
             audioAdapter.notifyDataSetChanged()
+
+            
+            
 
             // Check and request storage permission
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
