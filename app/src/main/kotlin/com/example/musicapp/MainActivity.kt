@@ -577,7 +577,7 @@ class MainActivity : AppCompatActivity() {
                 currentTime.visibility = visibility
                 duration.visibility = visibility
                 songList.visibility = listvisibility
-                queueLayout.visibility = visibility
+                findViewById<Button>(R.id.queueButton).visibility = visibility
             }
         })
 
