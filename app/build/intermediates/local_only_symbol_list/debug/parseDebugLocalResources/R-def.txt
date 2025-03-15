@@ -32,6 +32,7 @@ id PlayPauseButton
 id PreviousButton
 id SongTitle
 id addButton
+id additionalLayout
 id albumArtLayout
 id audioArtist
 id audioList
@@ -40,6 +41,8 @@ id audioTitle
 id controlLayout
 id playerLayout
 id queueArtist
+id queueButton
+id queueLayout
 id queueRecyclerView
 id queueThumbnail
 id queueTitle

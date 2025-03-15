@@ -3087,6 +3087,7 @@ id actions
 id activity_chooser_view_content
 id add
 id addButton
+id additionalLayout
 id albumArtLayout
 id alertTitle
 id aligned
@@ -3350,6 +3351,8 @@ id pressed
 id progress_circular
 id progress_horizontal
 id queueArtist
+id queueButton
+id queueLayout
 id queueRecyclerView
 id queueThumbnail
 id queueTitle

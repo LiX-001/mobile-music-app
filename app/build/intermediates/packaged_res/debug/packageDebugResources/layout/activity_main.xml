@@ -49,13 +49,29 @@
     android:orientation="vertical"
     android:padding="8dp" />
 
+<LinearLayout 
+    android:id="@+id/queueLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:visibility="gone">
+    <TextView
+        android:id="@+id/queueTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Queue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/queueRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:visibility="gone"
     android:layout_marginTop="16dp"/>
+</LinearLayout>
 
 <LinearLayout
     android:id="@+id/playerLayout"
@@ -192,6 +208,22 @@
             android:scaleType="centerInside"
             android:padding="5dp"
             android:contentDescription="Next"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/additionalLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/queueButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QUEUE"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_button"
+            android:padding="5dp"
+            android:contentDescription="Queue"/>
     </LinearLayout>
     </LinearLayout>
 

@@ -11,6 +11,7 @@ import java.io.File
 import android.widget.LinearLayout
 import android.widget.SearchView
 import android.media.MediaPlayer
+import android.widget.Button
 import android.os.Handler
 import android.os.Looper
 import android.widget.ImageButton
@@ -74,6 +75,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var queueRecyclerView: RecyclerView
     private lateinit var audioAdapter: AudioAdapter
     private val audioList = mutableListOf<AudioFile>()
+    private lateinit var queueLayout: LinearLayout
 
     private val handler = Handler(Looper.getMainLooper())
     private val seekBarHandler = Handler(Looper.getMainLooper())
@@ -109,7 +111,8 @@ class MainActivity : AppCompatActivity() {
 
             songList = findViewById(R.id.audioList)
             songList.layoutManager = LinearLayoutManager(this)
-
+            
+            queueLayout = findViewById<LinearLayout>(R.id.queueLayout)
             queueRecyclerView = findViewById(R.id.queueRecyclerView)
             queueRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -134,13 +137,24 @@ class MainActivity : AppCompatActivity() {
                 onAddClick = { audio: AudioFile ->
                     queue.add(audio)
                     queueAdapter.notifyDataSetChanged() // Update queue RecyclerView
-                    queueRecyclerView.visibility = View.VISIBLE // Show queue
                     Toast.makeText(this, "${audio.title} was added to queue.", Toast.LENGTH_SHORT).show()
                 }
             )
             
             songList.adapter = audioAdapter
-            audioAdapter.notifyDataSetChanged()            
+            audioAdapter.notifyDataSetChanged()
+            
+            val queueButton: Button = findViewById(R.id.queueButton)
+            queueButton.setOnClickListener {
+                if (queueLayout.visibility == View.VISIBLE) {
+                    queueLayout.visibility = View.GONE
+                    songList.visibility = View.VISIBLE
+                } else {
+                    queueLayout.visibility = View.VISIBLE
+                    songList.visibility = View.GONE
+                    collapseToMiniPlayer()
+                }
+            }
 
             
             

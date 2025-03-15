@@ -28,7 +28,7 @@
         "source": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-main-35:/drawable/random_1000x1000.png"
     },
     {
-        "merged": "com.example.musicapp-debug-33:/layout_item_queue.xml.flat",
-        "source": "com.example.musicapp-main-35:/layout/item_queue.xml"
+        "merged": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-debug-33:/layout_item_queue.xml.flat",
+        "source": "/home/codespace/.gradle/daemon/8.11.1/com.example.musicapp-main-35:/layout/item_queue.xml"
     }
 ]
