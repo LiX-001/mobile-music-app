@@ -221,7 +221,7 @@
             android:layout_height="wrap_content"
             android:text="QUEUE"
             android:textColor="@color/white"
-            android:background="@drawable/rounded_button"
+            android:background="@color/transparent"
             android:padding="5dp"
             android:contentDescription="Queue"/>
     </LinearLayout>

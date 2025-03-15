@@ -292,20 +292,16 @@ class MainActivity : AppCompatActivity() {
                 updateTime()
             }
             setOnCompletionListener {
-                for (i in queue.indices) {
-                    if (queue[i].id == audio.id) {
-                        if (i == queue.size - 1) {
-                            mediaPlayer.release()
-                            mediaPlayer = MediaPlayer()
-                            playPauseButton.setImageResource(android.R.drawable.ic_media_play)
-                            seekBar.progress = 0
-                            break
-                        } else {
-                            val nextAudio = queue[i + 1]
-                            playAudio(nextAudio) // Recursively play next song
-                            break
-                        }
-                    }
+                val currentIndex = queue.indexOfFirst { it.id == audio.id }
+                if (currentIndex != -1 && currentIndex < queue.size - 1) {
+                    val nextAudio = queue[currentIndex + 1]
+                    playAudio(nextAudio)
+                } else {
+                    // If it's the last song, reset UI elements
+                    mediaPlayer.release()
+                    mediaPlayer = MediaPlayer()
+                    playPauseButton.setImageResource(android.R.drawable.ic_media_play)
+                    seekBar.progress = 0
                 }
             }
             setOnSeekCompleteListener {
