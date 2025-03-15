@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity() {
     private val seekBarHandler = Handler(Looper.getMainLooper())
 
     private var browsingSource: Int = 0     // 0 = Local Storage ; 1 = Online Sources
+    private var currentlyPlayingAudio: AudioFile? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -160,7 +161,7 @@ class MainActivity : AppCompatActivity() {
 
             // Previous and Next buttons
             previousBtn.setOnClickListener {
-                val currentIndex = queue.indexOfFirst { it.id == audioList[0].id }
+                val currentIndex = queue.indexOfFirst { it.id == currentlyPlayingAudio?.id }
                 if (currentIndex > 0) {
                     val previousAudio = queue[currentIndex - 1]
                     playAudio(previousAudio)
@@ -168,8 +169,9 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "No previous song in queue.", Toast.LENGTH_SHORT).show()
                 }
             }
+
             nextBtn.setOnClickListener {
-                val currentIndex = queue.indexOfFirst { it.id == audioList[0].id }
+                val currentIndex = queue.indexOfFirst { it.id == currentlyPlayingAudio?.id }
                 if (currentIndex < queue.size - 1) {
                     val nextAudio = queue[currentIndex + 1]
                     playAudio(nextAudio)
@@ -298,6 +300,7 @@ class MainActivity : AppCompatActivity() {
     var queue = mutableListOf<AudioFile>()
     // Play audio file
     private fun playAudio(audio: AudioFile) {
+        currentlyPlayingAudio = audio
         if (::mediaPlayer.isInitialized) mediaPlayer.release()
         mediaPlayer = MediaPlayer()
     
@@ -576,6 +579,10 @@ class MainActivity : AppCompatActivity() {
                 // Update visibilities with fade effect
                 currentTime.visibility = visibility
                 duration.visibility = visibility
+                if (queueLayout.visibility == View.VISIBLE) {
+                    queueLayout.visibility = listvisibility
+                    songList.visibility = visibility
+                }
                 songList.visibility = listvisibility
                 findViewById<Button>(R.id.queueButton).visibility = visibility
             }
