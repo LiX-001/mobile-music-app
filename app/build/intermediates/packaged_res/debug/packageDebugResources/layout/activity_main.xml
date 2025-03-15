@@ -53,6 +53,7 @@
     android:id="@+id/queueLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/player_layout"
     android:orientation="vertical"
     android:padding="8dp"
     android:visibility="gone">
@@ -215,6 +216,14 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/shuffleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_sort_by_size"
+            android:background="@color/transparent"
+            android:padding="5dp"
+            android:contentDescription="Shuffle"/>
         <Button
             android:id="@+id/queueButton"
             android:layout_width="wrap_content"
@@ -224,6 +233,14 @@
             android:background="@color/transparent"
             android:padding="5dp"
             android:contentDescription="Queue"/>
+        <ImageButton
+            android:id="@+id/loopButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_rotate"
+            android:background="@color/transparent"
+            android:padding="5dp"
+            android:contentDescription="Loop"/>
     </LinearLayout>
     </LinearLayout>
 

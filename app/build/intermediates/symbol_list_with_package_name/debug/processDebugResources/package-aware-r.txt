@@ -3240,6 +3240,7 @@ id line3
 id linear
 id listMode
 id list_item
+id loopButton
 id m3_side_sheet
 id marquee
 id masked
@@ -3399,6 +3400,7 @@ id shortcut
 id showCustom
 id showHome
 id showTitle
+id shuffleButton
 id sin
 id skipCollapsed
 id slide

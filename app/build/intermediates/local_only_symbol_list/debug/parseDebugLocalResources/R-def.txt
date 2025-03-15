@@ -39,6 +39,7 @@ id audioList
 id audioThumbnail
 id audioTitle
 id controlLayout
+id loopButton
 id playerLayout
 id queueArtist
 id queueButton
@@ -51,6 +52,7 @@ id searchView
 id search_icon
 id seekBar
 id seekBarLayout
+id shuffleButton
 id songDetails
 id toolbar
 layout activity_main
